@@ -3,7 +3,7 @@ version: '3.8'
 services:
   hotel-db:
     image: 'mysql:8.0.33'
-    container_name: hotel-service-db
+    container_name: hotel-db
     command: mysqld --default-authentication-plugin=mysql_native_password
     environment:
       TZ: America/Cuiaba
