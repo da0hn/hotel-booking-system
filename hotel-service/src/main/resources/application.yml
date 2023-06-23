@@ -26,5 +26,8 @@ spring:
     compose:
       file: '.\docker\common.yml'
       enabled: ${ENABLE_BUILTIN_DOCKER_COMPOSE:true}
-
-
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
