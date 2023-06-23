@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  hotel-service:
+    image: com.hotel.booking.system/hotel-service:latest
+    container_name: hotel-service
+    restart: on-failure
+    environment:
+      SERVER_PORT: 8001
+      HOTEL_DB_HOST: hotel-db
+      HOTEL_DB_PORT: 3306
+      HOTEL_DB_NAME: hotel_db
+      HOTEL_DB_USERNAME: user
+      HOTEL_DB_PASSWORD: password
+      ENABLE_BUILTIN_DOCKER_COMPOSE: false
+    ports:
+      - '8001:8001'
+    volumes:
+      - ./hotel-seed-script.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - hotel-booking-system-network
+
