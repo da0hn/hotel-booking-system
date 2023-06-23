@@ -20,6 +20,8 @@ services:
     restart: on-failure
     ports:
       - '3311:3306'
+    volumes:
+      - ./scripts/hotel-seed-script.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - hotel-booking-system-network
 

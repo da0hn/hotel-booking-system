@@ -15,8 +15,6 @@ services:
       ENABLE_BUILTIN_DOCKER_COMPOSE: false
     ports:
       - '8001:8001'
-    volumes:
-      - ./hotel-seed-script.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - hotel-booking-system-network
 
