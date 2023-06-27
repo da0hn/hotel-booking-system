@@ -7,9 +7,17 @@ import java.util.StringJoiner;
 @SuperBuilder
 public abstract class AbstractDomainEntity<ID extends AbstractDomainEntityId<?>> {
 
-  private final ID id;
+  private ID id;
 
   protected AbstractDomainEntity(final ID id) {this.id = id;}
+
+  public void setId(final ID id) {
+    this.id = id;
+  }
+
+  public ID getId() {
+    return this.id;
+  }
 
   @Override
   public boolean equals(final Object o) {
