@@ -1,6 +1,6 @@
 package com.hotel.booking.system.hotel.service.core.domain.entity;
 
-import com.hotel.booking.system.hotel.service.core.domain.AbstractDomainEntity;
+import com.hotel.booking.system.commons.core.domain.AbstractDomainEntity;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelCategoryId;
 
 public class HotelCategory extends AbstractDomainEntity<HotelCategoryId> {

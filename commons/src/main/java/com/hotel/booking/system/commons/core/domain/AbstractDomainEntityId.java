@@ -1,4 +1,4 @@
-package com.hotel.booking.system.hotel.service.core.domain;
+package com.hotel.booking.system.commons.core.domain;
 
 import java.util.Objects;
 import java.util.StringJoiner;

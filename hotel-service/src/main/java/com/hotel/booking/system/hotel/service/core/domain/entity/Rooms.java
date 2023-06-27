@@ -1,6 +1,6 @@
 package com.hotel.booking.system.hotel.service.core.domain.entity;
 
-import com.hotel.booking.system.hotel.service.core.domain.AbstractDomainList;
+import com.hotel.booking.system.commons.core.domain.AbstractDomainList;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.RoomId;
 
 import java.util.ArrayList;
