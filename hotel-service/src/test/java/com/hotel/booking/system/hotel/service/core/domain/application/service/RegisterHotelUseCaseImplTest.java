@@ -1,5 +1,6 @@
 package com.hotel.booking.system.hotel.service.core.domain.application.service;
 
+import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelOutput;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelRoomInput;
@@ -12,7 +13,6 @@ import com.hotel.booking.system.hotel.service.core.domain.valueobject.LocalityId
 import com.hotel.booking.system.hotel.service.core.ports.api.RegisterHotelUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.spi.HotelRepository;
 import com.hotel.booking.system.hotel.service.core.ports.spi.LocalityRepository;
-import com.hotel.booking.system.hotel.service.core.shared.HotelDomainMessage;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -146,7 +146,7 @@ class RegisterHotelUseCaseImplTest {
 
     Assertions.assertThatThrownBy(() -> this.sut.execute(input))
       .isInstanceOf(HotelDomainException.class)
-      .hasMessage(HotelDomainMessage.HOTEL_CATEGORY_NOT_FOUND);
+      .hasMessage(ApplicationMessage.HOTEL_CATEGORY_NOT_FOUND);
 
     Mockito.verify(this.hotelRepository, Mockito.times(1))
       .existsCategoryById(Mockito.any(HotelCategoryId.class));
@@ -199,7 +199,7 @@ class RegisterHotelUseCaseImplTest {
       .build();
     Assertions.assertThatThrownBy(() -> this.sut.execute(input))
       .isInstanceOf(HotelDomainException.class)
-      .hasMessage(HotelDomainMessage.HOTEL_LOCALITY_NOT_FOUND);
+      .hasMessage(ApplicationMessage.HOTEL_LOCALITY_NOT_FOUND);
 
     Mockito.verify(this.hotelRepository, Mockito.times(1))
       .existsCategoryById(Mockito.any(HotelCategoryId.class));

@@ -1,5 +1,6 @@
 package com.hotel.booking.system.hotel.service.core.application.service;
 
+import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelOutput;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Hotel;
@@ -8,7 +9,6 @@ import com.hotel.booking.system.hotel.service.core.ports.api.HotelUseCaseMapper;
 import com.hotel.booking.system.hotel.service.core.ports.api.RegisterHotelUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.spi.HotelRepository;
 import com.hotel.booking.system.hotel.service.core.ports.spi.LocalityRepository;
-import com.hotel.booking.system.hotel.service.core.shared.HotelDomainMessage;
 
 public class RegisterHotelUseCaseImpl implements RegisterHotelUseCase {
 
@@ -39,13 +39,13 @@ public class RegisterHotelUseCaseImpl implements RegisterHotelUseCase {
 
   private void validateCategoryId(final Hotel hotel) {
     if (!this.hotelRepository.existsCategoryById(hotel.getCategoryId())) {
-      throw new HotelDomainException(HotelDomainMessage.HOTEL_CATEGORY_NOT_FOUND);
+      throw new HotelDomainException(ApplicationMessage.HOTEL_CATEGORY_NOT_FOUND);
     }
   }
 
   private void validateLocality(final Hotel hotel) {
     if (!this.localityRepository.existsLocalityById(hotel.getLocalityId())) {
-      throw new HotelDomainException(HotelDomainMessage.HOTEL_LOCALITY_NOT_FOUND);
+      throw new HotelDomainException(ApplicationMessage.HOTEL_LOCALITY_NOT_FOUND);
     }
   }
 }

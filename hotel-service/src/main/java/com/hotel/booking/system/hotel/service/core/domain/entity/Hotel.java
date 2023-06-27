@@ -2,12 +2,12 @@ package com.hotel.booking.system.hotel.service.core.domain.entity;
 
 
 import com.hotel.booking.system.commons.core.domain.AbstractDomainEntity;
+import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import com.hotel.booking.system.hotel.service.core.domain.exception.HotelDomainException;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelAddress;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelCategoryId;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelId;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.LocalityId;
-import com.hotel.booking.system.hotel.service.core.shared.HotelDomainMessage;
 import lombok.experimental.SuperBuilder;
 import org.apache.commons.lang3.StringUtils;
 
@@ -49,10 +49,10 @@ public class Hotel extends AbstractDomainEntity<HotelId> {
 
   private void validateNameAndDescription() {
     if (StringUtils.isBlank(this.name)) {
-      throw new HotelDomainException(HotelDomainMessage.HOTEL_NAME_INVALID);
+      throw new HotelDomainException(ApplicationMessage.HOTEL_NAME_INVALID);
     }
     if (StringUtils.isBlank(this.description)) {
-      throw new HotelDomainException(HotelDomainMessage.HOTEL_DESCRIPTION_INVALID);
+      throw new HotelDomainException(ApplicationMessage.HOTEL_DESCRIPTION_INVALID);
     }
   }
 
@@ -62,13 +62,13 @@ public class Hotel extends AbstractDomainEntity<HotelId> {
 
   private void validateLocality() {
     if (this.localityId.empty()) {
-      throw new HotelDomainException(HotelDomainMessage.HOTEL_LOCALITY_NOT_NULL);
+      throw new HotelDomainException(ApplicationMessage.HOTEL_LOCALITY_NOT_NULL);
     }
   }
 
   private void validateCategory() {
     if (this.categoryId.empty()) {
-      throw new HotelDomainException(HotelDomainMessage.HOTEL_CATEGORY_NOT_NULL);
+      throw new HotelDomainException(ApplicationMessage.HOTEL_CATEGORY_NOT_NULL);
     }
   }
 

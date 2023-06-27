@@ -1,6 +1,6 @@
 package com.hotel.booking.system.hotel.service.core.domain.valueobject;
 
-import com.hotel.booking.system.hotel.service.core.shared.HotelDomainMessage;
+import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import com.hotel.booking.system.hotel.service.core.domain.exception.HotelDomainException;
 import io.micrometer.common.util.StringUtils;
 import lombok.Builder;
@@ -19,10 +19,10 @@ public class HotelAddress {
 
   public void validate() {
     if (StringUtils.isBlank(this.street)) {
-      throw new HotelDomainException(HotelDomainMessage.HOTEL_STREET_INVALID);
+      throw new HotelDomainException(ApplicationMessage.HOTEL_STREET_INVALID);
     }
     if (StringUtils.isBlank(this.cep) || !this.cep.matches(CEP_PATTERN)) {
-      throw new HotelDomainException(HotelDomainMessage.HOTEL_CEP_INVALID);
+      throw new HotelDomainException(ApplicationMessage.HOTEL_CEP_INVALID);
     }
   }
 

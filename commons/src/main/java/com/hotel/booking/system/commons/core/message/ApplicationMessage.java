@@ -1,6 +1,6 @@
-package com.hotel.booking.system.hotel.service.core.shared;
+package com.hotel.booking.system.commons.core.message;
 
-public final class HotelDomainMessage {
+public final class ApplicationMessage {
 
   public static final String HOTEL_CATEGORY_NOT_NULL = "hotel.category.must.not.be.null";
   public static final String HOTEL_LOCALITY_NOT_NULL = "hotel.locality.must.not.be.null";
@@ -11,6 +11,6 @@ public final class HotelDomainMessage {
   public static final String HOTEL_CATEGORY_NOT_FOUND = "hotel.category.not.found";
   public static final String HOTEL_LOCALITY_NOT_FOUND = "hotel.locality.not.found";
 
-  private HotelDomainMessage() {}
+  private ApplicationMessage() {}
 
 }
