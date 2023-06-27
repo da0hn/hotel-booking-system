@@ -14,9 +14,7 @@ import com.hotel.booking.system.hotel.service.core.ports.api.RegisterHotelUseCas
 import com.hotel.booking.system.hotel.service.core.ports.spi.HotelRepository;
 import com.hotel.booking.system.hotel.service.core.ports.spi.LocalityRepository;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -25,6 +23,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.util.List;
 
+@Tags({@Tag("unit")})
 @DisplayName("Register hotel use case tests")
 @ExtendWith(MockitoExtension.class)
 class RegisterHotelUseCaseImplTest {
