@@ -22,6 +22,7 @@ services:
       - '3311:3306'
     volumes:
       - ./scripts/hotel-seed-script.sql:/docker-entrypoint-initdb.d/init.sql
+      - /opt/hotel-booking-system/hotel-db/mysql:/var/lib/mysql
     networks:
       - hotel-booking-system-network
 
