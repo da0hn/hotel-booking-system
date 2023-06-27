@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS locality
+(
+    id      VARCHAR(36) NOT NULL,
+    city    VARCHAR(50) NOT NULL,
+    state   VARCHAR(50) NOT NULL,
+    country VARCHAR(50) NOT NULL,
+    CONSTRAINT PK_LOCALITY PRIMARY KEY (id)
+);
