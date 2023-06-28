@@ -10,6 +10,7 @@ import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelId;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.LocalityId;
 import lombok.experimental.SuperBuilder;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 @SuperBuilder
 public class Hotel extends AbstractDomainEntity<HotelId> {
@@ -44,7 +45,19 @@ public class Hotel extends AbstractDomainEntity<HotelId> {
     this.validateCategory();
     this.validateLocality();
     this.validateAddress();
+    this.validateRooms();
+  }
+
+  private void validateRooms() {
+    if (CollectionUtils.isEmpty(this.rooms)) {
+      throw new HotelDomainException(ApplicationMessage.HOTEL_ROOMS_INVALID);
+    }
     this.rooms.validate();
+  }
+
+  public void initialize() {
+    this.setId(HotelId.newInstance());
+    this.rooms.forEach(room -> room.initialize(this.getId()));
   }
 
   private void validateNameAndDescription() {
@@ -72,11 +85,6 @@ public class Hotel extends AbstractDomainEntity<HotelId> {
     }
   }
 
-  public void initialize() {
-    this.setId(HotelId.newInstance());
-    this.rooms.forEach(room -> room.initialize(this.getId()));
-  }
-
   public Rooms getRoom() {
     return this.rooms;
   }
@@ -87,6 +95,10 @@ public class Hotel extends AbstractDomainEntity<HotelId> {
 
   public HotelCategoryId getCategoryId() {
     return this.categoryId;
+  }
+
+  public HotelAddress getAddress() {
+    return this.address;
   }
 }
 

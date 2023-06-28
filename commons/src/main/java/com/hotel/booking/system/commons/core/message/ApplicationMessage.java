@@ -10,6 +10,7 @@ public final class ApplicationMessage {
   public static final String HOTEL_CEP_INVALID = "hotel.cep.invalid";
   public static final String HOTEL_CATEGORY_NOT_FOUND = "hotel.category.not.found";
   public static final String HOTEL_LOCALITY_NOT_FOUND = "hotel.locality.not.found";
+  public static final String HOTEL_ROOMS_INVALID = "hotel.rooms.must.not.be.null-or-empty";
 
   private ApplicationMessage() {}
 

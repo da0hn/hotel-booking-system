@@ -21,6 +21,10 @@ public class Rooms extends AbstractDomainList<Room> {
     return new Rooms(rooms);
   }
 
+  public static Rooms of(final Room... rooms) {
+    return new Rooms(List.of(rooms));
+  }
+
   public void validate() {
     this.data().forEach(Room::validate);
   }

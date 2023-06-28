@@ -11,4 +11,16 @@ public class Money {
   public static Money of(final BigDecimal value) {
     return new Money(value);
   }
+
+  public static Money of(final Integer value) {
+    return new Money(BigDecimal.valueOf(value));
+  }
+
+  public static Money of(final Double value) {
+    return new Money(BigDecimal.valueOf(value));
+  }
+
+  public BigDecimal getValue() {
+    return this.value;
+  }
 }
