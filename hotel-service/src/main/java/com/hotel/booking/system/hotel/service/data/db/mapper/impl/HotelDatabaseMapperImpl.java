@@ -1,4 +1,4 @@
-package com.hotel.booking.system.hotel.service.data.db.mapper;
+package com.hotel.booking.system.hotel.service.data.db.mapper.impl;
 
 import com.hotel.booking.system.hotel.service.core.domain.entity.Hotel;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Room;
@@ -8,6 +8,7 @@ import com.hotel.booking.system.hotel.service.data.db.entity.HotelCategoryEntity
 import com.hotel.booking.system.hotel.service.data.db.entity.HotelEntity;
 import com.hotel.booking.system.hotel.service.data.db.entity.LocalityEntity;
 import com.hotel.booking.system.hotel.service.data.db.entity.RoomEntity;
+import com.hotel.booking.system.hotel.service.data.db.mapper.HotelDatabaseMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
