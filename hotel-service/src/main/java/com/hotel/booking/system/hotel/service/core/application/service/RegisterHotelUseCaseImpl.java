@@ -31,8 +31,8 @@ public class RegisterHotelUseCaseImpl implements RegisterHotelUseCase {
     final var hotel = this.hotelUseCaseMapper.registerHotelInputToHotel(input);
     this.validateCategoryId(hotel);
     this.validateLocality(hotel);
-    hotel.validate();
     hotel.initialize();
+    hotel.validate();
     this.hotelRepository.register(hotel);
     return this.hotelUseCaseMapper.hotelToRegisterHotelOutput(hotel);
   }
