@@ -1,4 +1,4 @@
-package com.hotel.booking.system.hotel.service.core.ports.api;
+package com.hotel.booking.system.hotel.service.core.ports.api.mapper;
 
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelOutput;

@@ -10,7 +10,7 @@ import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelAddre
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelCategoryId;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.LocalityId;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.Money;
-import com.hotel.booking.system.hotel.service.core.ports.api.HotelUseCaseMapper;
+import com.hotel.booking.system.hotel.service.core.ports.api.mapper.HotelUseCaseMapper;
 
 import java.util.stream.Collectors;
 

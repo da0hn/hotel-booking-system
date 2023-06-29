@@ -2,10 +2,10 @@ package com.hotel.booking.system.hotel.service.application.configuration;
 
 import com.hotel.booking.system.hotel.service.core.application.mapper.HotelUseCaseMapperImpl;
 import com.hotel.booking.system.hotel.service.core.application.usecase.RegisterHotelUseCaseImpl;
-import com.hotel.booking.system.hotel.service.core.ports.api.HotelUseCaseMapper;
-import com.hotel.booking.system.hotel.service.core.ports.api.RegisterHotelUseCase;
-import com.hotel.booking.system.hotel.service.core.ports.spi.HotelRepository;
-import com.hotel.booking.system.hotel.service.core.ports.spi.LocalityRepository;
+import com.hotel.booking.system.hotel.service.core.ports.api.mapper.HotelUseCaseMapper;
+import com.hotel.booking.system.hotel.service.core.ports.api.usecase.RegisterHotelUseCase;
+import com.hotel.booking.system.hotel.service.core.ports.spi.repository.HotelRepository;
+import com.hotel.booking.system.hotel.service.core.ports.spi.repository.LocalityRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

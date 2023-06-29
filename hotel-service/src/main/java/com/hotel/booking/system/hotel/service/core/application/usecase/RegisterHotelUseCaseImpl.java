@@ -5,10 +5,10 @@ import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotel
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelOutput;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Hotel;
 import com.hotel.booking.system.hotel.service.core.domain.exception.HotelDomainException;
-import com.hotel.booking.system.hotel.service.core.ports.api.HotelUseCaseMapper;
-import com.hotel.booking.system.hotel.service.core.ports.api.RegisterHotelUseCase;
-import com.hotel.booking.system.hotel.service.core.ports.spi.HotelRepository;
-import com.hotel.booking.system.hotel.service.core.ports.spi.LocalityRepository;
+import com.hotel.booking.system.hotel.service.core.ports.api.mapper.HotelUseCaseMapper;
+import com.hotel.booking.system.hotel.service.core.ports.api.usecase.RegisterHotelUseCase;
+import com.hotel.booking.system.hotel.service.core.ports.spi.repository.HotelRepository;
+import com.hotel.booking.system.hotel.service.core.ports.spi.repository.LocalityRepository;
 
 public class RegisterHotelUseCaseImpl implements RegisterHotelUseCase {
 

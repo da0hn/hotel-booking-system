@@ -1,7 +1,7 @@
 package com.hotel.booking.system.hotel.service.data.db.repository.adapters;
 
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.LocalityId;
-import com.hotel.booking.system.hotel.service.core.ports.spi.LocalityRepository;
+import com.hotel.booking.system.hotel.service.core.ports.spi.repository.LocalityRepository;
 import com.hotel.booking.system.hotel.service.data.db.repository.LocalityJpaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -3,7 +3,7 @@ package com.hotel.booking.system.hotel.service.application.service.impl;
 import com.hotel.booking.system.hotel.service.application.service.HotelApplicationService;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelOutput;
-import com.hotel.booking.system.hotel.service.core.ports.api.RegisterHotelUseCase;
+import com.hotel.booking.system.hotel.service.core.ports.api.usecase.RegisterHotelUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
