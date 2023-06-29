@@ -2,6 +2,7 @@ package com.hotel.booking.system.commons.core.message;
 
 public final class ApplicationMessage {
 
+  public static final String HOTEL_NOT_NULL = "hotel.must.not.be.null";
   public static final String HOTEL_CATEGORY_NOT_NULL = "hotel.category.must.not.be.null";
   public static final String HOTEL_LOCALITY_NOT_NULL = "hotel.locality.must.not.be.null";
   public static final String HOTEL_NAME_INVALID = "hotel.name.must.not.be.null-or-empty";
