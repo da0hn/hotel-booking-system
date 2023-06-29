@@ -3,9 +3,9 @@ package com.hotel.booking.system.hotel.service.data.db.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -17,6 +17,8 @@ import java.util.UUID;
 @Setter
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "hotel")
 public class HotelEntity implements Serializable {
 
@@ -24,9 +26,8 @@ public class HotelEntity implements Serializable {
   private static final long serialVersionUID = 6868561067067809596L;
 
   @Id
-  @Size(max = 36)
+  @JdbcTypeCode(SqlTypes.VARCHAR)
   @Column(name = "id", nullable = false, length = 36)
-  @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
   @Size(max = 50)
@@ -34,9 +35,9 @@ public class HotelEntity implements Serializable {
   @Column(name = "name", nullable = false, length = 50)
   private String name;
 
-  @Size(max = 100)
+  @Size(max = 500)
   @NotNull
-  @Column(name = "description", nullable = false, length = 100)
+  @Column(name = "description", nullable = false, length = 500)
   private String description;
 
   @Size(max = 9)
@@ -62,4 +63,18 @@ public class HotelEntity implements Serializable {
   @OneToMany(mappedBy = "hotel", orphanRemoval = true)
   private Set<RoomEntity> rooms = new LinkedHashSet<>();
 
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) return true;
+    if (o == null || this.getClass() != o.getClass()) return false;
+
+    final HotelEntity that = (HotelEntity) o;
+
+    return this.id.equals(that.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return this.id.hashCode();
+  }
 }
