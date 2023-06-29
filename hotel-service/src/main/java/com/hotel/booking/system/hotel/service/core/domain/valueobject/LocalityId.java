@@ -17,6 +17,11 @@ public class LocalityId extends AbstractDomainEntityId<UUID> {
     return new LocalityId(UUID.fromString(rawValue));
   }
 
+  public static LocalityId of(final UUID value) {
+    Objects.requireNonNull(value, ApplicationMessage.HOTEL_LOCALITY_NOT_NULL);
+    return new LocalityId(value);
+  }
+
   @Override
   public String toString() {
     return this.value.toString();

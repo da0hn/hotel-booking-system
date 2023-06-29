@@ -21,6 +21,11 @@ public class HotelId extends AbstractDomainEntityId<UUID> {
     return new HotelId(UUID.fromString(rawValue));
   }
 
+  public static HotelId of(final UUID value) {
+    Objects.requireNonNull(value, ApplicationMessage.HOTEL_NOT_NULL);
+    return new HotelId(value);
+  }
+
   @Override
   public String toString() {
     return this.value.toString();

@@ -100,5 +100,14 @@ public class Hotel extends AbstractDomainEntity<HotelId> {
   public HotelAddress getAddress() {
     return this.address;
   }
+
+  public String getName() {
+    return this.name;
+  }
+
+  public String getDescription() {
+    return this.description;
+  }
+
 }
 

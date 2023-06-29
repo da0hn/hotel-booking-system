@@ -17,6 +17,12 @@ public class HotelCategoryId extends AbstractDomainEntityId<UUID> {
     return new HotelCategoryId(UUID.fromString(rawValue));
   }
 
+  public static HotelCategoryId of(final UUID value) {
+    Objects.requireNonNull(value, ApplicationMessage.HOTEL_CATEGORY_NOT_NULL);
+    return new HotelCategoryId(value);
+  }
+
+
   @Override
   public String toString() {
     return this.value.toString();

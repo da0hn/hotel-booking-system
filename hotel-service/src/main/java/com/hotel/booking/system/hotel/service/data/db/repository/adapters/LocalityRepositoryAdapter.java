@@ -14,6 +14,6 @@ public class LocalityRepositoryAdapter implements LocalityRepository {
 
   @Override
   public boolean existsLocalityById(final LocalityId localityId) {
-    return false;
+    return this.localityJpaRepository.existsById(localityId.getValue());
   }
 }
