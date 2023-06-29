@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class Money {
 
+  public static final Money ZERO = Money.of(BigDecimal.ZERO);
   private final BigDecimal value;
 
   private Money(final BigDecimal value) {this.value = value;}
@@ -22,5 +23,13 @@ public class Money {
 
   public BigDecimal getValue() {
     return this.value;
+  }
+
+  public boolean isNegative() {
+    return this.value.compareTo(BigDecimal.ZERO) < 0;
+  }
+
+  public boolean isZero() {
+    return this.value.compareTo(BigDecimal.ZERO) == 0;
   }
 }

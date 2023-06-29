@@ -74,13 +74,13 @@ public class Hotel extends AbstractDomainEntity<HotelId> {
   }
 
   private void validateLocality() {
-    if (this.localityId.empty()) {
+    if (this.localityId == null || this.localityId.empty()) {
       throw new HotelDomainException(ApplicationMessage.HOTEL_LOCALITY_NOT_NULL);
     }
   }
 
   private void validateCategory() {
-    if (this.categoryId.empty()) {
+    if (this.categoryId == null || this.categoryId.empty()) {
       throw new HotelDomainException(ApplicationMessage.HOTEL_CATEGORY_NOT_NULL);
     }
   }

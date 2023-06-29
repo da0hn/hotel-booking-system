@@ -1,10 +1,13 @@
 package com.hotel.booking.system.hotel.service.core.domain.entity;
 
 import com.hotel.booking.system.commons.core.domain.AbstractDomainEntity;
+import com.hotel.booking.system.commons.core.message.ApplicationMessage;
+import com.hotel.booking.system.hotel.service.core.domain.exception.HotelDomainException;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelId;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.Money;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.RoomId;
 import lombok.experimental.SuperBuilder;
+import org.apache.commons.lang3.StringUtils;
 
 @SuperBuilder
 public class Room extends AbstractDomainEntity<RoomId> {
@@ -33,6 +36,43 @@ public class Room extends AbstractDomainEntity<RoomId> {
 
 
   public void validate() {
+    this.validateNameAndDescription();
+    this.validateCapacity();
+    this.validateCurrentPrice();
+    this.validateHotel();
+  }
+
+  private void validateHotel() {
+    if (this.hotelId == null || this.hotelId.empty()) {
+      throw new HotelDomainException(ApplicationMessage.HOTEL_ROOM_RELATIONSHIP_NOT_FOUND);
+    }
+  }
+
+  private void validateNameAndDescription() {
+    if (StringUtils.isBlank(this.name)) {
+      throw new HotelDomainException(ApplicationMessage.HOTEL_ROOM_NAME_NOT_NULL);
+    }
+    if (StringUtils.isBlank(this.description)) {
+      throw new HotelDomainException(ApplicationMessage.HOTEL_ROOM_DESCRIPTION_NOT_NULL);
+    }
+  }
+
+  private void validateCapacity() {
+    if (this.capacity == null) {
+      throw new HotelDomainException(ApplicationMessage.HOTEL_ROOM_CAPACITY_NOT_NULL);
+    }
+    if (this.capacity <= 0) {
+      throw new HotelDomainException(ApplicationMessage.HOTEL_ROOM_CAPACITY_INVALID);
+    }
+  }
+
+  private void validateCurrentPrice() {
+    if (this.currentPrice == null) {
+      throw new HotelDomainException(ApplicationMessage.HOTEL_ROOM_CURRENT_PRICE_NOT_NULL);
+    }
+    if (this.currentPrice.isNegative() || this.currentPrice.isZero()) {
+      throw new HotelDomainException(ApplicationMessage.HOTEL_ROOM_CURRENT_PRICE_INVALID);
+    }
   }
 
   public void initialize(final HotelId hotelId) {
