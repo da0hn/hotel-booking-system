@@ -1,11 +1,11 @@
-package com.hotel.booking.system.hotel.service.core.domain.application.service;
+package com.hotel.booking.system.hotel.service.core.domain.application.usecase;
 
 import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelOutput;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelRoomInput;
 import com.hotel.booking.system.hotel.service.core.application.mapper.HotelUseCaseMapperImpl;
-import com.hotel.booking.system.hotel.service.core.application.service.RegisterHotelUseCaseImpl;
+import com.hotel.booking.system.hotel.service.core.application.usecase.RegisterHotelUseCaseImpl;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Hotel;
 import com.hotel.booking.system.hotel.service.core.domain.exception.HotelDomainException;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelCategoryId;

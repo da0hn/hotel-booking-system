@@ -1,7 +1,7 @@
 package com.hotel.booking.system.hotel.service.application.configuration;
 
 import com.hotel.booking.system.hotel.service.core.application.mapper.HotelUseCaseMapperImpl;
-import com.hotel.booking.system.hotel.service.core.application.service.RegisterHotelUseCaseImpl;
+import com.hotel.booking.system.hotel.service.core.application.usecase.RegisterHotelUseCaseImpl;
 import com.hotel.booking.system.hotel.service.core.ports.api.HotelUseCaseMapper;
 import com.hotel.booking.system.hotel.service.core.ports.api.RegisterHotelUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.spi.HotelRepository;

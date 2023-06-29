@@ -1,4 +1,4 @@
-package com.hotel.booking.system.hotel.service.core.application.service;
+package com.hotel.booking.system.hotel.service.core.application.usecase;
 
 import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelInput;
