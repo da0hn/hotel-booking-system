@@ -24,6 +24,7 @@ public class HotelUseCaseMapperImpl implements HotelUseCaseMapper {
       .description(input.description())
       .currentPrice(Money.of(input.currentPrice()))
       .capacity(input.capacity())
+      .quantity(input.quantity())
       .build();
   }
 

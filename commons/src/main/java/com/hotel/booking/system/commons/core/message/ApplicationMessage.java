@@ -20,6 +20,8 @@ public final class ApplicationMessage {
   public static final String HOTEL_ROOM_NAME_NOT_NULL = "hotel.room.name.must.not.be.null";
   public static final String HOTEL_ROOM_DESCRIPTION_NOT_NULL = "hotel.room.description.must.not.be.null";
   public static final String HOTEL_ROOM_NOT_NULL = "hotel.room.must.not.be.null";
+  public static final String HOTEL_ROOM_QUANTITY_NOT_NULL = "hotel.room.quantity.must.not.be.null";
+  public static final String HOTEL_ROOM_QUANTITY_INVALID = "hotel.room.quantity.must.not.be.zero-or-negative";
 
 
   private ApplicationMessage() {}

@@ -65,6 +65,7 @@ public class HotelDatabaseMapperImpl implements HotelDatabaseMapper {
       .description(room.getDescription())
       .currentPrice(Money.of(room.getCurrentPrice()))
       .capacity(room.getCapacity())
+      .quantity(room.getQuantity())
       .build();
   }
 
@@ -76,6 +77,7 @@ public class HotelDatabaseMapperImpl implements HotelDatabaseMapper {
       .name(room.getName())
       .description(room.getDescription())
       .capacity(room.getCapacity())
+      .quantity(room.getQuantity())
       .hotel(
         HotelEntity.builder()
           .id(room.getHotelId().getValue())

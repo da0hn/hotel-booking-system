@@ -52,6 +52,10 @@ public class RoomEntity implements Serializable {
   @JoinColumn(name = "hotel_id", nullable = false)
   private HotelEntity hotel;
 
+  @NotNull
+  @Column(name = "quantity", nullable = false)
+  private Integer quantity;
+
   @Override
   public boolean equals(final Object o) {
     if (this == o) return true;

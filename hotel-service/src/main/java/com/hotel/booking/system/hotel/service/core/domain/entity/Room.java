@@ -17,6 +17,7 @@ public class Room extends AbstractDomainEntity<RoomId> {
   private String description;
   private Integer capacity;
   private Money currentPrice;
+  private Integer quantity;
 
   public Room(
     final RoomId id,
@@ -24,7 +25,8 @@ public class Room extends AbstractDomainEntity<RoomId> {
     final String name,
     final String description,
     final Integer capacity,
-    final Money currentPrice
+    final Money currentPrice,
+    final Integer quantity
   ) {
     super(id);
     this.hotelId = hotelId;
@@ -32,6 +34,7 @@ public class Room extends AbstractDomainEntity<RoomId> {
     this.description = description;
     this.capacity = capacity;
     this.currentPrice = currentPrice;
+    this.quantity = quantity;
   }
 
 
@@ -40,6 +43,16 @@ public class Room extends AbstractDomainEntity<RoomId> {
     this.validateCapacity();
     this.validateCurrentPrice();
     this.validateHotel();
+    this.validateQuantity();
+  }
+
+  private void validateQuantity() {
+    if (this.quantity == null) {
+      throw new HotelDomainException(ApplicationMessage.HOTEL_ROOM_QUANTITY_NOT_NULL);
+    }
+    if (this.quantity <= 0) {
+      throw new HotelDomainException(ApplicationMessage.HOTEL_ROOM_QUANTITY_INVALID);
+    }
   }
 
   private void validateHotel() {
@@ -100,4 +113,7 @@ public class Room extends AbstractDomainEntity<RoomId> {
     return this.hotelId;
   }
 
+  public Integer getQuantity() {
+    return this.quantity;
+  }
 }

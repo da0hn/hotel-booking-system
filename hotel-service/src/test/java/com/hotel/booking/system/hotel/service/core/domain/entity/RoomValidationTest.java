@@ -18,6 +18,7 @@ class RoomValidationTest {
   private static final String ROOM_DESCRIPTION = "This double room has a tile/marble floor and air conditioning.";
   private static final Money ROOM_MONEY = Money.of(350);
   private static final HotelId HOTEL_ID = HotelId.of("6641cd32-df28-4f3e-b709-a6d568bc6d90");
+  public static final int ROOM_QUANTITY = 1;
 
   @BeforeEach
   void setUp() {
@@ -32,6 +33,7 @@ class RoomValidationTest {
       .description(ROOM_DESCRIPTION)
       .capacity(ROOM_CAPACITY)
       .currentPrice(ROOM_MONEY)
+      .quantity(ROOM_QUANTITY)
       .build();
     Assertions.assertThatCode(() -> sut.validate())
       .doesNotThrowAnyException();
@@ -86,7 +88,7 @@ class RoomValidationTest {
       .hotelId(HOTEL_ID)
       .name(ROOM_NAME)
       .description(ROOM_DESCRIPTION)
-      .capacity(-1)
+      .capacity(-ROOM_QUANTITY)
       .currentPrice(ROOM_MONEY)
       .build();
     Assertions.assertThatThrownBy(sut::validate)
@@ -143,7 +145,7 @@ class RoomValidationTest {
       .name(ROOM_NAME)
       .description(ROOM_DESCRIPTION)
       .capacity(ROOM_CAPACITY)
-      .currentPrice(Money.of(-1))
+      .currentPrice(Money.of(-ROOM_QUANTITY))
       .build();
     Assertions.assertThatThrownBy(sut::validate)
       .hasMessage(ApplicationMessage.HOTEL_ROOM_CURRENT_PRICE_INVALID);

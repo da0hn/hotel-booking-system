@@ -9,6 +9,7 @@ public record RegisterHotelRoomInput(
   String name,
   String description,
   Integer capacity,
-  BigDecimal currentPrice
+  BigDecimal currentPrice,
+  Integer quantity
 ) {
 }

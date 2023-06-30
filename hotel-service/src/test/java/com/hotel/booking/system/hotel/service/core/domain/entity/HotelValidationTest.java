@@ -48,6 +48,7 @@ class HotelValidationTest {
           .capacity(2)
           .description("This double room has a tile/marble floor and air conditioning.")
           .currentPrice(Money.of(350))
+          .quantity(2)
           .build(),
         Room.builder()
           .id(RoomId.newInstance())
@@ -56,6 +57,7 @@ class HotelValidationTest {
           .capacity(3)
           .description("This triple room has air conditioning, dining area and tile/marble floor.")
           .currentPrice(Money.of(450))
+          .quantity(3)
           .build(),
         Room.builder()
           .id(RoomId.newInstance())
@@ -64,6 +66,7 @@ class HotelValidationTest {
           .capacity(4)
           .description("Este quarto família dispõe de frigobar, piso frio/de mármore e ar-condicionado.")
           .currentPrice(Money.of(550))
+          .quantity(1)
           .build()
       )
     );
