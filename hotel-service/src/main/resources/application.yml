@@ -17,6 +17,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        enable_lazy_load_no_trans: true
         format_sql: true
   flyway:
     url: jdbc:mysql://${HOTEL_DB_HOST:localhost}:${HOTEL_DB_PORT:3311}/${HOTEL_DB_NAME:hotel_db}?autoReconnect=true&useSSL=false&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2
