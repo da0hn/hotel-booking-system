@@ -51,12 +51,12 @@ public class HotelEntity implements Serializable {
   private String hotelStreet;
 
   @NotNull
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @ManyToOne
   @JoinColumn(name = "locality_id", nullable = false)
   private LocalityEntity locality;
 
   @NotNull
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @ManyToOne
   @JoinColumn(name = "category_id", nullable = false)
   private HotelCategoryEntity category;
 

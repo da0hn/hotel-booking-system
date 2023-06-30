@@ -2,6 +2,7 @@ package com.hotel.booking.system.hotel.service.data.db.mapper;
 
 import com.hotel.booking.system.hotel.service.core.domain.entity.Hotel;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Room;
+import com.hotel.booking.system.hotel.service.core.ports.spi.queries.SearchHotelAvailableQueryResult;
 import com.hotel.booking.system.hotel.service.data.db.entity.HotelEntity;
 import com.hotel.booking.system.hotel.service.data.db.entity.RoomEntity;
 
@@ -20,4 +21,5 @@ public interface HotelDatabaseMapper {
 
   Set<RoomEntity> roomsToRoomEntitySet(Collection<? extends Room> rooms);
 
+  SearchHotelAvailableQueryResult hotelEntityToSearchHotelAvailableQueryResult(HotelEntity hotelEntity);
 }

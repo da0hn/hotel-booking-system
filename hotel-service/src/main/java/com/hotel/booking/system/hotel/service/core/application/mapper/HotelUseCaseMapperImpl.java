@@ -1,8 +1,6 @@
 package com.hotel.booking.system.hotel.service.core.application.mapper;
 
-import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelInput;
-import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelOutput;
-import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelRoomInput;
+import com.hotel.booking.system.hotel.service.core.application.dto.*;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Hotel;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Room;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Rooms;
@@ -11,6 +9,7 @@ import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelCateg
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.LocalityId;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.Money;
 import com.hotel.booking.system.hotel.service.core.ports.api.mapper.HotelUseCaseMapper;
+import com.hotel.booking.system.hotel.service.core.ports.spi.queries.SearchHotelAvailableQueryResult;
 
 import java.util.stream.Collectors;
 
@@ -55,5 +54,33 @@ public class HotelUseCaseMapperImpl implements HotelUseCaseMapper {
     return new RegisterHotelOutput(hotel.getId().toString(), hotel.getRoom().asRawIds());
   }
 
+  @Override
+  public SearchHotelAvailableOutput searchHotelAvailableQueryResultToSearchHotelAvailableOutput(
+    final SearchHotelAvailableQueryResult queryResult
+  ) {
+    return SearchHotelAvailableOutput.builder()
+      .id(queryResult.getHotelId().toString())
+      .name(queryResult.getHotelName())
+      .description(queryResult.getHotelDescription())
+      .address(queryResult.getHotelStreet() + " - " + queryResult.getHotelCep())
+      .category(queryResult.getHotelCategoryName())
+      .city(queryResult.getHotelCity())
+      .state(queryResult.getHotelState())
+      .country(queryResult.getHotelCountry())
+      .rooms(
+        queryResult.getRooms().stream()
+          .map(roomQueryResult -> SearchHotelAvailableRoomOutput.builder()
+            .id(roomQueryResult.getRoomId().toString())
+            .name(roomQueryResult.getRoomName())
+            .description(roomQueryResult.getRoomDescription())
+            .currentPrice(roomQueryResult.getRoomCurrentPrice().getValue())
+            .quantity(roomQueryResult.getRoomQuantity())
+            .capacity(roomQueryResult.getRoomCapacity())
+            .build()
+          )
+          .toList()
+      )
+      .build();
+  }
 
 }

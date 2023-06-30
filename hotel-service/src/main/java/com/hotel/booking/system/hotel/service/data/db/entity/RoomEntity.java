@@ -48,7 +48,7 @@ public class RoomEntity implements Serializable {
   private BigDecimal currentPrice;
 
   @NotNull
-  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @ManyToOne
   @JoinColumn(name = "hotel_id", nullable = false)
   private HotelEntity hotel;
 

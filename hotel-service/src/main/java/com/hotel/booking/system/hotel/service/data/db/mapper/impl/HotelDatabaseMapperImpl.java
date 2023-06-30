@@ -4,11 +4,13 @@ import com.hotel.booking.system.hotel.service.core.domain.entity.Hotel;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Room;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Rooms;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.*;
+import com.hotel.booking.system.hotel.service.core.ports.spi.queries.SearchHotelAvailableQueryResult;
 import com.hotel.booking.system.hotel.service.data.db.entity.HotelCategoryEntity;
 import com.hotel.booking.system.hotel.service.data.db.entity.HotelEntity;
 import com.hotel.booking.system.hotel.service.data.db.entity.LocalityEntity;
 import com.hotel.booking.system.hotel.service.data.db.entity.RoomEntity;
 import com.hotel.booking.system.hotel.service.data.db.mapper.HotelDatabaseMapper;
+import com.hotel.booking.system.hotel.service.data.db.queries.SearchHotelAvailableAdapter;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -91,5 +93,10 @@ public class HotelDatabaseMapperImpl implements HotelDatabaseMapper {
     return rooms.stream()
       .map(this::roomToRoomEntity)
       .collect(Collectors.toSet());
+  }
+
+  @Override
+  public SearchHotelAvailableQueryResult hotelEntityToSearchHotelAvailableQueryResult(final HotelEntity hotelEntity) {
+    return new SearchHotelAvailableAdapter(hotelEntity);
   }
 }
