@@ -5,6 +5,8 @@ services:
     image: com.hotel.booking.system/hotel-service:latest
     container_name: hotel-service
     restart: on-failure
+    depends_on:
+      - hotel-db
     environment:
       HOTEL_SERVER_PORT: 8001
       HOTEL_DB_HOST: hotel-db
@@ -18,3 +20,21 @@ services:
     networks:
       - hotel-booking-system-network
 
+  reservation-service:
+    image: com.hotel.booking.system/reservation-service:latest
+    container_name: reservation-service
+    restart: on-failure
+    depends_on:
+      - reservation-db
+    environment:
+      RESERVATION_SERVER_PORT: 8002
+      RESERVATION_DB_HOST: reservation-db
+      RESERVATION_DB_PORT: 3306
+      RESERVATION_DB_NAME: reservation_db
+      RESERVATION_DB_USERNAME: user
+      RESERVATION_DB_PASSWORD: password
+      ENABLE_BUILTIN_DOCKER_COMPOSE: false
+    ports:
+      - '8002:8002'
+    networks:
+      - hotel-booking-system-network
