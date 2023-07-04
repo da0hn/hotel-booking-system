@@ -26,13 +26,13 @@ services:
     networks:
       - hotel-booking-system-network
 
-  reservation-db:
+  booking-db:
     image: mysql:8.0.33
-    container_name: reservation-db
+    container_name: booking-db
     command: mysqld --default-authentication-plugin=mysql_native_password
     environment:
       TZ: America/Cuiaba
-      MYSQL_DATABASE: reservation_db
+      MYSQL_DATABASE: booking_db
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: user
@@ -46,8 +46,8 @@ services:
     ports:
       - '3312:3306'
     volumes:
-      - ./scripts/reservation-seed-script.sql:/docker-entrypoint-initdb.d/init.sql
-      - D:/opt/hotel-booking-system/reservation-db/mysql:/var/lib/mysql
+      - ./scripts/booking-seed-script.sql:/docker-entrypoint-initdb.d/init.sql
+      - D:/opt/hotel-booking-system/booking-db/mysql:/var/lib/mysql
     networks:
       - hotel-booking-system-network
 

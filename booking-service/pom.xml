@@ -9,7 +9,7 @@
         <version>${revision}</version>
     </parent>
 
-    <artifactId>reservation-service</artifactId>
+    <artifactId>booking-service</artifactId>
 
     <dependencies>
         <dependency>
@@ -46,10 +46,10 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>${project.groupId}/reservation-service</name>
+                        <name>${project.groupId}/booking-service</name>
                         <tags>
-                            <tag>${project.groupId}/reservation-service:${revision}</tag>
-                            <tag>${project.groupId}/reservation-service:latest</tag>
+                            <tag>${project.groupId}/booking-service:${revision}</tag>
+                            <tag>${project.groupId}/booking-service:latest</tag>
                         </tags>
                     </image>
                     <layers>
