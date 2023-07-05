@@ -42,4 +42,19 @@ public class Money {
   public Money add(final Money money) {
     return new Money(this.value.add(money.value));
   }
+
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) return true;
+    if (o == null || this.getClass() != o.getClass()) return false;
+
+    final Money money = (Money) o;
+
+    return this.value.equals(money.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return this.value.hashCode();
+  }
 }
