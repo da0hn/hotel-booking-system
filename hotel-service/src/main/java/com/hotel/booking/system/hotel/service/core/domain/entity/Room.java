@@ -116,4 +116,8 @@ public class Room extends AbstractDomainEntity<RoomId> {
   public Integer getQuantity() {
     return this.quantity;
   }
+
+  public boolean hasCapacityFor(final Integer roomCapacity) {
+    return this.capacity >= roomCapacity;
+  }
 }
