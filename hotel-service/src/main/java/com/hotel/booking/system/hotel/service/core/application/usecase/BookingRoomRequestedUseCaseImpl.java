@@ -1,0 +1,167 @@
+package com.hotel.booking.system.hotel.service.core.application.usecase;
+
+import com.hotel.booking.system.commons.core.message.ApplicationMessage;
+import com.hotel.booking.system.hotel.service.core.application.dto.BookRoomInput;
+import com.hotel.booking.system.hotel.service.core.application.dto.BookRoomItemInput;
+import com.hotel.booking.system.hotel.service.core.application.dto.BookRoomOutput;
+import com.hotel.booking.system.hotel.service.core.domain.entity.Room;
+import com.hotel.booking.system.hotel.service.core.domain.entity.Rooms;
+import com.hotel.booking.system.hotel.service.core.domain.event.BookingRoomInitiatedEvent;
+import com.hotel.booking.system.hotel.service.core.domain.event.BookingRoomInitiatedItem;
+import com.hotel.booking.system.hotel.service.core.domain.event.BookingRoomRequestedEvent;
+import com.hotel.booking.system.hotel.service.core.domain.event.BookingRoomRequestedItem;
+import com.hotel.booking.system.hotel.service.core.domain.exception.HotelDomainException;
+import com.hotel.booking.system.hotel.service.core.domain.valueobject.Money;
+import com.hotel.booking.system.hotel.service.core.domain.valueobject.ReservationOrderId;
+import com.hotel.booking.system.hotel.service.core.domain.valueobject.ReservationStatus;
+import com.hotel.booking.system.hotel.service.core.domain.valueobject.RoomId;
+import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoomRequestedUseCase;
+import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.BookingRoomRequestedPublisher;
+import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.CustomerBookingRoomUpdatePublisher;
+import com.hotel.booking.system.hotel.service.core.ports.spi.repository.HotelRepository;
+
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.function.BinaryOperator;
+import java.util.stream.Collectors;
+
+public class BookingRoomRequestedUseCaseImpl implements BookingRoomRequestedUseCase {
+
+  private static final BinaryOperator<Integer> BINARY_FUNCTION_IDENTITY = (currentValue, newValue) -> currentValue;
+  private final HotelRepository hotelRepository;
+  private final CustomerBookingRoomUpdatePublisher customerBookingRoomUpdatePublisher;
+  private final BookingRoomRequestedPublisher bookingRoomRequestedPublisher;
+
+  public BookingRoomRequestedUseCaseImpl(
+    final HotelRepository hotelRepository,
+    final CustomerBookingRoomUpdatePublisher customerBookingRoomUpdatePublisher,
+    final BookingRoomRequestedPublisher bookingRoomRequestedPublisher
+  ) {
+    this.customerBookingRoomUpdatePublisher = customerBookingRoomUpdatePublisher;
+    this.bookingRoomRequestedPublisher = bookingRoomRequestedPublisher;
+    this.hotelRepository = hotelRepository;
+  }
+
+  private List<RoomId> mapToRoomIds(final BookRoomInput input) {
+    return input.rooms().stream()
+      .map(BookRoomItemInput::roomId)
+      .map(RoomId::of)
+      .collect(Collectors.toList());
+  }
+
+  @Override
+  public BookRoomOutput execute(final BookRoomInput input) {
+
+    final var rooms = this.hotelRepository.findAllRoomsById(this.mapToRoomIds(input));
+    this.validateRooms(input.rooms(), rooms);
+    this.validateGuest(input, rooms);
+    // TODO: this.validateCustomerId(input.customerId());
+    final var reservationOrderId = ReservationOrderId.newInstance();
+
+    this.bookingRoomRequestedPublisher.publish(
+      BookingRoomRequestedEvent.builder()
+        .reservationOrderId(reservationOrderId.getValue().toString())
+        .customerId(input.customerId())
+        .guests(input.guests())
+        .price(this.getTotalPrice(input.rooms(), rooms).getValue())
+        .checkIn(input.checkIn())
+        .checkOut(input.checkOut())
+        .rooms(
+          input.rooms().stream()
+            .map(r ->
+              BookingRoomRequestedItem.builder()
+                .roomId(r.roomId())
+                .roomQuantity(r.roomQuantity())
+                .build()
+            )
+            .collect(Collectors.toList())
+        )
+        .build()
+    );
+    this.customerBookingRoomUpdatePublisher.publish(
+      BookingRoomInitiatedEvent.builder()
+        .customerId(input.customerId())
+        .reservationOrderId(reservationOrderId.getValue().toString())
+        .guests(input.guests())
+        .totalPrice(this.getTotalPrice(input.rooms(), rooms).getValue())
+        .checkIn(input.checkIn())
+        .checkOut(input.checkOut())
+        .status(ReservationStatus.AWAITING_RESERVATION)
+        .rooms(
+          input.rooms().stream()
+            .map(r ->
+              BookingRoomInitiatedItem.builder()
+                .roomId(r.roomId())
+                .quantity(r.roomQuantity())
+                .price(null)
+                .build()
+            )
+            .collect(Collectors.toList())
+        )
+        .build()
+    );
+    return new BookRoomOutput(reservationOrderId.getValue());
+  }
+
+  private void validateGuest(final BookRoomInput input, final Collection<? extends Room> rooms) {
+    final var guests = input.guests();
+    final var totalRoomCapacity = rooms.stream()
+      .mapToInt(Room::getCapacity)
+      .sum();
+    if (guests > totalRoomCapacity) {
+      throw new HotelDomainException(ApplicationMessage.HOTEL_BOOKING_GUESTS_EXCEEDED);
+    }
+  }
+
+  private Money getTotalPrice(final Collection<BookRoomItemInput> input, final Collection<? extends Room> rooms) {
+    final var quantityByRoomId = this.groupQuantityByRoomId(input);
+    return rooms.stream()
+      .map(room -> {
+        final var quantity = quantityByRoomId.get(room.getId());
+        return room.getCurrentPrice().multiply(BigDecimal.valueOf(quantity));
+      })
+      .reduce(Money.ZERO, Money::add);
+  }
+
+  private void validateRooms(final Collection<BookRoomItemInput> input, final Rooms rooms) {
+    final var roomsGroupedById = this.groupQuantityByRoomId(input);
+
+    final var roomIds = input.stream()
+      .map(BookRoomItemInput::roomId)
+      .map(RoomId::of)
+      .toList();
+
+    final var hasUnknownRoom = roomIds.stream()
+      .anyMatch(rooms::notContainsId);
+
+    if (hasUnknownRoom) {
+      throw new HotelDomainException(ApplicationMessage.HOTEL_ROOM_NOT_FOUND);
+    }
+
+    for (final Room room : rooms) {
+      final var maybeRoomCapacity = Optional.ofNullable(roomsGroupedById.getOrDefault(
+        room.getId(),
+        null
+      ));
+      if (maybeRoomCapacity.isEmpty()) {
+        throw new HotelDomainException(ApplicationMessage.HOTEL_ROOM_NOT_FOUND);
+      }
+      if (!room.hasCapacityFor(maybeRoomCapacity.get())) {
+        throw new HotelDomainException(ApplicationMessage.HOTEL_ROOM_CAPACITY_EXCEEDED);
+      }
+
+    }
+  }
+
+  private Map<RoomId, Integer> groupQuantityByRoomId(final Collection<BookRoomItemInput> input) {
+    return input.stream()
+      .collect(Collectors.toMap(
+        room -> RoomId.of(room.roomId()),
+        BookRoomItemInput::roomQuantity,
+        BINARY_FUNCTION_IDENTITY
+      ));
+  }
+}
