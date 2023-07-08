@@ -7,6 +7,11 @@ spring:
   application:
     name: '@name@'
     version: '@revision@'
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:root}
+    password: ${RABBITMQ_PASSWORD:root}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${HOTEL_DB_HOST:localhost}:${HOTEL_DB_PORT:3311}/${HOTEL_DB_NAME:hotel_db}?autoReconnect=true&useSSL=false&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2
@@ -32,3 +37,22 @@ management:
     web:
       exposure:
         include: "*"
+
+app:
+  rabbitmq:
+    exchange:
+      booking-room: exchange.booking-room
+      payment: exchange.payment
+      customer-booking: exchange.customer-booking
+    routing-key:
+      booking-room: routing-key.booking-room
+      payment: routing-key.payment
+      customer-booking-update: routing-key.customer-booking-update
+    queue:
+      booking-room-requested: booking-room-requested
+      booking-room-confirmation: booking-room-confirmation
+      payment-request: payment-request
+      payment-confirmation: payment-confirmation
+      customer-booking-update: customer-booking-update
+
+
