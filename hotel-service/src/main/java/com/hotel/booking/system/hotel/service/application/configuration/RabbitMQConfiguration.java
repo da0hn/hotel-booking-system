@@ -69,7 +69,7 @@ public class RabbitMQConfiguration {
   ) {
     return BindingBuilder.bind(bookingRoomRequestedQueue)
       .to(bookingRoomExchange)
-      .with(this.routingKeyProperties.bookingRoom());
+      .with(this.routingKeyProperties.bookingRoomRequested());
   }
 
   @Bean
@@ -79,7 +79,7 @@ public class RabbitMQConfiguration {
   ) {
     return BindingBuilder.bind(bookingRoomConfirmationQueue)
       .to(bookingRoomExchange)
-      .with(this.routingKeyProperties.bookingRoom());
+      .with(this.routingKeyProperties.bookingRoomConfirmation());
   }
 
   @Bean
@@ -89,7 +89,7 @@ public class RabbitMQConfiguration {
   ) {
     return BindingBuilder.bind(paymentRequestQueue)
       .to(paymentExchange)
-      .with(this.routingKeyProperties.bookingRoom());
+      .with(this.routingKeyProperties.paymentRequest());
   }
 
   @Bean
@@ -99,7 +99,7 @@ public class RabbitMQConfiguration {
   ) {
     return BindingBuilder.bind(paymentConfirmationQueue)
       .to(paymentExchange)
-      .with(this.routingKeyProperties.payment());
+      .with(this.routingKeyProperties.paymentConfirmation());
   }
 
   @Bean

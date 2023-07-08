@@ -24,11 +24,11 @@ public class BookingRoomRequestedPublisherImpl implements BookingRoomRequestedPu
         "Publishing event: {} to exchange={} | routingKey={}",
         event,
         this.exchangeProperties.bookingRoom(),
-        this.routingKeyProperties.bookingRoom()
+        this.routingKeyProperties.bookingRoomRequested()
       );
       this.rabbitTemplate.convertAndSend(
         this.exchangeProperties.bookingRoom(),
-        this.routingKeyProperties.bookingRoom(),
+        this.routingKeyProperties.bookingRoomRequested(),
         event
       );
     } catch (final Exception exception) {
@@ -36,7 +36,7 @@ public class BookingRoomRequestedPublisherImpl implements BookingRoomRequestedPu
         "Failed to publish event: {} to exchange={} | routingKey={}",
         event,
         this.exchangeProperties.bookingRoom(),
-        this.routingKeyProperties.bookingRoom(),
+        this.routingKeyProperties.bookingRoomRequested(),
         exception
       );
     }
