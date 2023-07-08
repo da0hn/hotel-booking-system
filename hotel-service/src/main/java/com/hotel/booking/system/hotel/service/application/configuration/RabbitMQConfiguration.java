@@ -1,5 +1,6 @@
 package com.hotel.booking.system.hotel.service.application.configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hotel.booking.system.hotel.service.application.configuration.properties.ExchangeProperties;
 import com.hotel.booking.system.hotel.service.application.configuration.properties.QueueProperties;
 import com.hotel.booking.system.hotel.service.application.configuration.properties.RoutingKeyProperties;
@@ -112,7 +113,7 @@ public class RabbitMQConfiguration {
   }
 
   @Bean
-  public MessageConverter jsonMessageConverter() {
-    return new Jackson2JsonMessageConverter();
+  public MessageConverter jsonMessageConverter(final ObjectMapper objectMapper) {
+    return new Jackson2JsonMessageConverter(objectMapper);
   }
 }
