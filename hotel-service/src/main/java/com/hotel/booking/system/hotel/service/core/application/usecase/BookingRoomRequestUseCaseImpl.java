@@ -92,18 +92,25 @@ public class BookingRoomRequestUseCaseImpl implements BookingRoomRequestUseCase 
         .status(ReservationStatus.AWAITING_RESERVATION)
         .rooms(
           input.rooms().stream()
-            .map(r ->
-              BookingRoomInitiatedItem.builder()
-                .roomId(r.roomId())
-                .quantity(r.roomQuantity())
-                .price(null)
-                .build()
+            .map(r -> BookingRoomInitiatedItem.builder()
+              .roomId(r.roomId())
+              .quantity(r.roomQuantity())
+              .price(this.getItemPrice(r, rooms).getValue())
+              .build()
             )
             .collect(Collectors.toList())
         )
         .build()
     );
     return new BookingRoomOutput(reservationOrderId.getValue());
+  }
+
+  private Money getItemPrice(final BookRoomItemInput room, final Collection<? extends Room> rooms) {
+    return rooms.stream()
+      .filter(r -> r.getId().getValue().toString().equals(room.roomId()))
+      .map(Room::getCurrentPrice)
+      .findFirst()
+      .orElseThrow(() -> new HotelDomainException(ApplicationMessage.HOTEL_ROOM_NOT_FOUND));
   }
 
   private void validateGuest(final BookingRoomInput input, final Collection<? extends Room> rooms) {
