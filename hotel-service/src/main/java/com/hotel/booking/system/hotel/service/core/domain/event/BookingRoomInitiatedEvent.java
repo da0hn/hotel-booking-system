@@ -5,6 +5,8 @@ import com.hotel.booking.system.hotel.service.core.domain.valueobject.Reservatio
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -26,5 +28,10 @@ public class BookingRoomInitiatedEvent implements Event {
   private final LocalDate checkOut;
   private final ReservationStatus status;
   private final List<BookingRoomInitiatedItem> rooms;
+
+  @Override
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+  }
 
 }
