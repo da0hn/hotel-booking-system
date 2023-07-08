@@ -1,11 +1,11 @@
 package com.hotel.booking.system.hotel.service.application.configuration;
 
 import com.hotel.booking.system.hotel.service.core.application.mapper.HotelUseCaseMapperImpl;
-import com.hotel.booking.system.hotel.service.core.application.usecase.BookingRoomRequestedUseCaseImpl;
+import com.hotel.booking.system.hotel.service.core.application.usecase.BookingRoomRequestUseCaseImpl;
 import com.hotel.booking.system.hotel.service.core.application.usecase.RegisterHotelUseCaseImpl;
 import com.hotel.booking.system.hotel.service.core.application.usecase.SearchHotelAvailableUseCaseImpl;
 import com.hotel.booking.system.hotel.service.core.ports.api.mapper.HotelUseCaseMapper;
-import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoomRequestedUseCase;
+import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoomRequestUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.RegisterHotelUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.SearchHotelAvailableUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.BookingRoomRequestedPublisher;
@@ -41,12 +41,12 @@ public class HotelUseCaseConfiguration {
   }
 
   @Bean
-  public BookingRoomRequestedUseCase bookingRoomRequestedUseCase(
+  public BookingRoomRequestUseCase bookingRoomRequestedUseCase(
     final HotelRepository hotelRepository,
     final CustomerBookingRoomUpdatePublisher customerBookingRoomUpdatePublisher,
     final BookingRoomRequestedPublisher bookingRoomRequestedPublisher
   ) {
-    return new BookingRoomRequestedUseCaseImpl(
+    return new BookingRoomRequestUseCaseImpl(
       hotelRepository,
       customerBookingRoomUpdatePublisher,
       bookingRoomRequestedPublisher

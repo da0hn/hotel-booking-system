@@ -1,8 +1,8 @@
 package com.hotel.booking.system.hotel.service.core.application.usecase;
 
 import com.hotel.booking.system.commons.core.message.ApplicationMessage;
-import com.hotel.booking.system.hotel.service.core.application.dto.BookRoomInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.BookRoomItemInput;
+import com.hotel.booking.system.hotel.service.core.application.dto.BookingRoomInput;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Room;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Rooms;
 import com.hotel.booking.system.hotel.service.core.domain.event.BookingRoomInitiatedEvent;
@@ -11,7 +11,7 @@ import com.hotel.booking.system.hotel.service.core.domain.exception.HotelDomainE
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.Money;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.ReservationStatus;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.RoomId;
-import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoomRequestedUseCase;
+import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoomRequestUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.BookingRoomRequestedPublisher;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.CustomerBookingRoomUpdatePublisher;
 import com.hotel.booking.system.hotel.service.core.ports.spi.repository.HotelRepository;
@@ -34,7 +34,7 @@ import java.util.Set;
 @Tags({@Tag("unit")})
 @DisplayName("Book Room use case tests")
 @ExtendWith(MockitoExtension.class)
-class BookingRoomRequestedUseCaseTest {
+class BookingRoomRequestUseCaseTest {
 
   public static final Money CURRENT_PRICE_250 = Money.of(250);
   public static final Money CURRENT_PRICE_500 = Money.of(500);
@@ -44,7 +44,7 @@ class BookingRoomRequestedUseCaseTest {
   private static final String ROOM_ID_1 = "030bac34-af07-43ac-a708-6fb309e88ace";
   private static final String ROOM_ID_2 = "d86d17a0-1819-4cb0-9562-0fcf7480110f";
   private static final String CUSTOMER_ID = "4daa2569-3012-455c-9ded-291b45118810";
-  private BookingRoomRequestedUseCase sut;
+  private BookingRoomRequestUseCase sut;
   @Mock
   private HotelRepository hotelRepository;
   @Mock
@@ -54,7 +54,7 @@ class BookingRoomRequestedUseCaseTest {
 
   @BeforeEach
   void setUp() {
-    this.sut = new BookingRoomRequestedUseCaseImpl(
+    this.sut = new BookingRoomRequestUseCaseImpl(
       this.hotelRepository,
       this.customerBookingRoomUpdatePublisher,
       this.bookingRoomRequestedPublisher
@@ -81,7 +81,7 @@ class BookingRoomRequestedUseCaseTest {
       .findAllRoomsById(Mockito.any());
 
     final var output = this.sut.execute(
-      BookRoomInput.builder()
+      BookingRoomInput.builder()
         .customerId(CUSTOMER_ID)
         .checkIn(LocalDate.now().minusDays(10))
         .checkOut(LocalDate.now().plusDays(5))
@@ -127,7 +127,7 @@ class BookingRoomRequestedUseCaseTest {
       .when(this.hotelRepository)
       .findAllRoomsById(Mockito.any());
 
-    final var input = BookRoomInput.builder()
+    final var input = BookingRoomInput.builder()
       .customerId(CUSTOMER_ID)
       .checkIn(LocalDate.now().minusDays(10))
       .checkOut(LocalDate.now().plusDays(5))
@@ -168,7 +168,7 @@ class BookingRoomRequestedUseCaseTest {
       .when(this.hotelRepository)
       .findAllRoomsById(Mockito.any());
 
-    final var input = BookRoomInput.builder()
+    final var input = BookingRoomInput.builder()
       .customerId(CUSTOMER_ID)
       .checkIn(LocalDate.now().minusDays(10))
       .checkOut(LocalDate.now().plusDays(5))
@@ -215,7 +215,7 @@ class BookingRoomRequestedUseCaseTest {
       .findAllRoomsById(Mockito.any());
 
     final var output = this.sut.execute(
-      BookRoomInput.builder()
+      BookingRoomInput.builder()
         .customerId(CUSTOMER_ID)
         .checkIn(LocalDate.now().minusDays(10))
         .checkOut(LocalDate.now().plusDays(5))
@@ -269,7 +269,7 @@ class BookingRoomRequestedUseCaseTest {
       .when(this.hotelRepository)
       .findAllRoomsById(Mockito.any());
 
-    final var input = BookRoomInput.builder()
+    final var input = BookingRoomInput.builder()
       .customerId(CUSTOMER_ID)
       .checkIn(LocalDate.now().minusDays(10))
       .checkOut(LocalDate.now().plusDays(5))
@@ -318,7 +318,7 @@ class BookingRoomRequestedUseCaseTest {
       .findAllRoomsById(Mockito.any());
 
     final var output = this.sut.execute(
-      BookRoomInput.builder()
+      BookingRoomInput.builder()
         .customerId(CUSTOMER_ID)
         .checkIn(LocalDate.now().minusDays(10))
         .checkOut(LocalDate.now().plusDays(5))
@@ -373,7 +373,7 @@ class BookingRoomRequestedUseCaseTest {
       .findAllRoomsById(Mockito.any());
 
     this.sut.execute(
-      BookRoomInput.builder()
+      BookingRoomInput.builder()
         .customerId(CUSTOMER_ID)
         .checkIn(LocalDate.now().minusDays(10))
         .checkOut(LocalDate.now().plusDays(5))
@@ -431,7 +431,7 @@ class BookingRoomRequestedUseCaseTest {
       .findAllRoomsById(Mockito.any());
 
     this.sut.execute(
-      BookRoomInput.builder()
+      BookingRoomInput.builder()
         .customerId(CUSTOMER_ID)
         .checkIn(LocalDate.now().minusDays(10))
         .checkOut(LocalDate.now().plusDays(5))

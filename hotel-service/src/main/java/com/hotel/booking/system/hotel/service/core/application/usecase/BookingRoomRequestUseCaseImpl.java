@@ -1,9 +1,9 @@
 package com.hotel.booking.system.hotel.service.core.application.usecase;
 
 import com.hotel.booking.system.commons.core.message.ApplicationMessage;
-import com.hotel.booking.system.hotel.service.core.application.dto.BookRoomInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.BookRoomItemInput;
-import com.hotel.booking.system.hotel.service.core.application.dto.BookRoomOutput;
+import com.hotel.booking.system.hotel.service.core.application.dto.BookingRoomInput;
+import com.hotel.booking.system.hotel.service.core.application.dto.BookingRoomOutput;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Room;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Rooms;
 import com.hotel.booking.system.hotel.service.core.domain.event.BookingRoomInitiatedEvent;
@@ -15,7 +15,7 @@ import com.hotel.booking.system.hotel.service.core.domain.valueobject.Money;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.ReservationOrderId;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.ReservationStatus;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.RoomId;
-import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoomRequestedUseCase;
+import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoomRequestUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.BookingRoomRequestedPublisher;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.CustomerBookingRoomUpdatePublisher;
 import com.hotel.booking.system.hotel.service.core.ports.spi.repository.HotelRepository;
@@ -28,14 +28,14 @@ import java.util.Optional;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
-public class BookingRoomRequestedUseCaseImpl implements BookingRoomRequestedUseCase {
+public class BookingRoomRequestUseCaseImpl implements BookingRoomRequestUseCase {
 
   private static final BinaryOperator<Integer> BINARY_FUNCTION_IDENTITY = (currentValue, newValue) -> currentValue;
   private final HotelRepository hotelRepository;
   private final CustomerBookingRoomUpdatePublisher customerBookingRoomUpdatePublisher;
   private final BookingRoomRequestedPublisher bookingRoomRequestedPublisher;
 
-  public BookingRoomRequestedUseCaseImpl(
+  public BookingRoomRequestUseCaseImpl(
     final HotelRepository hotelRepository,
     final CustomerBookingRoomUpdatePublisher customerBookingRoomUpdatePublisher,
     final BookingRoomRequestedPublisher bookingRoomRequestedPublisher
@@ -45,7 +45,7 @@ public class BookingRoomRequestedUseCaseImpl implements BookingRoomRequestedUseC
     this.hotelRepository = hotelRepository;
   }
 
-  private List<RoomId> mapToRoomIds(final BookRoomInput input) {
+  private List<RoomId> mapToRoomIds(final BookingRoomInput input) {
     return input.rooms().stream()
       .map(BookRoomItemInput::roomId)
       .map(RoomId::of)
@@ -53,7 +53,7 @@ public class BookingRoomRequestedUseCaseImpl implements BookingRoomRequestedUseC
   }
 
   @Override
-  public BookRoomOutput execute(final BookRoomInput input) {
+  public BookingRoomOutput execute(final BookingRoomInput input) {
 
     final var rooms = this.hotelRepository.findAllRoomsById(this.mapToRoomIds(input));
     this.validateRooms(input.rooms(), rooms);
@@ -103,10 +103,10 @@ public class BookingRoomRequestedUseCaseImpl implements BookingRoomRequestedUseC
         )
         .build()
     );
-    return new BookRoomOutput(reservationOrderId.getValue());
+    return new BookingRoomOutput(reservationOrderId.getValue());
   }
 
-  private void validateGuest(final BookRoomInput input, final Collection<? extends Room> rooms) {
+  private void validateGuest(final BookingRoomInput input, final Collection<? extends Room> rooms) {
     final var guests = input.guests();
     final var totalRoomCapacity = rooms.stream()
       .mapToInt(Room::getCapacity)

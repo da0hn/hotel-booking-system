@@ -2,7 +2,7 @@ package com.hotel.booking.system.hotel.service.core.application.dto;
 
 import java.util.UUID;
 
-public record BookRoomOutput(
+public record BookingRoomOutput(
   UUID reservationOrderId
 ) {
 }

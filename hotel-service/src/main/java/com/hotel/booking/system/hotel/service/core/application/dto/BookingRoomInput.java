@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Builder
-public record BookRoomInput(
+public record BookingRoomInput(
   String customerId,
   String hotelId,
   @Min(1)

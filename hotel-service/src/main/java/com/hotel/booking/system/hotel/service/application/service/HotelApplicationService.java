@@ -1,5 +1,7 @@
 package com.hotel.booking.system.hotel.service.application.service;
 
+import com.hotel.booking.system.hotel.service.core.application.dto.BookingRoomInput;
+import com.hotel.booking.system.hotel.service.core.application.dto.BookingRoomOutput;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelOutput;
 import com.hotel.booking.system.hotel.service.core.application.dto.SearchHotelAvailableInput;
@@ -14,4 +16,6 @@ public interface HotelApplicationService {
 
 
   List<SearchHotelAvailableOutput> searchHotelAvailableBy(SearchHotelAvailableInput input);
+
+  BookingRoomOutput bookingRoomRequest(BookingRoomInput input);
 }

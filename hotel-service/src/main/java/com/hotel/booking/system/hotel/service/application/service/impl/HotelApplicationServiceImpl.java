@@ -1,10 +1,13 @@
 package com.hotel.booking.system.hotel.service.application.service.impl;
 
 import com.hotel.booking.system.hotel.service.application.service.HotelApplicationService;
+import com.hotel.booking.system.hotel.service.core.application.dto.BookingRoomInput;
+import com.hotel.booking.system.hotel.service.core.application.dto.BookingRoomOutput;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelOutput;
 import com.hotel.booking.system.hotel.service.core.application.dto.SearchHotelAvailableInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.SearchHotelAvailableOutput;
+import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoomRequestUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.RegisterHotelUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.SearchHotelAvailableUseCase;
 import lombok.AllArgsConstructor;
@@ -18,6 +21,7 @@ public class HotelApplicationServiceImpl implements HotelApplicationService {
 
   private final RegisterHotelUseCase registerHotelUseCase;
   private final SearchHotelAvailableUseCase searchHotelAvailableUseCase;
+  private final BookingRoomRequestUseCase bookingRoomRequestUseCase;
 
   @Override
   public RegisterHotelOutput register(final RegisterHotelInput input) {
@@ -28,4 +32,10 @@ public class HotelApplicationServiceImpl implements HotelApplicationService {
   public List<SearchHotelAvailableOutput> searchHotelAvailableBy(final SearchHotelAvailableInput input) {
     return this.searchHotelAvailableUseCase.execute(input);
   }
+
+  @Override
+  public BookingRoomOutput bookingRoomRequest(final BookingRoomInput input) {
+    return this.bookingRoomRequestUseCase.execute(input);
+  }
+
 }

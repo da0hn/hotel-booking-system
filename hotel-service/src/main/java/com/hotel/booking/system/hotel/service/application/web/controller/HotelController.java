@@ -4,13 +4,20 @@ import com.hotel.booking.system.commons.application.dto.CollectionResponse;
 import com.hotel.booking.system.commons.application.dto.Response;
 import com.hotel.booking.system.commons.application.dto.impl.ResponseEntityAdapter;
 import com.hotel.booking.system.hotel.service.application.service.HotelApplicationService;
+import com.hotel.booking.system.hotel.service.core.application.dto.BookingRoomInput;
+import com.hotel.booking.system.hotel.service.core.application.dto.BookingRoomOutput;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.RegisterHotelOutput;
 import com.hotel.booking.system.hotel.service.core.application.dto.SearchHotelAvailableInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.SearchHotelAvailableOutput;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -44,4 +51,12 @@ public class HotelController {
     );
     return ResponseEntityAdapter.items(output);
   }
+
+  @PostMapping("/booking")
+  public ResponseEntity<Response<BookingRoomOutput>> bookingRoom(@RequestBody final BookingRoomInput input) {
+    final var output = this.hotelApplicationService.bookingRoomRequest(input);
+    return ResponseEntityAdapter.of(output);
+  }
+
+
 }
