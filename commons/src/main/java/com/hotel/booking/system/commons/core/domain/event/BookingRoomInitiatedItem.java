@@ -1,4 +1,4 @@
-package com.hotel.booking.system.hotel.service.core.domain.event;
+package com.hotel.booking.system.commons.core.domain.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,12 +6,16 @@ import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.math.BigDecimal;
+
 @Builder
 @Getter
 @AllArgsConstructor
-public class BookingRoomRequestedItem {
+public class BookingRoomInitiatedItem implements Event {
+
   private final String roomId;
-  private final Integer roomQuantity;
+  private final BigDecimal price;
+  private final Integer quantity;
 
   @Override
   public String toString() {
