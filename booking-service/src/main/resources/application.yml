@@ -7,6 +7,11 @@ spring:
   application:
     name: '@name@'
     version: '@revision@'
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:root}
+    password: ${RABBITMQ_PASSWORD:root}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${BOOKING_DB_HOST:localhost}:${BOOKING_DB_PORT:3312}/${BOOKING_DB_NAME:booking_db}?autoReconnect=true&useSSL=false&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2
@@ -17,6 +22,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
+        enable_lazy_load_no_trans: true
         format_sql: true
   flyway:
     url: jdbc:mysql://${BOOKING_DB_HOST:localhost}:${BOOKING_DB_PORT:3312}/${BOOKING_DB_NAME:booking_db}?autoReconnect=true&useSSL=false&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2
@@ -25,9 +31,20 @@ spring:
   docker:
     compose:
       file: '.\docker\common.yml'
-      enabled: ${ENABLE_BUILTIN_DOCKER_COMPOSE:true}
+      enabled: ${ENABLE_BUILTIN_DOCKER_COMPOSE:false}
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+
+app:
+  rabbitmq:
+    exchange:
+      booking-room: exchange.booking-room
+    routing-key:
+      booking-room-requested: routing-key.booking-room-requested
+      booking-room-confirmation: routing-key.booking-room-confirmation
+    queue:
+      booking-room-requested: booking-room-requested
+      booking-room-confirmation: booking-room-confirmation
