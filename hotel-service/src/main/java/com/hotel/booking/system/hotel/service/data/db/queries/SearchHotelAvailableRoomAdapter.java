@@ -1,7 +1,7 @@
 package com.hotel.booking.system.hotel.service.data.db.queries;
 
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
-import com.hotel.booking.system.hotel.service.core.domain.valueobject.RoomId;
+import com.hotel.booking.system.commons.core.domain.valueobject.RoomId;
 import com.hotel.booking.system.hotel.service.core.ports.spi.queries.SearchHotelAvailableRoomQueryResult;
 import com.hotel.booking.system.hotel.service.data.db.entity.RoomEntity;
 
