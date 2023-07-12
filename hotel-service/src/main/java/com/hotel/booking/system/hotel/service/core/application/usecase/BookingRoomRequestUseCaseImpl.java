@@ -5,6 +5,7 @@ import com.hotel.booking.system.commons.core.domain.event.BookingRoomInitiatedIt
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedEvent;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedItem;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
+import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import com.hotel.booking.system.hotel.service.core.application.dto.BookRoomItemInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.BookingRoomInput;
@@ -12,7 +13,6 @@ import com.hotel.booking.system.hotel.service.core.application.dto.BookingRoomOu
 import com.hotel.booking.system.hotel.service.core.domain.entity.Room;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Rooms;
 import com.hotel.booking.system.hotel.service.core.domain.exception.HotelDomainException;
-import com.hotel.booking.system.hotel.service.core.domain.valueobject.Money;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.ReservationOrderId;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.RoomId;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoomRequestUseCase;

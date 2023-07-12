@@ -1,10 +1,19 @@
 package com.hotel.booking.system.hotel.service.core.domain.entity;
 
+import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import com.hotel.booking.system.hotel.service.core.domain.exception.HotelDomainException;
-import com.hotel.booking.system.hotel.service.core.domain.valueobject.*;
+import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelAddress;
+import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelCategoryId;
+import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelId;
+import com.hotel.booking.system.hotel.service.core.domain.valueobject.LocalityId;
+import com.hotel.booking.system.hotel.service.core.domain.valueobject.RoomId;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 

@@ -1,6 +1,6 @@
 package com.hotel.booking.system.hotel.service.core.ports.spi.queries;
 
-import com.hotel.booking.system.hotel.service.core.domain.valueobject.Money;
+import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.RoomId;
 
 

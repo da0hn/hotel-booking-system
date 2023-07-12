@@ -1,10 +1,10 @@
 package com.hotel.booking.system.hotel.service.core.domain.entity;
 
 import com.hotel.booking.system.commons.core.domain.AbstractDomainEntity;
+import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import com.hotel.booking.system.hotel.service.core.domain.exception.HotelDomainException;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelId;
-import com.hotel.booking.system.hotel.service.core.domain.valueobject.Money;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.RoomId;
 import lombok.experimental.SuperBuilder;
 import org.apache.commons.lang3.StringUtils;
