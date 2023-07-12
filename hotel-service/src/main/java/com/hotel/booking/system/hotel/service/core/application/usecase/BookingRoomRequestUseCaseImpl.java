@@ -4,7 +4,7 @@ import com.hotel.booking.system.commons.core.domain.event.BookingRoomInitiatedEv
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomInitiatedItem;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedEvent;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedItem;
-import com.hotel.booking.system.commons.core.domain.valueobject.ReservationStatus;
+import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
 import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import com.hotel.booking.system.hotel.service.core.application.dto.BookRoomItemInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.BookingRoomInput;
@@ -89,7 +89,7 @@ public class BookingRoomRequestUseCaseImpl implements BookingRoomRequestUseCase 
         .totalPrice(this.getTotalPrice(input.rooms(), rooms).getValue())
         .checkIn(input.checkIn())
         .checkOut(input.checkOut())
-        .status(ReservationStatus.AWAITING_RESERVATION)
+        .status(CustomerReservationStatus.AWAITING_RESERVATION)
         .rooms(
           input.rooms().stream()
             .map(r -> BookingRoomInitiatedItem.builder()

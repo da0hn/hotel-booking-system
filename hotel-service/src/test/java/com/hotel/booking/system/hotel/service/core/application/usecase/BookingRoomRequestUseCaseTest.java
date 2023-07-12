@@ -2,7 +2,7 @@ package com.hotel.booking.system.hotel.service.core.application.usecase;
 
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomInitiatedEvent;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedEvent;
-import com.hotel.booking.system.commons.core.domain.valueobject.ReservationStatus;
+import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
 import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import com.hotel.booking.system.hotel.service.core.application.dto.BookRoomItemInput;
 import com.hotel.booking.system.hotel.service.core.application.dto.BookingRoomInput;
@@ -403,8 +403,10 @@ class BookingRoomRequestUseCaseTest {
     Assertions.assertThat(capturedEvent)
       .satisfies(
         event -> Assertions.assertThat(event).isNotNull(),
-        event -> Assertions.assertThat(event.getStatus()).isEqualTo(ReservationStatus.AWAITING_RESERVATION),
-        event -> Assertions.assertThat(event.getCustomerId()).isEqualTo(CUSTOMER_ID),
+        event -> Assertions.assertThat(event.getStatus()).isEqualTo(
+          CustomerReservationStatus.AWAITING_RESERVATION),
+        event -> Assertions.assertThat(event.getCustomerId()).isEqualTo(
+          CUSTOMER_ID),
         event -> Assertions.assertThat(event.getGuests()).isEqualTo(TOTAL_GUESTS),
         event -> Assertions.assertThat(event.getRooms()).hasSize(TOTAL_ROOMS),
         event -> Assertions.assertThat(event.getReservationOrderId()).isNotNull()

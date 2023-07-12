@@ -1,6 +1,6 @@
 package com.hotel.booking.system.commons.core.domain.valueobject;
 
-public enum ReservationStatus {
+public enum CustomerReservationStatus {
 
   AWAITING_RESERVATION,
   RESERVED,

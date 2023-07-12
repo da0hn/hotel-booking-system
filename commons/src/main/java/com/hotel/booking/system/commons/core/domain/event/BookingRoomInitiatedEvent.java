@@ -1,6 +1,6 @@
 package com.hotel.booking.system.commons.core.domain.event;
 
-import com.hotel.booking.system.commons.core.domain.valueobject.ReservationStatus;
+import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class BookingRoomInitiatedEvent implements Event {
   private final Integer guests;
   private final LocalDate checkIn;
   private final LocalDate checkOut;
-  private final ReservationStatus status;
+  private final CustomerReservationStatus status;
   private final List<BookingRoomInitiatedItem> rooms;
 
   @Override
