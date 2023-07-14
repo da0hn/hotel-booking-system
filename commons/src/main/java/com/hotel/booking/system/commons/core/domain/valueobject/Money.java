@@ -43,6 +43,10 @@ public class Money {
     return new Money(this.value.add(money.value));
   }
 
+  public boolean isNotEqual(final Money money) {
+    return this.value.compareTo(money.value) != 0;
+  }
+
   @Override
   public boolean equals(final Object o) {
     if (this == o) return true;
