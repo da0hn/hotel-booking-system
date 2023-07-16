@@ -21,4 +21,8 @@ public class ReservationOrderId extends AbstractDomainEntityId<UUID> {
     return new ReservationOrderId(UUID.fromString(rawValue));
   }
 
+  @Override
+  public String toString() {
+    return this.value.toString();
+  }
 }
