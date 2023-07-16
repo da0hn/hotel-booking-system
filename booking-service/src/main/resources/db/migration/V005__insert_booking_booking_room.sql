@@ -1,6 +1,7 @@
-INSERT INTO booking (id, customer_id, check_in, check_out, status, total_price)
+INSERT INTO booking (id, customer_id, reservation_order_id, check_in, check_out, status, total_price)
 VALUES ('1faf397b-5eb8-4be4-92d7-22cbd476dad3',
         '4853e28a-90bc-4700-9909-9b0e799e72b4',
+        'e2ee501c-9c7e-42ee-8896-a13b2e2713d1',
         '2023-06-15',
         '2023-06-25',
         'CONFIRMED',
@@ -13,9 +14,10 @@ VALUES ('67ae1944-6e40-4c6a-9c9c-5c415b811c90',
         456.0,
         1);
 
-INSERT INTO booking (id, customer_id, check_in, check_out, status, total_price)
+INSERT INTO booking (id, customer_id, reservation_order_id, check_in, check_out, status, total_price)
 VALUES ('4df75ab0-91f1-4b95-bedb-61c0863e2d4b',
         '1844738a-e16c-4807-b99f-b6fbef2272f6',
+        '35058e6b-5cce-41bd-a074-ceaac6b86658',
         '2023-07-01',
         '2023-07-12',
         'CONFIRMED',
@@ -35,9 +37,10 @@ VALUES ('3344d44b-608e-4157-9a4e-a40b0238ff2a',
         458.0,
         1);
 
-INSERT INTO booking (id, customer_id, check_in, check_out, status, total_price)
+INSERT INTO booking (id, customer_id, reservation_order_id, check_in, check_out, status, total_price)
 VALUES ('c922da13-0dc9-4f8d-9b7e-2de53e594f8a',
         'fd0822fd-dc24-41f6-ab12-5b5f69e59318',
+        '2eb26683-1760-4d6c-a457-5a4cfea6a5b6',
         '2023-07-13',
         '2023-07-20',
         'CONFIRMED',
