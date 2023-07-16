@@ -47,7 +47,10 @@ public class BookingRoomUseCaseImpl implements BookingRoomUseCase {
   private void verifyRoomAvailability(final Booking booking, final FailureMessages failureMessages) {
     log.info("Verifying rooms availability reservationOrderId={}", booking.getReservationOrderId());
     for (final var bookingRoom : booking.getBookingRooms()) {
-      final var bookings = this.bookingRepository.findBookingByRoomId(bookingRoom.getRoomId());
+      final var bookings = this.bookingRepository.findBookingByRoomIdAndPeriod(
+        bookingRoom.getRoomId(),
+        booking.getBookingPeriod()
+      );
       final var bookingConflicts = bookings.stream()
         .filter(item -> booking.isBookingPeriodContainedIn(item.getBookingPeriod()))
         .toList();
