@@ -31,7 +31,7 @@ spring:
   docker:
     compose:
       file: '.\docker\common.yml'
-      enabled: ${ENABLE_BUILTIN_DOCKER_COMPOSE:true}
+      enabled: ${ENABLE_BUILTIN_DOCKER_COMPOSE:false}
 management:
   endpoints:
     web:
