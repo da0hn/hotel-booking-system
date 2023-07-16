@@ -8,6 +8,7 @@
 .env
 !.env.example
 *.iml
+.jpb
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
