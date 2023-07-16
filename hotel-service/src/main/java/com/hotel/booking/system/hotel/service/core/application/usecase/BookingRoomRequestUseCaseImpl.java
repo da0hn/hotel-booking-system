@@ -75,6 +75,7 @@ public class BookingRoomRequestUseCaseImpl implements BookingRoomRequestUseCase 
               BookingRoomRequestedItem.builder()
                 .roomId(r.roomId())
                 .roomQuantity(r.roomQuantity())
+                .roomPrice(this.getItemPrice(r, rooms).getValue())
                 .build()
             )
             .collect(Collectors.toList())

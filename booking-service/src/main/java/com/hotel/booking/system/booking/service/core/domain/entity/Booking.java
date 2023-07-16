@@ -93,4 +93,20 @@ public class Booking extends AbstractDomainEntity<BookingId> {
   public List<BookingRoom> getBookingRooms() {
     return this.bookingRooms;
   }
+
+  public BookingPeriod getBookingPeriod() {
+    return this.bookingPeriod;
+  }
+
+  public boolean isBookingPeriodContainedIn(final BookingPeriod period) {
+    return this.bookingPeriod.isContainedIn(period);
+  }
+
+  public CustomerId getCustomerId() {
+    return this.customerId;
+  }
+
+  public ReservationOrderId getReservationOrderId() {
+    return this.reservationOrderId;
+  }
 }

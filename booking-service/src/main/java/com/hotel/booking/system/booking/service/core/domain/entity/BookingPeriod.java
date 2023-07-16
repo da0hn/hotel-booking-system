@@ -6,10 +6,12 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class BookingPeriod {
 
+  private static final DateTimeFormatter DD_MM_YYYY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
   private final LocalDate checkIn;
   private final LocalDate checkOut;
 
@@ -85,5 +87,9 @@ public class BookingPeriod {
   @Override
   public String toString() {
     return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+  }
+
+  public String periodAsString() {
+    return this.checkIn.format(DD_MM_YYYY) + " - " + this.checkOut.format(DD_MM_YYYY);
   }
 }
