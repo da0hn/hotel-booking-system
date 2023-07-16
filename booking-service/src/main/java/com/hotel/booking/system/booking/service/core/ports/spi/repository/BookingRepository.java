@@ -6,6 +6,7 @@ import com.hotel.booking.system.commons.core.domain.valueobject.RoomId;
 
 import java.util.List;
 
+@FunctionalInterface
 public interface BookingRepository {
 
   List<Booking> findBookingByRoomIdAndPeriod(RoomId roomId, BookingPeriod bookingPeriod);
