@@ -89,7 +89,6 @@ public class Booking extends AbstractDomainEntity<BookingId> {
     }
   }
 
-
   public List<BookingRoom> getBookingRooms() {
     return this.bookingRooms;
   }
@@ -108,5 +107,13 @@ public class Booking extends AbstractDomainEntity<BookingId> {
 
   public ReservationOrderId getReservationOrderId() {
     return this.reservationOrderId;
+  }
+
+  public Money getTotalPrice() {
+    return this.totalPrice;
+  }
+
+  public BookingStatus getStatus() {
+    return this.status;
   }
 }

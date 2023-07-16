@@ -2,6 +2,7 @@ package com.hotel.booking.system.booking.service.core.application.usecase;
 
 import com.hotel.booking.system.booking.service.core.application.dto.BookingRoomInput;
 import com.hotel.booking.system.booking.service.core.application.dto.BookingRoomOutput;
+import com.hotel.booking.system.booking.service.core.application.service.BookingInitializer;
 import com.hotel.booking.system.booking.service.core.domain.entity.Booking;
 import com.hotel.booking.system.booking.service.core.ports.api.mapper.BookingUseCaseMapper;
 import com.hotel.booking.system.booking.service.core.ports.api.usecase.BookingRoomUseCase;
@@ -17,26 +18,28 @@ public class BookingRoomUseCaseImpl implements BookingRoomUseCase {
   private static final String BOOKING_CONFLICT_TEMPLATE_MESSAGE = "Booking conflict: The Room {0} is already booked for period {1}";
   private final BookingRepository bookingRepository;
   private final BookingUseCaseMapper mapper;
+  private final BookingInitializer bookingInitializer;
 
   public BookingRoomUseCaseImpl(
     final BookingRepository bookingRepository,
-    final BookingUseCaseMapper mapper
+    final BookingUseCaseMapper mapper,
+    final BookingInitializer bookingInitializer
   ) {
     this.bookingRepository = bookingRepository;
     this.mapper = mapper;
+    this.bookingInitializer = bookingInitializer;
   }
 
-  private void initializeAndValidate(final Booking booking) {
-    log.info("Initializing and validating Booking reservationOrderId={}", booking.getReservationOrderId());
-    booking.initialize();
-    booking.validate();
+  private void initializeAndValidate(final Booking booking, final FailureMessages failureMessages) {
+    final var collectedFailureMessages = this.bookingInitializer.execute(booking);
+    failureMessages.addAll(collectedFailureMessages);
   }
 
   @Override
   public BookingRoomOutput execute(final BookingRoomInput input) {
     final var booking = this.mapper.bookingRoomInputToBooking(input);
     final var failureMessages = FailureMessages.empty();
-    this.initializeAndValidate(booking);
+    this.initializeAndValidate(booking, failureMessages);
     this.verifyRoomAvailability(booking, failureMessages);
     if (failureMessages.isNotEmpty()) {
       return null;

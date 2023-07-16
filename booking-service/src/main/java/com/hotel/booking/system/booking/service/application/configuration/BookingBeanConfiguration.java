@@ -2,6 +2,7 @@ package com.hotel.booking.system.booking.service.application.configuration;
 
 import com.hotel.booking.system.booking.service.core.application.mapper.BookingUseCaseMapperImpl;
 import com.hotel.booking.system.booking.service.core.application.messaging.BookingRoomRequestedHandlerImpl;
+import com.hotel.booking.system.booking.service.core.application.service.BookingInitializer;
 import com.hotel.booking.system.booking.service.core.application.usecase.BookingRoomUseCaseImpl;
 import com.hotel.booking.system.booking.service.core.ports.api.mapper.BookingUseCaseMapper;
 import com.hotel.booking.system.booking.service.core.ports.api.messaging.BookingRoomRequestedHandler;
@@ -27,12 +28,19 @@ public class BookingBeanConfiguration {
   @Bean
   public BookingRoomUseCase bookingRoomUseCase(
     final BookingRepository bookingRepository,
-    final BookingUseCaseMapper bookingUseCaseMapper
+    final BookingUseCaseMapper bookingUseCaseMapper,
+    final BookingInitializer bookingInitializer
   ) {
     return new BookingRoomUseCaseImpl(
       bookingRepository,
-      bookingUseCaseMapper
+      bookingUseCaseMapper,
+      bookingInitializer
     );
+  }
+
+  @Bean
+  public BookingInitializer bookingInitializer() {
+    return new BookingInitializer();
   }
 
   @Bean
