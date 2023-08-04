@@ -1,5 +1,6 @@
 package com.hotel.booking.system.hotel.service.data.db.mapper.impl;
 
+import com.hotel.booking.system.commons.core.domain.valueobject.HotelId;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.domain.valueobject.RoomId;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Hotel;
@@ -7,7 +8,6 @@ import com.hotel.booking.system.hotel.service.core.domain.entity.Room;
 import com.hotel.booking.system.hotel.service.core.domain.entity.Rooms;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelAddress;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelCategoryId;
-import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelId;
 import com.hotel.booking.system.hotel.service.core.domain.valueobject.LocalityId;
 import com.hotel.booking.system.hotel.service.core.ports.spi.queries.SearchHotelAvailableQueryResult;
 import com.hotel.booking.system.hotel.service.data.db.entity.HotelCategoryEntity;

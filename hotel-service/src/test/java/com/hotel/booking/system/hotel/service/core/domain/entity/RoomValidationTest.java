@@ -1,8 +1,8 @@
 package com.hotel.booking.system.hotel.service.core.domain.entity;
 
+import com.hotel.booking.system.commons.core.domain.valueobject.HotelId;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.message.ApplicationMessage;
-import com.hotel.booking.system.hotel.service.core.domain.valueobject.HotelId;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
