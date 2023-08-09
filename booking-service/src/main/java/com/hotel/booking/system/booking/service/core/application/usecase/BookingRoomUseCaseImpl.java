@@ -7,6 +7,7 @@ import com.hotel.booking.system.booking.service.core.domain.entity.Booking;
 import com.hotel.booking.system.booking.service.core.ports.api.mapper.BookingUseCaseMapper;
 import com.hotel.booking.system.booking.service.core.ports.api.usecase.BookingRoomUseCase;
 import com.hotel.booking.system.booking.service.core.ports.spi.repository.BookingRepository;
+import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
 import com.hotel.booking.system.commons.core.domain.valueobject.FailureMessages;
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,12 +43,20 @@ public class BookingRoomUseCaseImpl implements BookingRoomUseCase {
     this.initializeAndValidate(booking, failureMessages);
     this.verifyRoomAvailability(booking, failureMessages);
     if (failureMessages.isNotEmpty()) {
-      return null;
+      return new BookingRoomOutput(booking, CustomerReservationStatus.RESERVATION_FAILED, failureMessages);
     }
-    return null;
+    this.bookingRepository.save(booking);
+    return new BookingRoomOutput(booking, CustomerReservationStatus.AWAITING_PAYMENT, failureMessages);
   }
 
   private void verifyRoomAvailability(final Booking booking, final FailureMessages failureMessages) {
+    /*
+     * TODO: implementar a consulta por disponibilidade utilizando o periodo de estadia e a quantidade de quartos
+     *   disponíveis.
+     *   - A regra de negócio deve considerar como indisponível um quarto que possui todas suas unidades (quantidade)
+     *   agendadas para o periodo informado.
+     *   - Mover essa regra de negócio para um componente separado.
+     * */
     log.info("Verifying rooms availability reservationOrderId={}", booking.getReservationOrderId());
     for (final var bookingRoom : booking.getBookingRooms()) {
       final var bookings = this.bookingRepository.findBookingByRoomIdAndPeriod(
