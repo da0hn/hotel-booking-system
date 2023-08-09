@@ -26,7 +26,8 @@ public class Booking extends AbstractDomainEntity<BookingId> {
 
   public Booking(
     final BookingId id,
-    final ReservationOrderId reservationOrderId, final CustomerId customerId,
+    final ReservationOrderId reservationOrderId,
+    final CustomerId customerId,
     final BookingPeriod bookingPeriod,
     final Money totalPrice,
     final List<BookingRoom> bookingRooms,
