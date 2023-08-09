@@ -25,4 +25,8 @@ public class CustomerId extends AbstractDomainEntityId<UUID> {
     return new CustomerId(UUID.fromString(rawValue));
   }
 
+  @Override
+  public String toString() {
+    return this.value.toString();
+  }
 }
