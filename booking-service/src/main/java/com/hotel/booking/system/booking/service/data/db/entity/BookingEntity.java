@@ -1,6 +1,7 @@
 package com.hotel.booking.system.booking.service.data.db.entity;
 
 import com.hotel.booking.system.booking.service.core.domain.valueobject.BookingStatus;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -72,7 +73,7 @@ public class BookingEntity {
   @Column(name = "updated_at")
   private Instant updatedAt;
 
-  @OneToMany(mappedBy = "booking")
+  @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<BookingRoomEntity> bookingRooms = new LinkedHashSet<>();
 
   @PrePersist
