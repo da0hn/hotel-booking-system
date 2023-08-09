@@ -30,4 +30,10 @@ public class BookingRepositoryAdapter implements BookingRepository {
       .map(this.bookingDatabaseMapper::bookingEntityToBooking)
       .collect(Collectors.toList());
   }
+
+  @Override
+  public void save(final Booking booking) {
+    final var bookingEntity = this.bookingDatabaseMapper.bookingToBookingEntity(booking);
+    this.bookingJpaRepository.save(bookingEntity);
+  }
 }
