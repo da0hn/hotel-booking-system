@@ -1,4 +1,4 @@
-package com.hotel.booking.system.booking.service.core.ports.spi.messaging;
+package com.hotel.booking.system.booking.service.core.ports.spi.messaging.listener;
 
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedEvent;
 
