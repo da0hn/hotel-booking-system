@@ -3,7 +3,7 @@ package com.hotel.booking.system.hotel.service.data.messaging.publisher;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedEvent;
 import com.hotel.booking.system.hotel.service.application.configuration.properties.ExchangeProperties;
 import com.hotel.booking.system.hotel.service.application.configuration.properties.RoutingKeyProperties;
-import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.BookingRoomRequestedPublisher;
+import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.BookingRoomRequestedPublisher;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

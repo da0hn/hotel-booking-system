@@ -8,8 +8,8 @@ import com.hotel.booking.system.hotel.service.core.ports.api.mapper.HotelUseCase
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoomRequestUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.RegisterHotelUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.SearchHotelAvailableUseCase;
-import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.BookingRoomRequestedPublisher;
-import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.CustomerBookingRoomUpdatePublisher;
+import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.BookingRoomRequestedPublisher;
+import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.CustomerBookingRoomUpdatePublisher;
 import com.hotel.booking.system.hotel.service.core.ports.spi.repository.HotelRepository;
 import com.hotel.booking.system.hotel.service.core.ports.spi.repository.LocalityRepository;
 import org.springframework.context.annotation.Bean;
