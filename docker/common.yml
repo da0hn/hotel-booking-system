@@ -55,6 +55,7 @@ services:
     image: rabbitmq:3-management
     container_name: hotel-booking-system-queue
     hostname: hotel-booking-system-queue
+    restart: on-failure
     ports:
       - '5672:5672'
       - '25676:25676'
