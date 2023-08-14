@@ -8,8 +8,8 @@ import com.hotel.booking.system.booking.service.core.domain.entity.BookingPeriod
 import com.hotel.booking.system.booking.service.core.domain.entity.BookingRoom;
 import com.hotel.booking.system.booking.service.core.ports.api.mapper.BookingUseCaseMapper;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomFailedEvent;
+import com.hotel.booking.system.commons.core.domain.event.BookingRoomItemRepresentation;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomPendingEvent;
-import com.hotel.booking.system.commons.core.domain.event.BookingRoomRepresentation;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedEvent;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerId;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
@@ -100,8 +100,8 @@ public class BookingUseCaseMapperImpl implements BookingUseCaseMapper {
       .build();
   }
 
-  private BookingRoomRepresentation bookingRoomItemInputToBookingRoom(final BookingRoom bookingRoom) {
-    return BookingRoomRepresentation.builder()
+  private BookingRoomItemRepresentation bookingRoomItemInputToBookingRoom(final BookingRoom bookingRoom) {
+    return BookingRoomItemRepresentation.builder()
       .roomId(bookingRoom.getRoomId().toString())
       .quantity(bookingRoom.getQuantity())
       .price(bookingRoom.getPrice().getValue())

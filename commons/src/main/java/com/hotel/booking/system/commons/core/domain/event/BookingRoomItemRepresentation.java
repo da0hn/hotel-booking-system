@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @Builder
 @Getter
 @AllArgsConstructor
-public class BookingRoomInitiatedItem implements Event {
+public class BookingRoomItemRepresentation implements Event {
 
   private final String roomId;
   private final BigDecimal price;

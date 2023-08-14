@@ -1,7 +1,7 @@
 package com.hotel.booking.system.hotel.service.core.application.usecase;
 
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomInitiatedEvent;
-import com.hotel.booking.system.commons.core.domain.event.BookingRoomInitiatedItem;
+import com.hotel.booking.system.commons.core.domain.event.BookingRoomItemRepresentation;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedEvent;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedItem;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
@@ -93,7 +93,7 @@ public class BookingRoomRequestUseCaseImpl implements BookingRoomRequestUseCase 
         .status(CustomerReservationStatus.AWAITING_RESERVATION)
         .rooms(
           input.rooms().stream()
-            .map(r -> BookingRoomInitiatedItem.builder()
+            .map(r -> BookingRoomItemRepresentation.builder()
               .roomId(r.roomId())
               .quantity(r.roomQuantity())
               .price(this.getItemPrice(r, rooms).getValue())

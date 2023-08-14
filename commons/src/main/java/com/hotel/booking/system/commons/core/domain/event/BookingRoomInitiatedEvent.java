@@ -26,7 +26,7 @@ public final class BookingRoomInitiatedEvent extends BookingRoomStatusUpdatedEve
   private final LocalDate checkIn;
   private final LocalDate checkOut;
   private final CustomerReservationStatus status;
-  private final List<BookingRoomInitiatedItem> rooms;
+  private final List<BookingRoomItemRepresentation> rooms;
 
   @Override
   public String toString() {

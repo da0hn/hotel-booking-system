@@ -26,7 +26,7 @@ public non-sealed class BookingRoomPendingEvent extends BookingRoomResponseEvent
     private final LocalDate checkIn;
     private final LocalDate checkOut;
     private final CustomerReservationStatus status;
-    private final List<BookingRoomRepresentation> rooms;
+    private final List<BookingRoomItemRepresentation> rooms;
 
 
     @Override
