@@ -24,7 +24,7 @@ public class BookingRoomRequestedEvent implements Event {
   private final Integer guests;
   private final LocalDate checkIn;
   private final LocalDate checkOut;
-  private final List<BookingRoomRequestedItem> rooms;
+  private final List<BookingRoomItemRepresentation> rooms;
 
   @Override
   public String toString() {

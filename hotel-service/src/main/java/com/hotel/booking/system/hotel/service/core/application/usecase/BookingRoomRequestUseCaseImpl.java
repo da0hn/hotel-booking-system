@@ -3,7 +3,6 @@ package com.hotel.booking.system.hotel.service.core.application.usecase;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomInitiatedEvent;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomItemRepresentation;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedEvent;
-import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedItem;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrderId;
@@ -72,10 +71,10 @@ public class BookingRoomRequestUseCaseImpl implements BookingRoomRequestUseCase 
         .rooms(
           input.rooms().stream()
             .map(r ->
-              BookingRoomRequestedItem.builder()
+              BookingRoomItemRepresentation.builder()
                 .roomId(r.roomId())
-                .roomQuantity(r.roomQuantity())
-                .roomPrice(this.getItemPrice(r, rooms).getValue())
+                .quantity(r.roomQuantity())
+                .price(this.getItemPrice(r, rooms).getValue())
                 .build()
             )
             .collect(Collectors.toList())
