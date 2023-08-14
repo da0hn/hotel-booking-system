@@ -45,8 +45,8 @@ public class BookingUseCaseMapperImpl implements BookingUseCaseMapper {
         event.getRooms().stream()
           .map(item -> new BookingRoomItemInput(
               item.getRoomId(),
-              item.getRoomQuantity(),
-              item.getRoomPrice()
+            item.getQuantity(),
+            item.getPrice()
             )
           )
           .collect(Collectors.toList())
