@@ -16,6 +16,7 @@ public class BookingRoomResponseHandlerImpl implements BookingRoomResponseHandle
       case final BookingRoomPendingEvent e -> {
         // TODO: enviar mensagem para o serviço do cliente (customer-service)
         log.info("Booking room pending, notifying customer service | reservationOrderId={}", e.getReservationOrderId());
+
         // TODO: enviar mensagem para o serviço de pagamento (payment-service)
         log.info("Booking room pending, requesting for payment | reservationOrderId={}", e.getReservationOrderId());
       }

@@ -11,7 +11,7 @@ import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoom
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.RegisterHotelUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.SearchHotelAvailableUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.BookingRoomRequestedPublisher;
-import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.CustomerBookingRoomUpdatePublisher;
+import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.CustomerBookingRoomUpdatedPublisher;
 import com.hotel.booking.system.hotel.service.core.ports.spi.repository.HotelRepository;
 import com.hotel.booking.system.hotel.service.core.ports.spi.repository.LocalityRepository;
 import org.springframework.context.annotation.Bean;
@@ -45,7 +45,7 @@ public class HotelUseCaseConfiguration {
   @Bean
   public BookingRoomRequestUseCase bookingRoomRequestedUseCase(
     final HotelRepository hotelRepository,
-    final CustomerBookingRoomUpdatePublisher customerBookingRoomUpdatePublisher,
+    final CustomerBookingRoomUpdatedPublisher customerBookingRoomUpdatePublisher,
     final BookingRoomRequestedPublisher bookingRoomRequestedPublisher
   ) {
     return new BookingRoomRequestUseCaseImpl(

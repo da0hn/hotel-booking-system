@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 @Getter
 @AllArgsConstructor
-public class BookingRoomInitiatedEvent implements Event {
+public final class BookingRoomInitiatedEvent extends BookingRoomStatusUpdatedEvent {
 
   @Builder.Default
   private final Instant createdAt = Instant.now();

@@ -13,7 +13,7 @@ import com.hotel.booking.system.hotel.service.core.domain.entity.Rooms;
 import com.hotel.booking.system.hotel.service.core.domain.exception.HotelDomainException;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoomRequestUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.BookingRoomRequestedPublisher;
-import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.CustomerBookingRoomUpdatePublisher;
+import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.CustomerBookingRoomUpdatedPublisher;
 import com.hotel.booking.system.hotel.service.core.ports.spi.repository.HotelRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,7 +48,7 @@ class BookingRoomRequestUseCaseTest {
   @Mock
   private HotelRepository hotelRepository;
   @Mock
-  private CustomerBookingRoomUpdatePublisher customerBookingRoomUpdatePublisher;
+  private CustomerBookingRoomUpdatedPublisher customerBookingRoomUpdatePublisher;
   @Mock
   private BookingRoomRequestedPublisher bookingRoomRequestedPublisher;
 
