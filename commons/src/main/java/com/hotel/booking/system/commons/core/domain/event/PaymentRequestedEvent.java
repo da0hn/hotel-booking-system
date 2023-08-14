@@ -7,15 +7,18 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 
-@Builder
 @Getter
+@Builder
 @AllArgsConstructor
-public final class BookingRoomItemRepresentation implements Event {
+public class PaymentRequestedEvent {
 
-  private final String roomId;
-  private final BigDecimal price;
-  private final Integer quantity;
+  private final Instant createdAt = Instant.now();
+  private final String bookingRoomId;
+  private final String reservationOrderId;
+  private final String customerId;
+  private final BigDecimal totalPrice;
 
   @Override
   public String toString() {

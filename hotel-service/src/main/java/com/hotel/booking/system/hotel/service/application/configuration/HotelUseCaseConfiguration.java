@@ -11,7 +11,8 @@ import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoom
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.RegisterHotelUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.SearchHotelAvailableUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.BookingRoomRequestedPublisher;
-import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.CustomerBookingRoomUpdatedPublisher;
+import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.CustomerBookingRoomStatusUpdatedPublisher;
+import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.PaymentRequestedPublisher;
 import com.hotel.booking.system.hotel.service.core.ports.spi.repository.HotelRepository;
 import com.hotel.booking.system.hotel.service.core.ports.spi.repository.LocalityRepository;
 import org.springframework.context.annotation.Bean;
@@ -45,7 +46,7 @@ public class HotelUseCaseConfiguration {
   @Bean
   public BookingRoomRequestUseCase bookingRoomRequestedUseCase(
     final HotelRepository hotelRepository,
-    final CustomerBookingRoomUpdatedPublisher customerBookingRoomUpdatePublisher,
+    final CustomerBookingRoomStatusUpdatedPublisher customerBookingRoomUpdatePublisher,
     final BookingRoomRequestedPublisher bookingRoomRequestedPublisher
   ) {
     return new BookingRoomRequestUseCaseImpl(
@@ -56,8 +57,11 @@ public class HotelUseCaseConfiguration {
   }
 
   @Bean
-  public BookingRoomResponseHandler bookingRoomResponseHandler() {
-    return new BookingRoomResponseHandlerImpl();
+  public BookingRoomResponseHandler bookingRoomResponseHandler(
+    final CustomerBookingRoomStatusUpdatedPublisher customerBookingRoomUpdatedPublisher,
+    final PaymentRequestedPublisher paymentRequestedPublisher
+  ) {
+    return new BookingRoomResponseHandlerImpl(customerBookingRoomUpdatedPublisher, paymentRequestedPublisher);
   }
 
 }

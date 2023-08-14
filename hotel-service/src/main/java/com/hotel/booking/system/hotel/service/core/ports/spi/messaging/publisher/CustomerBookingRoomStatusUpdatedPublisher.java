@@ -2,6 +2,9 @@ package com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publishe
 
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomStatusUpdatedEvent;
 
-public interface CustomerBookingRoomUpdatedPublisher {
+@FunctionalInterface
+public interface CustomerBookingRoomStatusUpdatedPublisher {
+
   void publish(BookingRoomStatusUpdatedEvent event);
+
 }

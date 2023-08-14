@@ -16,7 +16,7 @@ import com.hotel.booking.system.hotel.service.core.domain.entity.Rooms;
 import com.hotel.booking.system.hotel.service.core.domain.exception.HotelDomainException;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoomRequestUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.BookingRoomRequestedPublisher;
-import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.CustomerBookingRoomUpdatedPublisher;
+import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.CustomerBookingRoomStatusUpdatedPublisher;
 import com.hotel.booking.system.hotel.service.core.ports.spi.repository.HotelRepository;
 
 import java.math.BigDecimal;
@@ -31,12 +31,12 @@ public class BookingRoomRequestUseCaseImpl implements BookingRoomRequestUseCase 
 
   private static final BinaryOperator<Integer> BINARY_FUNCTION_IDENTITY = (currentValue, newValue) -> currentValue;
   private final HotelRepository hotelRepository;
-  private final CustomerBookingRoomUpdatedPublisher customerBookingRoomUpdatePublisher;
+  private final CustomerBookingRoomStatusUpdatedPublisher customerBookingRoomUpdatePublisher;
   private final BookingRoomRequestedPublisher bookingRoomRequestedPublisher;
 
   public BookingRoomRequestUseCaseImpl(
     final HotelRepository hotelRepository,
-    final CustomerBookingRoomUpdatedPublisher customerBookingRoomUpdatePublisher,
+    final CustomerBookingRoomStatusUpdatedPublisher customerBookingRoomUpdatePublisher,
     final BookingRoomRequestedPublisher bookingRoomRequestedPublisher
   ) {
     this.customerBookingRoomUpdatePublisher = customerBookingRoomUpdatePublisher;
