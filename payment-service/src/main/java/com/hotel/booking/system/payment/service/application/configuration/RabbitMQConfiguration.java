@@ -38,17 +38,6 @@ public class RabbitMQConfiguration {
     return new Queue(this.queueProperties.paymentConfirmation(), true);
   }
 
-
-  @Bean
-  public Binding paymentRequestBinding(
-    final TopicExchange paymentExchange,
-    final Queue paymentRequestQueue
-  ) {
-    return BindingBuilder.bind(paymentRequestQueue)
-      .to(paymentExchange)
-      .with(this.routingKeyProperties.paymentRequest());
-  }
-
   @Bean
   public Binding paymentConfirmationBinding(
     final TopicExchange paymentExchange,
