@@ -1,24 +1,24 @@
 package com.hotel.booking.system.commons.core.domain.event;
 
+import com.hotel.booking.system.commons.core.domain.valueobject.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
-@Getter
 @Builder
 @AllArgsConstructor
-public class PaymentRequestedEvent {
+public final class PaymentCompletedEvent extends PaymentResponseEvent {
 
+  @Builder.Default
   private final Instant createdAt = Instant.now();
-  private final String bookingRoomId;
   private final String reservationOrderId;
   private final String customerId;
   private final BigDecimal totalPrice;
+  private final PaymentStatus status;
 
   @Override
   public String toString() {
