@@ -33,8 +33,8 @@ public class BookingRoomResponseHandlerImpl implements BookingRoomResponseHandle
       case final BookingRoomPendingEvent e -> {
         log.info("Booking room pending, notifying customer service | reservationOrderId={}", e.getReservationOrderId());
         final var bookingRoomStatusUpdatedEvent = this.bookingRoomPendingEventToBookingRoomPaymentRequested(e);
-        log.info("Customer service notified | reservationOrderId={}", e.getReservationOrderId());
         this.customerBookingRoomUpdatedPublisher.publish(bookingRoomStatusUpdatedEvent);
+        log.info("Customer service notified | reservationOrderId={}", e.getReservationOrderId());
         log.info("Booking room pending, requesting for payment | reservationOrderId={}", e.getReservationOrderId());
         final var paymentRequestedEvent = this.bookingRoomPendingEventToPaymentRequestedEvent(e);
         this.paymentRequestedPublisher.publish(paymentRequestedEvent);
@@ -43,8 +43,8 @@ public class BookingRoomResponseHandlerImpl implements BookingRoomResponseHandle
       case final BookingRoomFailedEvent e -> {
         log.info(
           "Booking room failed with error messages \"{}\". Notifying customer service | reservationOrderId={}",
-          e.getReservationOrderId(),
-          String.join(", ", e.getFailureMessages())
+          String.join(", ", e.getFailureMessages()),
+          e.getReservationOrderId()
         );
         final var bookingRoomStatusUpdatedEvent = this.bookingRoomFailedEventToBookingRoomRejectedEvent(e);
         this.customerBookingRoomUpdatedPublisher.publish(bookingRoomStatusUpdatedEvent);

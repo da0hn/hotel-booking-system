@@ -13,6 +13,7 @@ import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoom
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.RegisterHotelUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.SearchHotelAvailableUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.BookingRoomRequestedPublisher;
+import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.BookingRoomStatusChangedPublisher;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.CustomerBookingRoomStatusUpdatedPublisher;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.PaymentRequestedPublisher;
 import com.hotel.booking.system.hotel.service.core.ports.spi.repository.HotelRepository;
@@ -67,7 +68,10 @@ public class HotelUseCaseConfiguration {
   }
 
   @Bean
-  public PaymentResponseHandler paymentResponseHandler() {
-    return new PaymentResponseHandlerImpl();
+  public PaymentResponseHandler paymentResponseHandler(
+    final CustomerBookingRoomStatusUpdatedPublisher customerBookingRoomStatusUpdatedPublisher,
+    final BookingRoomStatusChangedPublisher bookingRoomStatusChangedPublisher
+  ) {
+    return new PaymentResponseHandlerImpl(customerBookingRoomStatusUpdatedPublisher, bookingRoomStatusChangedPublisher);
   }
 }

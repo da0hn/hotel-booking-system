@@ -63,6 +63,11 @@ public class RabbitMQConfiguration {
   }
 
   @Bean
+  public Queue bookingRoomStatusChangedQueue() {
+    return new Queue(this.queueProperties.bookingRoomStatusChanged(), true);
+  }
+
+  @Bean
   public Binding bookingRoomRequestedBinding(
     final TopicExchange bookingRoomExchange,
     final Queue bookingRoomRequestedQueue
@@ -110,6 +115,16 @@ public class RabbitMQConfiguration {
     return BindingBuilder.bind(customerBookingUpdateQueue)
       .to(customerBookingExchange)
       .with(this.routingKeyProperties.customerBookingUpdate());
+  }
+
+  @Bean
+  public Binding bookingRoomStatusChangedBinding(
+    final TopicExchange bookingRoomExchange,
+    final Queue bookingRoomStatusChangedQueue
+  ) {
+    return BindingBuilder.bind(bookingRoomStatusChangedQueue)
+      .to(bookingRoomExchange)
+      .with(this.routingKeyProperties.bookingRoomStatusChanged());
   }
 
   @Bean
