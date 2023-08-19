@@ -45,6 +45,8 @@ app:
     routing-key:
       booking-room-requested: routing-key.booking-room-requested
       booking-room-confirmation: routing-key.booking-room-confirmation
+      booking-room-status-changed: routing-key.booking-room-status-changed
     queue:
       booking-room-requested: booking-room-requested
       booking-room-confirmation: booking-room-confirmation
+      booking-room-status-changed: booking-room-status-changed

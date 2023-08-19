@@ -37,6 +37,10 @@ public class RabbitMQConfiguration {
     return new Queue(this.queueProperties.bookingRoomConfirmation(), true);
   }
 
+  @Bean
+  public Queue bookingRoomStatusChangedQueue() {
+    return new Queue(this.queueProperties.bookingRoomStatusChanged(), true);
+  }
 
   @Bean
   public Binding bookingRoomConfirmationBinding(
@@ -47,7 +51,6 @@ public class RabbitMQConfiguration {
       .to(bookingRoomExchange)
       .with(this.routingKeyProperties.bookingRoomConfirmation());
   }
-
 
   @Bean
   public MessageConverter jsonMessageConverter(final ObjectMapper objectMapper) {
