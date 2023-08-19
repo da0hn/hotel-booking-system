@@ -3,6 +3,7 @@ package com.hotel.booking.system.commons.core.domain.event;
 import com.hotel.booking.system.commons.core.domain.valueobject.PaymentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 
+@Getter
 @Builder
 @AllArgsConstructor
 public final class PaymentFailedEvent extends PaymentResponseEvent {
