@@ -42,3 +42,19 @@ services:
       - '8002:8002'
     networks:
       - hotel-booking-system-network
+
+  payment-service:
+    image: com.hotel.booking.system/payment-service:latest
+    container_name: payment-service
+    restart: on-failure
+    environment:
+      HOTEL_SERVER_PORT: 8003
+      ENABLE_BUILTIN_DOCKER_COMPOSE: false
+      RABBITMQ_HOST: hotel-booking-system-queue
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: root
+      RABBITMQ_PASSWORD: root
+    ports:
+      - '8003:8003'
+    networks:
+      - hotel-booking-system-network
