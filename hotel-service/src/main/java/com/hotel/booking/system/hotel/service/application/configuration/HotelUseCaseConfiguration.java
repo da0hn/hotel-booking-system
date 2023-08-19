@@ -2,11 +2,13 @@ package com.hotel.booking.system.hotel.service.application.configuration;
 
 import com.hotel.booking.system.hotel.service.core.application.mapper.HotelUseCaseMapperImpl;
 import com.hotel.booking.system.hotel.service.core.application.messaging.BookingRoomResponseHandlerImpl;
+import com.hotel.booking.system.hotel.service.core.application.messaging.PaymentResponseHandlerImpl;
 import com.hotel.booking.system.hotel.service.core.application.usecase.BookingRoomRequestUseCaseImpl;
 import com.hotel.booking.system.hotel.service.core.application.usecase.RegisterHotelUseCaseImpl;
 import com.hotel.booking.system.hotel.service.core.application.usecase.SearchHotelAvailableUseCaseImpl;
 import com.hotel.booking.system.hotel.service.core.ports.api.mapper.HotelUseCaseMapper;
 import com.hotel.booking.system.hotel.service.core.ports.api.messaging.BookingRoomResponseHandler;
+import com.hotel.booking.system.hotel.service.core.ports.api.messaging.PaymentResponseHandler;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.BookingRoomRequestUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.RegisterHotelUseCase;
 import com.hotel.booking.system.hotel.service.core.ports.api.usecase.SearchHotelAvailableUseCase;
@@ -64,4 +66,8 @@ public class HotelUseCaseConfiguration {
     return new BookingRoomResponseHandlerImpl(customerBookingRoomUpdatedPublisher, paymentRequestedPublisher);
   }
 
+  @Bean
+  public PaymentResponseHandler paymentResponseHandler() {
+    return new PaymentResponseHandlerImpl();
+  }
 }
