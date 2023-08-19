@@ -39,6 +39,7 @@ public class PaymentUseCaseMapperImpl implements PaymentUseCaseMapper {
       .reservationOrderId(output.payment().getReservationOrderId().toString())
       .customerId(output.payment().getCustomerId().toString())
       .totalPrice(output.payment().getTotalPrice().getValue())
+      .failureMessages(output.failureMessages())
       .status(output.status())
       .build();
   }
