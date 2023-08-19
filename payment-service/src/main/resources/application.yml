@@ -1,0 +1,36 @@
+server:
+  port: ${PAYMENT_SERVER_PORT:8001}
+  address: 0.0.0.0
+  servlet:
+    context-path: /payment-service
+spring:
+  application:
+    name: '@name@'
+    version: '@revision@'
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:root}
+    password: ${RABBITMQ_PASSWORD:root}
+  docker:
+    compose:
+      file: '.\docker\common.yml'
+      enabled: ${ENABLE_BUILTIN_DOCKER_COMPOSE:false}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+app:
+  rabbitmq:
+    exchange:
+      payment: exchange.payment
+    routing-key:
+      payment-request: routing-key.payment-request
+      payment-confirmation: routing-key.payment-confirmation
+    queue:
+      payment-request: payment-request
+      payment-confirmation: payment-confirmation
+
+

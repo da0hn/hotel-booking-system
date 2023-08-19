@@ -7,6 +7,7 @@
     <modules>
         <module>hotel-service</module>
         <module>booking-service</module>
+        <module>payment-service</module>
         <module>commons</module>
     </modules>
 
