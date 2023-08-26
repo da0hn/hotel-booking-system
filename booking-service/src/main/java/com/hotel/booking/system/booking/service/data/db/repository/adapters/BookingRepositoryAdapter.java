@@ -5,11 +5,13 @@ import com.hotel.booking.system.booking.service.core.domain.entity.BookingPeriod
 import com.hotel.booking.system.booking.service.core.ports.spi.repository.BookingRepository;
 import com.hotel.booking.system.booking.service.data.db.mapper.BookingDatabaseMapper;
 import com.hotel.booking.system.booking.service.data.db.repository.BookingJpaRepository;
+import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrderId;
 import com.hotel.booking.system.commons.core.domain.valueobject.RoomId;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -35,5 +37,11 @@ public class BookingRepositoryAdapter implements BookingRepository {
   public void save(final Booking booking) {
     final var bookingEntity = this.bookingDatabaseMapper.bookingToBookingEntity(booking);
     this.bookingJpaRepository.save(bookingEntity);
+  }
+
+  @Override
+  public Optional<Booking> findBookingByReservationOrderId(final ReservationOrderId reservationOrderId) {
+    return this.bookingJpaRepository.findByReservationOrderId(reservationOrderId.getValue())
+      .map(this.bookingDatabaseMapper::bookingEntityToBooking);
   }
 }

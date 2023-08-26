@@ -6,7 +6,7 @@ import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrder
 import lombok.Builder;
 
 @Builder
-public record UpdateBookingRoomStatusInput(
+public record UpdateBookingStatusInput(
   ReservationOrderId reservationOrderId,
   CustomerId customerId,
   BookingStatus status

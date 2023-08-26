@@ -2,7 +2,7 @@ package com.hotel.booking.system.booking.service.core.application.messaging;
 
 import com.hotel.booking.system.booking.service.core.ports.api.mapper.BookingUseCaseMapper;
 import com.hotel.booking.system.booking.service.core.ports.api.messaging.BookingRoomStatusChangedHandler;
-import com.hotel.booking.system.booking.service.core.ports.api.usecase.UpdateBookingRoomStatusUseCase;
+import com.hotel.booking.system.booking.service.core.ports.api.usecase.UpdateBookingStatusUseCase;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomStatusUpdatedEvent;
 import lombok.extern.slf4j.Slf4j;
 
@@ -10,11 +10,11 @@ import lombok.extern.slf4j.Slf4j;
 public class BookingRoomStatusChangedHandlerImpl implements BookingRoomStatusChangedHandler {
 
   private final BookingUseCaseMapper bookingUseCaseMapper;
-  private final UpdateBookingRoomStatusUseCase updateBookingRoomStatusUseCase;
+  private final UpdateBookingStatusUseCase updateBookingRoomStatusUseCase;
 
   public BookingRoomStatusChangedHandlerImpl(
     final BookingUseCaseMapper bookingUseCaseMapper,
-    final UpdateBookingRoomStatusUseCase updateBookingRoomStatusUseCase
+    final UpdateBookingStatusUseCase updateBookingRoomStatusUseCase
   ) {
     this.bookingUseCaseMapper = bookingUseCaseMapper;
     this.updateBookingRoomStatusUseCase = updateBookingRoomStatusUseCase;

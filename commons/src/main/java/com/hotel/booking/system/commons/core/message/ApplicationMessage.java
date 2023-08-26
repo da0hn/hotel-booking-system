@@ -34,6 +34,7 @@ public final class ApplicationMessage {
   public static final String BOOKING_CUSTOMER_NOT_NULL = "booking.customer.must.not.be.null";
   public static final String BOOKING_TOTAL_PRICE_INVALID = "booking.total-price.invalid";
   public static final String BOOKING_STATUS_NOT_NULL = "booking.status.must.not.be.null";
+  public static final String BOOKING_NOT_FOUND = "booking.not.found";
 
 
   private ApplicationMessage() {

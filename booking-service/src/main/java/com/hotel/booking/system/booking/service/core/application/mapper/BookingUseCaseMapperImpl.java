@@ -3,7 +3,7 @@ package com.hotel.booking.system.booking.service.core.application.mapper;
 import com.hotel.booking.system.booking.service.core.application.dto.BookingRoomInput;
 import com.hotel.booking.system.booking.service.core.application.dto.BookingRoomItemInput;
 import com.hotel.booking.system.booking.service.core.application.dto.BookingRoomOutput;
-import com.hotel.booking.system.booking.service.core.application.dto.UpdateBookingRoomStatusInput;
+import com.hotel.booking.system.booking.service.core.application.dto.UpdateBookingStatusInput;
 import com.hotel.booking.system.booking.service.core.domain.entity.Booking;
 import com.hotel.booking.system.booking.service.core.domain.entity.BookingPeriod;
 import com.hotel.booking.system.booking.service.core.domain.entity.BookingRoom;
@@ -103,8 +103,8 @@ public class BookingUseCaseMapperImpl implements BookingUseCaseMapper {
   }
 
   @Override
-  public UpdateBookingRoomStatusInput bookingRoomStatusUpdatedEventToUpdateBookingRoomStatusInput(final BookingRoomStatusUpdatedEvent event) {
-    return new UpdateBookingRoomStatusInput(
+  public UpdateBookingStatusInput bookingRoomStatusUpdatedEventToUpdateBookingRoomStatusInput(final BookingRoomStatusUpdatedEvent event) {
+    return new UpdateBookingStatusInput(
       ReservationOrderId.of(event.getReservationOrderId()),
       CustomerId.of(event.getCustomerId()),
       event.getStatus()

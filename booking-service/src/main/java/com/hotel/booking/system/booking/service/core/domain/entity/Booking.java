@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @SuperBuilder
@@ -116,5 +117,10 @@ public class Booking extends AbstractDomainEntity<BookingId> {
 
   public BookingStatus getStatus() {
     return this.status;
+  }
+
+  public void changeStatusTo(final BookingStatus status) {
+    Objects.requireNonNull(status, ApplicationMessage.BOOKING_STATUS_NOT_NULL);
+    this.status = status;
   }
 }

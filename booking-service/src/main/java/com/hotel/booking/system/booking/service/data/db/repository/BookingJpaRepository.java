@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -22,4 +23,11 @@ public interface BookingJpaRepository extends JpaRepository<BookingEntity, UUID>
         )
     """)
   List<BookingEntity> findByRoomIdAndPeriod(UUID roomId, LocalDate checkIn, LocalDate checkOut);
+
+  @Query("""
+    select booking from BookingEntity booking 
+    where booking.reservationOrderId = :reservationOrderId
+    """
+  )
+  Optional<BookingEntity> findByReservationOrderId(UUID reservationOrderId);
 }
