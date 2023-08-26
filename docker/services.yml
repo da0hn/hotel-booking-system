@@ -48,7 +48,7 @@ services:
     container_name: payment-service
     restart: on-failure
     environment:
-      HOTEL_SERVER_PORT: 8003
+      PAYMENT_SERVER_PORT: 8003
       ENABLE_BUILTIN_DOCKER_COMPOSE: false
       RABBITMQ_HOST: hotel-booking-system-queue
       RABBITMQ_PORT: 5672
@@ -56,5 +56,21 @@ services:
       RABBITMQ_PASSWORD: root
     ports:
       - '8003:8003'
+    networks:
+      - hotel-booking-system-network
+
+  customer-service:
+    image: com.hotel.booking.system/customer-service:latest
+    container_name: customer-service
+    restart: on-failure
+    environment:
+      CUSTOMER_SERVER_PORT: 8003
+      ENABLE_BUILTIN_DOCKER_COMPOSE: false
+      RABBITMQ_HOST: hotel-booking-system-queue
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: root
+      RABBITMQ_PASSWORD: root
+    ports:
+      - '8004:8004'
     networks:
       - hotel-booking-system-network

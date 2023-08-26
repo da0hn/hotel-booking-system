@@ -1,0 +1,50 @@
+server:
+  port: ${CUSTOMER_SERVER_PORT:8004}
+  address: 0.0.0.0
+  servlet:
+    context-path: /customer-service
+spring:
+  application:
+    name: '@name@'
+    version: '@revision@'
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:root}
+    password: ${RABBITMQ_PASSWORD:root}
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${CUSTOMER_DB_HOST:localhost}:${CUSTOMER_DB_PORT:3313}/${CUSTOMER_DB_NAME:customer_db}?autoReconnect=true&useSSL=false&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2
+    username: ${CUSTOMER_DB_USERNAME:user}
+    password: ${CUSTOMER_DB_PASSWORD:password}
+  jpa:
+    open-in-view: false
+    show-sql: true
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        format_sql: true
+  flyway:
+    url: jdbc:mysql://${CUSTOMER_DB_HOST:localhost}:${CUSTOMER_DB_PORT:3313}/${CUSTOMER_DB_NAME:customer_db}?autoReconnect=true&useSSL=false&serverTimezone=UTC&enabledTLSProtocols=TLSv1.2
+    user: ${CUSTOMER_DB_USERNAME:user}
+    password: ${CUSTOMER_DB_PASSWORD:password}
+  docker:
+    compose:
+      file: '.\docker\common.yml'
+      enabled: ${ENABLE_BUILTIN_DOCKER_COMPOSE:false}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+app:
+  rabbitmq:
+    exchange:
+      customer-booking: exchange.customer-booking
+    routing-key:
+      customer-booking-update: routing-key.customer-booking-update
+    queue:
+      customer-booking-update: customer-booking-update
+
+
