@@ -1,6 +1,6 @@
 package com.hotel.booking.system.booking.service.data.db.entity;
 
-import com.hotel.booking.system.booking.service.core.domain.valueobject.BookingStatus;
+import com.hotel.booking.system.commons.core.domain.valueobject.BookingStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

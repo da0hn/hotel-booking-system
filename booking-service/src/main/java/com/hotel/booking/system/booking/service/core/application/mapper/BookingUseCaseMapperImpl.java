@@ -3,6 +3,7 @@ package com.hotel.booking.system.booking.service.core.application.mapper;
 import com.hotel.booking.system.booking.service.core.application.dto.BookingRoomInput;
 import com.hotel.booking.system.booking.service.core.application.dto.BookingRoomItemInput;
 import com.hotel.booking.system.booking.service.core.application.dto.BookingRoomOutput;
+import com.hotel.booking.system.booking.service.core.application.dto.UpdateBookingRoomStatusInput;
 import com.hotel.booking.system.booking.service.core.domain.entity.Booking;
 import com.hotel.booking.system.booking.service.core.domain.entity.BookingPeriod;
 import com.hotel.booking.system.booking.service.core.domain.entity.BookingRoom;
@@ -11,6 +12,7 @@ import com.hotel.booking.system.commons.core.domain.event.BookingRoomFailedEvent
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomItemRepresentation;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomPendingEvent;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedEvent;
+import com.hotel.booking.system.commons.core.domain.event.BookingRoomStatusUpdatedEvent;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerId;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrderId;
@@ -98,6 +100,15 @@ public class BookingUseCaseMapperImpl implements BookingUseCaseMapper {
           .collect(Collectors.toList())
       )
       .build();
+  }
+
+  @Override
+  public UpdateBookingRoomStatusInput bookingRoomStatusUpdatedEventToUpdateBookingRoomStatusInput(final BookingRoomStatusUpdatedEvent event) {
+    return new UpdateBookingRoomStatusInput(
+      ReservationOrderId.of(event.getReservationOrderId()),
+      CustomerId.of(event.getCustomerId()),
+      event.getStatus()
+    );
   }
 
   private BookingRoomItemRepresentation bookingRoomItemInputToBookingRoom(final BookingRoom bookingRoom) {

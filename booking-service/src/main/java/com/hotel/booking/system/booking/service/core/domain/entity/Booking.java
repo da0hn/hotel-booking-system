@@ -2,8 +2,8 @@ package com.hotel.booking.system.booking.service.core.domain.entity;
 
 import com.hotel.booking.system.booking.service.core.domain.exception.BookingDomainException;
 import com.hotel.booking.system.booking.service.core.domain.valueobject.BookingId;
-import com.hotel.booking.system.booking.service.core.domain.valueobject.BookingStatus;
 import com.hotel.booking.system.commons.core.domain.AbstractDomainEntity;
+import com.hotel.booking.system.commons.core.domain.valueobject.BookingStatus;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerId;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrderId;

@@ -1,7 +1,7 @@
 package com.hotel.booking.system.hotel.service.core.application.usecase;
 
-import com.hotel.booking.system.commons.core.domain.event.BookingRoomInitiatedEvent;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedEvent;
+import com.hotel.booking.system.commons.core.domain.event.customer.CustomerBookingInitiatedEvent;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.domain.valueobject.RoomId;
@@ -102,7 +102,7 @@ class BookingRoomRequestUseCaseTest {
     Mockito.verify(this.bookingRoomRequestedPublisher, Mockito.times(1))
       .publish(Mockito.any(BookingRoomRequestedEvent.class));
     Mockito.verify(this.customerBookingRoomUpdatePublisher, Mockito.times(1))
-      .publish(Mockito.any(BookingRoomInitiatedEvent.class));
+      .publish(Mockito.any(CustomerBookingInitiatedEvent.class));
 
     Assertions.assertThat(output.reservationOrderId())
       .isNotNull();
@@ -147,7 +147,7 @@ class BookingRoomRequestUseCaseTest {
     Mockito.verify(this.bookingRoomRequestedPublisher, Mockito.never())
       .publish(Mockito.any(BookingRoomRequestedEvent.class));
     Mockito.verify(this.customerBookingRoomUpdatePublisher, Mockito.never())
-      .publish(Mockito.any(BookingRoomInitiatedEvent.class));
+      .publish(Mockito.any(CustomerBookingInitiatedEvent.class));
 
     Assertions.assertThatThrownBy(() -> this.sut.execute(input))
       .isInstanceOf(HotelDomainException.class)
@@ -188,7 +188,7 @@ class BookingRoomRequestUseCaseTest {
     Mockito.verify(this.bookingRoomRequestedPublisher, Mockito.never())
       .publish(Mockito.any(BookingRoomRequestedEvent.class));
     Mockito.verify(this.customerBookingRoomUpdatePublisher, Mockito.never())
-      .publish(Mockito.any(BookingRoomInitiatedEvent.class));
+      .publish(Mockito.any(CustomerBookingInitiatedEvent.class));
 
     Assertions.assertThatThrownBy(() -> this.sut.execute(input))
       .isInstanceOf(HotelDomainException.class)
@@ -238,7 +238,7 @@ class BookingRoomRequestUseCaseTest {
     Mockito.verify(this.bookingRoomRequestedPublisher, Mockito.times(1))
       .publish(roomBookingRequestedEventArgumentCaptor.capture());
     Mockito.verify(this.customerBookingRoomUpdatePublisher, Mockito.times(1))
-      .publish(Mockito.any(BookingRoomInitiatedEvent.class));
+      .publish(Mockito.any(CustomerBookingInitiatedEvent.class));
 
     final var capturedEvent = roomBookingRequestedEventArgumentCaptor.getValue();
 
@@ -293,7 +293,7 @@ class BookingRoomRequestUseCaseTest {
     Mockito.verify(this.bookingRoomRequestedPublisher, Mockito.never())
       .publish(Mockito.any(BookingRoomRequestedEvent.class));
     Mockito.verify(this.customerBookingRoomUpdatePublisher, Mockito.never())
-      .publish(Mockito.any(BookingRoomInitiatedEvent.class));
+      .publish(Mockito.any(CustomerBookingInitiatedEvent.class));
 
 
   }
@@ -336,7 +336,7 @@ class BookingRoomRequestUseCaseTest {
         .build()
     );
 
-    final var roomBookingInitiatedEventArgumentCaptor = ArgumentCaptor.forClass(BookingRoomInitiatedEvent.class);
+    final var roomBookingInitiatedEventArgumentCaptor = ArgumentCaptor.forClass(CustomerBookingInitiatedEvent.class);
 
     Mockito.verify(this.bookingRoomRequestedPublisher, Mockito.times(1))
       .publish(Mockito.any());
@@ -346,7 +346,7 @@ class BookingRoomRequestUseCaseTest {
     final var capturedEvent = roomBookingInitiatedEventArgumentCaptor.getValue();
 
     Assertions.assertThat(capturedEvent)
-      .extracting(BookingRoomInitiatedEvent::getTotalPrice)
+      .extracting(CustomerBookingInitiatedEvent::getTotalPrice)
       .satisfies(price -> Assertions.assertThat(price).isEqualByComparingTo(ROOM_TOTAL_PRICE));
 
     Assertions.assertThat(output.reservationOrderId())
@@ -391,7 +391,7 @@ class BookingRoomRequestUseCaseTest {
         .build()
     );
 
-    final var roomBookingInitiatedEventArgumentCaptor = ArgumentCaptor.forClass(BookingRoomInitiatedEvent.class);
+    final var roomBookingInitiatedEventArgumentCaptor = ArgumentCaptor.forClass(CustomerBookingInitiatedEvent.class);
 
     Mockito.verify(this.bookingRoomRequestedPublisher, Mockito.times(1))
       .publish(Mockito.any());

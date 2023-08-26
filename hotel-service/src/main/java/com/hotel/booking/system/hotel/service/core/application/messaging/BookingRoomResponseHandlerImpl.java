@@ -1,12 +1,12 @@
 package com.hotel.booking.system.hotel.service.core.application.messaging;
 
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomFailedEvent;
-import com.hotel.booking.system.commons.core.domain.event.BookingRoomPaymentRequestedEvent;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomPendingEvent;
-import com.hotel.booking.system.commons.core.domain.event.BookingRoomRejectedEvent;
 import com.hotel.booking.system.commons.core.domain.event.BookingRoomResponseEvent;
-import com.hotel.booking.system.commons.core.domain.event.BookingRoomStatusUpdatedEvent;
 import com.hotel.booking.system.commons.core.domain.event.PaymentRequestedEvent;
+import com.hotel.booking.system.commons.core.domain.event.customer.CustomerBookingPaymentRequestedEvent;
+import com.hotel.booking.system.commons.core.domain.event.customer.CustomerBookingRejectedEvent;
+import com.hotel.booking.system.commons.core.domain.event.customer.CustomerBookingStatusUpdatedEvent;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
 import com.hotel.booking.system.hotel.service.core.ports.api.messaging.BookingRoomResponseHandler;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.CustomerBookingRoomStatusUpdatedPublisher;
@@ -32,7 +32,7 @@ public class BookingRoomResponseHandlerImpl implements BookingRoomResponseHandle
     switch (event) {
       case final BookingRoomPendingEvent e -> {
         log.info("Booking room pending, notifying customer service | reservationOrderId={}", e.getReservationOrderId());
-        final var bookingRoomStatusUpdatedEvent = this.bookingRoomPendingEventToBookingRoomPaymentRequested(e);
+        final var bookingRoomStatusUpdatedEvent = this.bookingRoomPendingEventToCustomerBookingPaymentRequested(e);
         this.customerBookingRoomUpdatedPublisher.publish(bookingRoomStatusUpdatedEvent);
         log.info("Customer service notified | reservationOrderId={}", e.getReservationOrderId());
         log.info("Booking room pending, requesting for payment | reservationOrderId={}", e.getReservationOrderId());
@@ -46,7 +46,7 @@ public class BookingRoomResponseHandlerImpl implements BookingRoomResponseHandle
           String.join(", ", e.getFailureMessages()),
           e.getReservationOrderId()
         );
-        final var bookingRoomStatusUpdatedEvent = this.bookingRoomFailedEventToBookingRoomRejectedEvent(e);
+        final var bookingRoomStatusUpdatedEvent = this.bookingRoomFailedEventToCustomerBookingRejectedEvent(e);
         this.customerBookingRoomUpdatedPublisher.publish(bookingRoomStatusUpdatedEvent);
         log.info("Customer service notified | reservationOrderId={}", e.getReservationOrderId());
       }
@@ -65,8 +65,8 @@ public class BookingRoomResponseHandlerImpl implements BookingRoomResponseHandle
       .build();
   }
 
-  private BookingRoomStatusUpdatedEvent bookingRoomPendingEventToBookingRoomPaymentRequested(final BookingRoomPendingEvent event) {
-    return BookingRoomPaymentRequestedEvent.builder()
+  private CustomerBookingStatusUpdatedEvent bookingRoomPendingEventToCustomerBookingPaymentRequested(final BookingRoomPendingEvent event) {
+    return CustomerBookingPaymentRequestedEvent.builder()
       .bookingRoomId(event.getBookingRoomId())
       .reservationOrderId(event.getReservationOrderId())
       .customerId(event.getCustomerId())
@@ -74,8 +74,8 @@ public class BookingRoomResponseHandlerImpl implements BookingRoomResponseHandle
       .build();
   }
 
-  private BookingRoomStatusUpdatedEvent bookingRoomFailedEventToBookingRoomRejectedEvent(final BookingRoomFailedEvent event) {
-    return BookingRoomRejectedEvent.builder()
+  private CustomerBookingStatusUpdatedEvent bookingRoomFailedEventToCustomerBookingRejectedEvent(final BookingRoomFailedEvent event) {
+    return CustomerBookingRejectedEvent.builder()
       .reservationOrderId(event.getReservationOrderId())
       .failureMessages(event.getFailureMessages())
       .customerId(event.getCustomerId())

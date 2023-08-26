@@ -1,5 +1,6 @@
-package com.hotel.booking.system.commons.core.domain.event;
+package com.hotel.booking.system.commons.core.domain.event.customer;
 
+import com.hotel.booking.system.commons.core.domain.event.BookingRoomItemRepresentation;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +16,7 @@ import java.util.List;
 @Builder
 @Getter
 @AllArgsConstructor
-public final class BookingRoomInitiatedEvent extends BookingRoomStatusUpdatedEvent {
+public final class CustomerBookingInitiatedEvent extends CustomerBookingStatusUpdatedEvent {
 
   @Builder.Default
   private final Instant createdAt = Instant.now();

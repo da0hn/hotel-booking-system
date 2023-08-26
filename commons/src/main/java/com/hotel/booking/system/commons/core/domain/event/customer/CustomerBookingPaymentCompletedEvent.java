@@ -1,4 +1,4 @@
-package com.hotel.booking.system.commons.core.domain.event;
+package com.hotel.booking.system.commons.core.domain.event.customer;
 
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.time.Instant;
 @Builder
 @Getter
 @AllArgsConstructor
-public final class BookingRoomPaymentFailedEvent extends BookingRoomStatusUpdatedEvent {
+public final class CustomerBookingPaymentCompletedEvent extends CustomerBookingStatusUpdatedEvent {
 
   private final Instant createdAt = Instant.now();
   private final String reservationOrderId;

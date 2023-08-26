@@ -1,6 +1,6 @@
 package com.hotel.booking.system.hotel.service.data.messaging.publisher;
 
-import com.hotel.booking.system.commons.core.domain.event.BookingRoomStatusUpdatedEvent;
+import com.hotel.booking.system.commons.core.domain.event.customer.CustomerBookingStatusUpdatedEvent;
 import com.hotel.booking.system.hotel.service.application.configuration.properties.ExchangeProperties;
 import com.hotel.booking.system.hotel.service.application.configuration.properties.RoutingKeyProperties;
 import com.hotel.booking.system.hotel.service.core.ports.spi.messaging.publisher.CustomerBookingRoomStatusUpdatedPublisher;
@@ -19,7 +19,7 @@ public class CustomerBookingRoomStatusUpdatedPublisherImpl implements CustomerBo
   private final ExchangeProperties exchangeProperties;
 
   @Override
-  public void publish(final BookingRoomStatusUpdatedEvent event) {
+  public void publish(final CustomerBookingStatusUpdatedEvent event) {
     try {
       log.info(
         "Publishing event: {} to exchange={} | routingKey={}",

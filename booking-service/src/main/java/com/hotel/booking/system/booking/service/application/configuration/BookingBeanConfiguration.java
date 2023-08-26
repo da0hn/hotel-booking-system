@@ -2,11 +2,15 @@ package com.hotel.booking.system.booking.service.application.configuration;
 
 import com.hotel.booking.system.booking.service.core.application.mapper.BookingUseCaseMapperImpl;
 import com.hotel.booking.system.booking.service.core.application.messaging.BookingRoomRequestedHandlerImpl;
+import com.hotel.booking.system.booking.service.core.application.messaging.BookingRoomStatusChangedHandlerImpl;
 import com.hotel.booking.system.booking.service.core.application.service.BookingInitializer;
 import com.hotel.booking.system.booking.service.core.application.usecase.BookingRoomUseCaseImpl;
+import com.hotel.booking.system.booking.service.core.application.usecase.UpdateBookingRoomStatusUsaCaseImpl;
 import com.hotel.booking.system.booking.service.core.ports.api.mapper.BookingUseCaseMapper;
 import com.hotel.booking.system.booking.service.core.ports.api.messaging.BookingRoomRequestedHandler;
+import com.hotel.booking.system.booking.service.core.ports.api.messaging.BookingRoomStatusChangedHandler;
 import com.hotel.booking.system.booking.service.core.ports.api.usecase.BookingRoomUseCase;
+import com.hotel.booking.system.booking.service.core.ports.api.usecase.UpdateBookingRoomStatusUseCase;
 import com.hotel.booking.system.booking.service.core.ports.spi.messaging.publisher.BookingRoomResponsePublisher;
 import com.hotel.booking.system.booking.service.core.ports.spi.repository.BookingRepository;
 import org.springframework.context.annotation.Bean;
@@ -49,6 +53,19 @@ public class BookingBeanConfiguration {
   @Bean
   public BookingUseCaseMapper bookingRoomUseCaseMapper() {
     return new BookingUseCaseMapperImpl();
+  }
+
+  @Bean
+  public BookingRoomStatusChangedHandler bookingRoomStatusChangedHandler(
+    final BookingUseCaseMapper bookingUseCaseMapper,
+    final UpdateBookingRoomStatusUseCase updateBookingRoomStatusUseCase
+  ) {
+    return new BookingRoomStatusChangedHandlerImpl(bookingUseCaseMapper, updateBookingRoomStatusUseCase);
+  }
+
+  @Bean
+  public UpdateBookingRoomStatusUseCase updateBookingRoomStatusUseCase() {
+    return new UpdateBookingRoomStatusUsaCaseImpl();
   }
 
 }
