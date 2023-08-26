@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class PayOrderUseCaseMockImpl implements PayOrderUseCase {
 
   private static final int MIN_VALUE = 1;
-  private static final int MAX_VALUE = 10;
+  private static final int MAX_VALUE = 50;
 
   private final PaymentUseCaseMapper paymentUseCaseMapper;
 
