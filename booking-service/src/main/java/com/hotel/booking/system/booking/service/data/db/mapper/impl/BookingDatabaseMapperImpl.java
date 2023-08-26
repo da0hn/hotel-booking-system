@@ -33,6 +33,8 @@ public class BookingDatabaseMapperImpl implements BookingDatabaseMapper {
       .reservationOrderId(ReservationOrderId.of(entity.getReservationOrderId()))
       .bookingPeriod(BookingPeriod.of(entity.getCheckIn(), entity.getCheckOut()))
       .status(entity.getStatus())
+      .createdAt(entity.getCreatedAt())
+      .updatedAt(entity.getUpdatedAt())
       .bookingRooms(
         entity.getBookingRooms().stream()
           .map(this::bookingRoomEntityToBookingRoom)
@@ -69,6 +71,8 @@ public class BookingDatabaseMapperImpl implements BookingDatabaseMapper {
       .reservationOrderId(booking.getReservationOrderId().getValue())
       .status(booking.getStatus())
       .totalPrice(booking.getTotalPrice().getValue())
+      .createdAt(booking.getCreatedAt())
+      .updatedAt(booking.getUpdatedAt())
       .checkIn(booking.getBookingPeriod().getCheckIn())
       .checkOut(booking.getBookingPeriod().getCheckOut())
       .build();

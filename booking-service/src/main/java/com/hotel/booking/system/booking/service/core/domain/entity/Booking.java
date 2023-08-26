@@ -10,6 +10,7 @@ import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrder
 import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import lombok.experimental.SuperBuilder;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,6 +24,8 @@ public class Booking extends AbstractDomainEntity<BookingId> {
   private final BookingPeriod bookingPeriod;
   private final Money totalPrice;
   private final List<BookingRoom> bookingRooms;
+  private Instant createdAt;
+  private Instant updatedAt;
   private BookingStatus status;
 
   public Booking(
@@ -117,6 +120,14 @@ public class Booking extends AbstractDomainEntity<BookingId> {
 
   public BookingStatus getStatus() {
     return this.status;
+  }
+
+  public Instant getCreatedAt() {
+    return this.createdAt;
+  }
+
+  public Instant getUpdatedAt() {
+    return this.updatedAt;
   }
 
   public void changeStatusTo(final BookingStatus status) {
