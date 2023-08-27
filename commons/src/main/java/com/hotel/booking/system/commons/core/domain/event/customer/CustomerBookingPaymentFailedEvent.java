@@ -1,23 +1,23 @@
 package com.hotel.booking.system.commons.core.domain.event.customer;
 
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.time.Instant;
-
-@Builder
 @Getter
-@AllArgsConstructor
+@SuperBuilder
 public final class CustomerBookingPaymentFailedEvent extends CustomerBookingStatusUpdatedEvent {
 
-  private final Instant createdAt = Instant.now();
-  private final String reservationOrderId;
-  private final String customerId;
-  private final CustomerReservationStatus status;
+
+  public CustomerBookingPaymentFailedEvent(
+    final String reservationOrderId,
+    final String customerId,
+    final CustomerReservationStatus status
+  ) {
+    super(reservationOrderId, customerId, status);
+  }
 
   @Override
   public String toString() {
