@@ -24,7 +24,11 @@ public class UpdateBookingStatusUseCaseImpl implements UpdateBookingStatusUseCas
     final var booking = this.findBookingBy(input.reservationOrderId());
     booking.changeStatusTo(input.status());
     this.bookingRepository.save(booking);
-    return new UpdateBookingStatusOutput();
+    return new UpdateBookingStatusOutput(
+      booking.getReservationOrderId().toString(),
+      booking.getCustomerId().toString(),
+      booking.getStatus()
+    );
   }
 
   private Booking findBookingBy(final ReservationOrderId reservationOrderId) {

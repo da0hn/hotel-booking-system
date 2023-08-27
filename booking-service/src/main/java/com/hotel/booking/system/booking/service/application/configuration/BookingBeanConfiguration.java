@@ -58,9 +58,10 @@ public class BookingBeanConfiguration {
   @Bean
   public BookingRoomStatusChangedHandler bookingRoomStatusChangedHandler(
     final BookingUseCaseMapper bookingUseCaseMapper,
-    final UpdateBookingStatusUseCase updateBookingRoomStatusUseCase
+    final UpdateBookingStatusUseCase updateBookingRoomStatusUseCase,
+    final BookingRoomResponsePublisher bookingRoomResponsePublisher
   ) {
-    return new BookingRoomStatusChangedHandlerImpl(bookingUseCaseMapper, updateBookingRoomStatusUseCase);
+    return new BookingRoomStatusChangedHandlerImpl(bookingUseCaseMapper, updateBookingRoomStatusUseCase, bookingRoomResponsePublisher);
   }
 
   @Bean
