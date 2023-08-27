@@ -85,6 +85,7 @@ public class BookingRoomRequestUseCaseImpl implements BookingRoomRequestUseCase 
       CustomerBookingInitiatedEvent.builder()
         .customerId(input.customerId())
         .reservationOrderId(reservationOrderId.getValue().toString())
+        .hotelId(input.hotelId())
         .guests(input.guests())
         .totalPrice(this.getTotalPrice(input.rooms(), rooms).getValue())
         .checkIn(input.checkIn())

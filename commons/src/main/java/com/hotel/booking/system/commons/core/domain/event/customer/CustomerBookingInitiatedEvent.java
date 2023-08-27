@@ -22,6 +22,7 @@ public final class CustomerBookingInitiatedEvent extends CustomerBookingStatusUp
   private final Instant createdAt = Instant.now();
   private final String reservationOrderId;
   private final String customerId;
+  private final String hotelId;
   private final BigDecimal totalPrice;
   private final Integer guests;
   private final LocalDate checkIn;
