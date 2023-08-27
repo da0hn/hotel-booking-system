@@ -6,10 +6,15 @@ import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservat
 import com.hotel.booking.system.commons.core.domain.valueobject.HotelId;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrderId;
+import com.hotel.booking.system.commons.core.message.ApplicationMessage;
+import com.hotel.booking.system.customer.service.core.domain.exception.CustomerDomainException;
 import com.hotel.booking.system.customer.service.core.domain.valueobject.Timeline;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
+@SuperBuilder
 public class ReservationOrder extends AbstractDomainEntity<ReservationOrderId> {
 
   private final Timeline timeline = Timeline.empty();
@@ -27,6 +32,9 @@ public class ReservationOrder extends AbstractDomainEntity<ReservationOrderId> {
   }
 
   public void initialize() {
+    if (Objects.isNull(this.getId())) {
+      this.setId(ReservationOrderId.newInstance());
+    }
     this.updateStatus(CustomerReservationStatus.AWAITING_RESERVATION);
   }
 
@@ -36,5 +44,44 @@ public class ReservationOrder extends AbstractDomainEntity<ReservationOrderId> {
     this.timeline.add(ReservationOrderTimeline.update(status));
   }
 
+  public void updateToFailureStatus(final CustomerReservationStatus status) {
+    if (!CustomerReservationStatus.isFailureStatus(status)) {
+      throw new CustomerDomainException(ApplicationMessage.CUSTOMER_RESERVATION_ORDER_STATUS_INVALID_STATE);
+    }
+    this.currentStatus = status;
+    this.timeline.add(ReservationOrderTimeline.update(status));
+  }
+
+  public Timeline getTimeline() {
+    return this.timeline;
+  }
+
+  public CustomerId getCustomerId() {
+    return this.customerId;
+  }
+
+  public HotelId getHotelId() {
+    return this.hotelId;
+  }
+
+  public Integer getGuests() {
+    return this.guests;
+  }
+
+  public LocalDate getCheckIn() {
+    return this.checkIn;
+  }
+
+  public LocalDate getCheckOut() {
+    return this.checkOut;
+  }
+
+  public Money getTotalPrice() {
+    return this.totalPrice;
+  }
+
+  public CustomerReservationStatus getCurrentStatus() {
+    return this.currentStatus;
+  }
 
 }

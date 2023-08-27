@@ -36,6 +36,8 @@ public final class ApplicationMessage {
   public static final String BOOKING_STATUS_NOT_NULL = "booking.status.must.not.be.null";
   public static final String BOOKING_NOT_FOUND = "booking.not.found";
   public static final String CUSTOMER_RESERVATION_ORDER_TIMELINE_NOT_NULL = "customer.reservation-order.timeline.must.not.be.null";
+  public static final String CUSTOMER_RESERVATION_ORDER_STATUS_INVALID_STATE = "customer.reservation-order.status.invalid-state";
+  public static final String CUSTOMER_NOT_FOUND = "customer.not.found";
 
 
   private ApplicationMessage() {

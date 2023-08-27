@@ -27,6 +27,7 @@ public class ReservationOrderTimeline extends AbstractDomainEntity<ReservationOr
 
   public static ReservationOrderTimeline update(final CustomerReservationStatus status) {
     return ReservationOrderTimeline.builder()
+      .id(ReservationOrderTimelineId.newInstance())
       .status(status)
       .occurredAt(Instant.now())
       .build();

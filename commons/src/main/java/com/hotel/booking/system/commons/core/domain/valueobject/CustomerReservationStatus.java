@@ -7,5 +7,11 @@ public enum CustomerReservationStatus {
   PAYMENT_CONFIRMED,
   PAYMENT_FAILED,
   RESERVED,
-  RESERVATION_FAILED
+  RESERVATION_FAILED;
+
+  public static boolean isFailureStatus(final CustomerReservationStatus status) {
+    if (status == null) return false;
+    return CustomerReservationStatus.PAYMENT_FAILED == status || CustomerReservationStatus.RESERVATION_FAILED == status;
+  }
+
 }
