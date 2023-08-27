@@ -9,6 +9,7 @@ import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrder
 import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import com.hotel.booking.system.customer.service.core.domain.exception.CustomerDomainException;
 import com.hotel.booking.system.customer.service.core.domain.valueobject.Timeline;
+import lombok.Builder;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
@@ -17,7 +18,8 @@ import java.util.Objects;
 @SuperBuilder
 public class ReservationOrder extends AbstractDomainEntity<ReservationOrderId> {
 
-  private final Timeline timeline = Timeline.empty();
+  @Builder.Default
+  private Timeline timeline = Timeline.empty();
   private CustomerId customerId;
   private HotelId hotelId;
   private Integer guests;

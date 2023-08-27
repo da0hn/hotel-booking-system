@@ -8,5 +8,9 @@ import com.hotel.booking.system.customer.service.data.db.entity.ReservationOrder
 public interface CustomerDatabaseMapper {
   ReservationOrderEntity reservationOrderToReservationOrderEntity(ReservationOrder reservationOrder);
 
-  ReservationOrderHistoryEntity reservationOrderHistoryToReservationOrderHistoryEntity(ReservationOrderTimeline entity);
+  ReservationOrderHistoryEntity reservationOrderHistoryToReservationOrderHistoryEntity(ReservationOrderTimeline reservationOrderTimeline);
+
+  ReservationOrder reservationOrderEntityToReservationOrder(ReservationOrderEntity entity);
+
+  ReservationOrderTimeline reservationOrderHistoryEntityToReservationOrderTimeline(ReservationOrderHistoryEntity entity);
 }

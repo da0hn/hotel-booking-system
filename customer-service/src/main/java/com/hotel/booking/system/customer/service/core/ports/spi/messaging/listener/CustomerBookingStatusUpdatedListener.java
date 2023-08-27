@@ -2,9 +2,11 @@ package com.hotel.booking.system.customer.service.core.ports.spi.messaging.liste
 
 import com.hotel.booking.system.commons.core.domain.event.customer.CustomerBookingStatusUpdatedEvent;
 
+import java.util.List;
+
 @FunctionalInterface
 public interface CustomerBookingStatusUpdatedListener {
 
-  void listen(CustomerBookingStatusUpdatedEvent event);
+  void listen(List<CustomerBookingStatusUpdatedEvent> event);
 
 }

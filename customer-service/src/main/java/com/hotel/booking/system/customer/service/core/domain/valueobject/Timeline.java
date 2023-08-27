@@ -15,4 +15,7 @@ public class Timeline extends AbstractDomainList<ReservationOrderTimeline> {
     return new Timeline(new ArrayList<>());
   }
 
+  public static Timeline of(final List<ReservationOrderTimeline> items) {
+    return new Timeline(items);
+  }
 }

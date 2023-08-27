@@ -1,11 +1,13 @@
 package com.hotel.booking.system.customer.service.core.application.mapper;
 
 import com.hotel.booking.system.commons.core.domain.event.customer.CustomerBookingInitiatedEvent;
+import com.hotel.booking.system.commons.core.domain.event.customer.CustomerBookingStatusUpdatedEvent;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerId;
 import com.hotel.booking.system.commons.core.domain.valueobject.HotelId;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrderId;
 import com.hotel.booking.system.customer.service.core.application.dto.InitializeReservationOrderInput;
+import com.hotel.booking.system.customer.service.core.application.dto.UpdateCustomerBookingStatusInput;
 import com.hotel.booking.system.customer.service.core.domain.entity.ReservationOrder;
 import com.hotel.booking.system.customer.service.core.ports.api.mapper.CustomerUseCaseMapper;
 
@@ -35,5 +37,16 @@ public class CustomerUseCaseMapperImpl implements CustomerUseCaseMapper {
       .checkIn(input.checkIn())
       .checkOut(input.checkOut())
       .build();
+  }
+
+  @Override
+  public UpdateCustomerBookingStatusInput customerBookingStatusUpdateEventToUpdateCustomerBookingStatusInput(
+    final CustomerBookingStatusUpdatedEvent event
+  ) {
+    return new UpdateCustomerBookingStatusInput(
+      event.getCustomerId(),
+      event.getReservationOrderId(),
+      event.getStatus()
+    );
   }
 }

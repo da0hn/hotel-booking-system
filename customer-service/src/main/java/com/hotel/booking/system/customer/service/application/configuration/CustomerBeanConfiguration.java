@@ -3,9 +3,11 @@ package com.hotel.booking.system.customer.service.application.configuration;
 import com.hotel.booking.system.customer.service.core.application.mapper.CustomerUseCaseMapperImpl;
 import com.hotel.booking.system.customer.service.core.application.messaging.CustomerBookingStatusUpdatedHandlerImpl;
 import com.hotel.booking.system.customer.service.core.application.usecase.InitializeCustomerBookingUseCaseImpl;
+import com.hotel.booking.system.customer.service.core.application.usecase.UpdateCustomerBookingStatusUseCaseImpl;
 import com.hotel.booking.system.customer.service.core.ports.api.mapper.CustomerUseCaseMapper;
 import com.hotel.booking.system.customer.service.core.ports.api.messaging.CustomerBookingStatusUpdatedHandler;
 import com.hotel.booking.system.customer.service.core.ports.api.usecase.InitializeCustomerBookingUseCase;
+import com.hotel.booking.system.customer.service.core.ports.api.usecase.UpdateCustomerBookingStatusUseCase;
 import com.hotel.booking.system.customer.service.core.ports.spi.repository.CustomerRepository;
 import com.hotel.booking.system.customer.service.core.ports.spi.repository.ReservationOrderRepository;
 import org.springframework.context.annotation.Bean;
@@ -30,11 +32,22 @@ public class CustomerBeanConfiguration {
 
   @Bean
   public CustomerBookingStatusUpdatedHandler customerBookingStatusUpdatedHandler(
-    final InitializeCustomerBookingUseCase initiateCustomerBookingUseCase,
+    final InitializeCustomerBookingUseCase initializeCustomerBookingUseCase,
+    final UpdateCustomerBookingStatusUseCase updateCustomerBookingStatusUseCase,
     final CustomerUseCaseMapper customerUseCaseMapper
   ) {
-    return new CustomerBookingStatusUpdatedHandlerImpl(initiateCustomerBookingUseCase, customerUseCaseMapper);
+    return new CustomerBookingStatusUpdatedHandlerImpl(
+      initializeCustomerBookingUseCase,
+      updateCustomerBookingStatusUseCase,
+      customerUseCaseMapper
+    );
   }
 
+  @Bean
+  public UpdateCustomerBookingStatusUseCase updateCustomerBookingStatusUseCase(
+    final ReservationOrderRepository reservationOrderRepository
+  ) {
+    return new UpdateCustomerBookingStatusUseCaseImpl(reservationOrderRepository);
+  }
 
 }
