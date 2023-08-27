@@ -7,6 +7,7 @@ import com.hotel.booking.system.booking.service.core.domain.entity.Booking;
 import com.hotel.booking.system.booking.service.core.ports.api.mapper.BookingUseCaseMapper;
 import com.hotel.booking.system.booking.service.core.ports.api.usecase.BookingRoomUseCase;
 import com.hotel.booking.system.booking.service.core.ports.spi.repository.BookingRepository;
+import com.hotel.booking.system.commons.core.domain.valueobject.BookingStatus;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
 import com.hotel.booking.system.commons.core.domain.valueobject.FailureMessages;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +65,7 @@ public class BookingRoomUseCaseImpl implements BookingRoomUseCase {
         booking.getBookingPeriod()
       );
       final var bookingConflicts = bookings.stream()
+        .filter(item -> item.getStatus() != BookingStatus.FAILED)
         .filter(item -> booking.isBookingPeriodContainedIn(item.getBookingPeriod()))
         .toList();
       log.info(
