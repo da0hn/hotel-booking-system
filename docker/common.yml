@@ -1,5 +1,5 @@
 version: '3.8'
-
+name: hotel-booking-system-infrastructure
 services:
   hotel-db:
     image: 'mysql:8.0.33'
