@@ -3,26 +3,32 @@ package com.hotel.booking.system.booking.service.data.db.mapper.impl;
 import com.hotel.booking.system.booking.service.core.domain.entity.Booking;
 import com.hotel.booking.system.booking.service.core.domain.entity.BookingPeriod;
 import com.hotel.booking.system.booking.service.core.domain.entity.BookingRoom;
+import com.hotel.booking.system.booking.service.core.domain.entity.Room;
 import com.hotel.booking.system.booking.service.core.domain.valueobject.BookingId;
 import com.hotel.booking.system.booking.service.core.domain.valueobject.BookingRoomId;
 import com.hotel.booking.system.booking.service.data.db.entity.BookingEntity;
 import com.hotel.booking.system.booking.service.data.db.entity.BookingRoomEntity;
+import com.hotel.booking.system.booking.service.data.db.entity.RoomEntity;
 import com.hotel.booking.system.booking.service.data.db.mapper.BookingDatabaseMapper;
 import com.hotel.booking.system.booking.service.data.db.repository.adapters.RoomRepositoryAdapter;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerId;
+import com.hotel.booking.system.commons.core.domain.valueobject.HotelId;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrderId;
 import com.hotel.booking.system.commons.core.domain.valueobject.RoomId;
-import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
 @Component
-@AllArgsConstructor
 public class BookingDatabaseMapperImpl implements BookingDatabaseMapper {
 
   private final RoomRepositoryAdapter roomRepositoryAdapter;
+
+  public BookingDatabaseMapperImpl(@Lazy final RoomRepositoryAdapter roomRepositoryAdapter) {
+    this.roomRepositoryAdapter = roomRepositoryAdapter;
+  }
 
   @Override
   public Booking bookingEntityToBooking(final BookingEntity entity) {
@@ -83,6 +89,16 @@ public class BookingDatabaseMapperImpl implements BookingDatabaseMapper {
     bookingEntity.setBookingRooms(bookingRoomEntities);
 
     return bookingEntity;
+  }
+
+  @Override
+  public Room roomEntityToRoom(final RoomEntity roomEntity) {
+    return Room.builder()
+      .id(RoomId.of(roomEntity.getId()))
+      .hotelId(HotelId.of(roomEntity.getHotelId()))
+      .capacity(roomEntity.getCapacity())
+      .quantity(roomEntity.getQuantity())
+      .build();
   }
 
 }

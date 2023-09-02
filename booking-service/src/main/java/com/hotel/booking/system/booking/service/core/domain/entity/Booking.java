@@ -7,6 +7,7 @@ import com.hotel.booking.system.commons.core.domain.valueobject.BookingStatus;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerId;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrderId;
+import com.hotel.booking.system.commons.core.domain.valueobject.RoomId;
 import com.hotel.booking.system.commons.core.message.ApplicationMessage;
 import lombok.experimental.SuperBuilder;
 
@@ -24,6 +25,7 @@ public class Booking extends AbstractDomainEntity<BookingId> {
   private final BookingPeriod bookingPeriod;
   private final Money totalPrice;
   private final List<BookingRoom> bookingRooms;
+  private final Integer guests;
   private Instant createdAt;
   private Instant updatedAt;
   private BookingStatus status;
@@ -35,6 +37,7 @@ public class Booking extends AbstractDomainEntity<BookingId> {
     final BookingPeriod bookingPeriod,
     final Money totalPrice,
     final List<BookingRoom> bookingRooms,
+    final Integer guests,
     final BookingStatus status
   ) {
     super(id);
@@ -45,6 +48,7 @@ public class Booking extends AbstractDomainEntity<BookingId> {
     this.bookingRooms = Optional.ofNullable(bookingRooms)
       .map(ArrayList::new)
       .orElseGet(ArrayList::new);
+    this.guests = guests;
     this.status = status;
   }
 
@@ -133,5 +137,11 @@ public class Booking extends AbstractDomainEntity<BookingId> {
   public void changeStatusTo(final BookingStatus status) {
     Objects.requireNonNull(status, ApplicationMessage.BOOKING_STATUS_NOT_NULL);
     this.status = status;
+  }
+
+  public List<RoomId> getRoomsId() {
+    return this.bookingRooms.stream()
+      .map(BookingRoom::getRoomId)
+      .toList();
   }
 }

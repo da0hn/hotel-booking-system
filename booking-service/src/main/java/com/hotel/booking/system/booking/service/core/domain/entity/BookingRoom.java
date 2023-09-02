@@ -17,6 +17,7 @@ public class BookingRoom extends AbstractDomainEntity<BookingRoomId> {
   private Integer quantity;
   private Money price;
 
+
   public BookingRoom(
     final BookingRoomId id,
     final RoomId roomId,
