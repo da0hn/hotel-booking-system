@@ -7,6 +7,7 @@ import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrder
 import com.hotel.booking.system.customer.service.core.domain.entity.Customer;
 import com.hotel.booking.system.customer.service.core.domain.entity.ReservationOrder;
 import com.hotel.booking.system.customer.service.core.domain.entity.ReservationOrderTimeline;
+import com.hotel.booking.system.customer.service.core.domain.valueobject.Cpf;
 import com.hotel.booking.system.customer.service.core.domain.valueobject.ReservationOrderTimelineId;
 import com.hotel.booking.system.customer.service.core.domain.valueobject.Timeline;
 import com.hotel.booking.system.customer.service.data.db.entity.CustomerEntity;
@@ -86,7 +87,7 @@ public class CustomerDatabaseMapperImpl implements CustomerDatabaseMapper {
   public Customer customerEntityToCustomer(final CustomerEntity customerEntity) {
     return Customer.builder()
       .id(CustomerId.of(customerEntity.getId()))
-      .cpf(customerEntity.getCpf())
+      .cpf(new Cpf(customerEntity.getCpf()))
       .name(customerEntity.getName())
       .build();
   }

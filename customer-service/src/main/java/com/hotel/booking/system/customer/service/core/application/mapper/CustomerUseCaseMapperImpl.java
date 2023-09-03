@@ -63,7 +63,7 @@ public class CustomerUseCaseMapperImpl implements CustomerUseCaseMapper {
   ) {
     return ReservationOrderDetailOutput.builder()
       .customerId(customer.getId().toString())
-      .customerCpf(customer.getCpf())
+      .customerCpf(customer.getCpf().formatted())
       .customerName(customer.getName())
       .reservationOrderId(reservationOrder.getId().toString())
       .hotelId(reservationOrder.getHotelId().toString())
