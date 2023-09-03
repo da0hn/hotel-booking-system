@@ -2,8 +2,10 @@ package com.hotel.booking.system.customer.service.core.domain.entity;
 
 import com.hotel.booking.system.commons.core.domain.AbstractDomainEntity;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerId;
+import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
+@Getter
 @SuperBuilder
 public class Customer extends AbstractDomainEntity<CustomerId> {
 

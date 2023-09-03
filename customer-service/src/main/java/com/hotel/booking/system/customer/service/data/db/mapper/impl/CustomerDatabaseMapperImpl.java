@@ -4,14 +4,15 @@ import com.hotel.booking.system.commons.core.domain.valueobject.CustomerId;
 import com.hotel.booking.system.commons.core.domain.valueobject.HotelId;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrderId;
+import com.hotel.booking.system.customer.service.core.domain.entity.Customer;
 import com.hotel.booking.system.customer.service.core.domain.entity.ReservationOrder;
 import com.hotel.booking.system.customer.service.core.domain.entity.ReservationOrderTimeline;
 import com.hotel.booking.system.customer.service.core.domain.valueobject.ReservationOrderTimelineId;
 import com.hotel.booking.system.customer.service.core.domain.valueobject.Timeline;
+import com.hotel.booking.system.customer.service.data.db.entity.CustomerEntity;
 import com.hotel.booking.system.customer.service.data.db.entity.ReservationOrderEntity;
 import com.hotel.booking.system.customer.service.data.db.entity.ReservationOrderHistoryEntity;
 import com.hotel.booking.system.customer.service.data.db.mapper.CustomerDatabaseMapper;
-import com.hotel.booking.system.customer.service.data.db.repository.adapters.CustomerRepositoryAdapter;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,13 +22,15 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CustomerDatabaseMapperImpl implements CustomerDatabaseMapper {
 
-  private final CustomerRepositoryAdapter repository;
 
   @Override
-  public ReservationOrderEntity reservationOrderToReservationOrderEntity(final ReservationOrder reservationOrder) {
+  public ReservationOrderEntity reservationOrderToReservationOrderEntity(
+    final ReservationOrder reservationOrder,
+    final CustomerEntity customerEntity
+  ) {
     final var entity = ReservationOrderEntity.builder()
       .id(reservationOrder.getId().getValue())
-      .customer(this.repository.findCustomerEntityById(reservationOrder.getCustomerId()))
+      .customer(customerEntity)
       .hotelId(reservationOrder.getHotelId().getValue())
       .guests(reservationOrder.getGuests())
       .checkIn(reservationOrder.getCheckIn())
@@ -76,6 +79,15 @@ public class CustomerDatabaseMapperImpl implements CustomerDatabaseMapper {
       .id(ReservationOrderTimelineId.of(entity.getId()))
       .status(entity.getStatus())
       .occurredAt(entity.getOccurredAt())
+      .build();
+  }
+
+  @Override
+  public Customer customerEntityToCustomer(final CustomerEntity customerEntity) {
+    return Customer.builder()
+      .id(CustomerId.of(customerEntity.getId()))
+      .cpf(customerEntity.getCpf())
+      .name(customerEntity.getName())
       .build();
   }
 }

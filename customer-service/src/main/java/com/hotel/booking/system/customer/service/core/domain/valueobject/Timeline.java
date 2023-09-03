@@ -5,6 +5,7 @@ import com.hotel.booking.system.customer.service.core.domain.entity.ReservationO
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 public class Timeline extends AbstractDomainList<ReservationOrderTimeline> {
   protected Timeline(final List<ReservationOrderTimeline> data) {
@@ -17,5 +18,9 @@ public class Timeline extends AbstractDomainList<ReservationOrderTimeline> {
 
   public static Timeline of(final List<ReservationOrderTimeline> items) {
     return new Timeline(items);
+  }
+
+  public <R> List<R> mapToListOf(final Function<? super ReservationOrderTimeline, R> mapper) {
+    return this.data().stream().map(mapper).toList();
   }
 }

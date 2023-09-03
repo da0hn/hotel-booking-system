@@ -2,10 +2,12 @@ package com.hotel.booking.system.customer.service.application.configuration;
 
 import com.hotel.booking.system.customer.service.core.application.mapper.CustomerUseCaseMapperImpl;
 import com.hotel.booking.system.customer.service.core.application.messaging.CustomerBookingStatusUpdatedHandlerImpl;
+import com.hotel.booking.system.customer.service.core.application.usecase.GetCustomerReservationOrderDetailImpl;
 import com.hotel.booking.system.customer.service.core.application.usecase.InitializeCustomerBookingUseCaseImpl;
 import com.hotel.booking.system.customer.service.core.application.usecase.UpdateCustomerBookingStatusUseCaseImpl;
 import com.hotel.booking.system.customer.service.core.ports.api.mapper.CustomerUseCaseMapper;
 import com.hotel.booking.system.customer.service.core.ports.api.messaging.CustomerBookingStatusUpdatedHandler;
+import com.hotel.booking.system.customer.service.core.ports.api.usecase.GetCustomerReservationOrderDetail;
 import com.hotel.booking.system.customer.service.core.ports.api.usecase.InitializeCustomerBookingUseCase;
 import com.hotel.booking.system.customer.service.core.ports.api.usecase.UpdateCustomerBookingStatusUseCase;
 import com.hotel.booking.system.customer.service.core.ports.spi.repository.CustomerRepository;
@@ -49,5 +51,15 @@ public class CustomerBeanConfiguration {
   ) {
     return new UpdateCustomerBookingStatusUseCaseImpl(reservationOrderRepository);
   }
+
+  @Bean
+  public GetCustomerReservationOrderDetail getCustomerReservationOrderDetail(
+    final CustomerRepository customerRepository,
+    final ReservationOrderRepository reservationOrderRepository,
+    final CustomerUseCaseMapper customerUseCaseMapper
+  ) {
+    return new GetCustomerReservationOrderDetailImpl(customerRepository, reservationOrderRepository, customerUseCaseMapper);
+  }
+
 
 }

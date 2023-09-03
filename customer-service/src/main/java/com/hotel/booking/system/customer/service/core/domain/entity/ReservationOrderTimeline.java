@@ -6,7 +6,9 @@ import com.hotel.booking.system.customer.service.core.domain.valueobject.Reserva
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
+import java.time.Clock;
 import java.time.Instant;
+import java.time.ZoneId;
 
 @Getter
 @SuperBuilder
@@ -22,7 +24,7 @@ public class ReservationOrderTimeline extends AbstractDomainEntity<ReservationOr
   ) {
     super(id);
     this.status = status;
-    this.occurredAt = occurredAt;
+    this.occurredAt = Instant.now(Clock.system(ZoneId.of("")));
   }
 
   public static ReservationOrderTimeline update(final CustomerReservationStatus status) {

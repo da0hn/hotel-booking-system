@@ -13,13 +13,17 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class ReservationOrderRepositoryAdapter implements ReservationOrderRepository {
 
+  private final CustomerRepositoryAdapter customerRepositoryAdapter;
   private final ReservationOrderJpaRepository repository;
   private final CustomerDatabaseMapper mapper;
 
 
   @Override
   public void save(final ReservationOrder reservationOrder) {
-    final var entity = this.mapper.reservationOrderToReservationOrderEntity(reservationOrder);
+    final var entity = this.mapper.reservationOrderToReservationOrderEntity(
+      reservationOrder,
+      this.customerRepositoryAdapter.findCustomerEntityById(reservationOrder.getCustomerId())
+    );
     this.repository.save(entity);
   }
 
