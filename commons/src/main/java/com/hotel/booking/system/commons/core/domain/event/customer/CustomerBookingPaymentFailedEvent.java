@@ -6,17 +6,20 @@ import lombok.experimental.SuperBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import java.util.List;
+
 @Getter
 @SuperBuilder
-public final class CustomerBookingPaymentFailedEvent extends CustomerBookingStatusUpdatedEvent {
+public final class CustomerBookingPaymentFailedEvent extends CustomerBookingFailureStatusUpdateEvent {
 
 
   public CustomerBookingPaymentFailedEvent(
     final String reservationOrderId,
     final String customerId,
-    final CustomerReservationStatus status
+    final CustomerReservationStatus status,
+    List<String> failureMessages
   ) {
-    super(reservationOrderId, customerId, status);
+    super(reservationOrderId, customerId, status, failureMessages);
   }
 
   @Override

@@ -3,6 +3,7 @@ package com.hotel.booking.system.customer.service.core.domain.entity;
 import com.hotel.booking.system.commons.core.domain.AbstractDomainEntity;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerId;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
+import com.hotel.booking.system.commons.core.domain.valueobject.FailureMessages;
 import com.hotel.booking.system.commons.core.domain.valueobject.HotelId;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrderId;
@@ -46,12 +47,12 @@ public class ReservationOrder extends AbstractDomainEntity<ReservationOrderId> {
     this.timeline.add(ReservationOrderTimeline.update(status));
   }
 
-  public void updateToFailureStatus(final CustomerReservationStatus status) {
+  public void updateToFailureStatus(final CustomerReservationStatus status, FailureMessages failureMessages) {
     if (!CustomerReservationStatus.isFailureStatus(status)) {
       throw new CustomerDomainException(ApplicationMessage.CUSTOMER_RESERVATION_ORDER_STATUS_INVALID_STATE);
     }
     this.currentStatus = status;
-    this.timeline.add(ReservationOrderTimeline.update(status));
+    this.timeline.add(ReservationOrderTimeline.update(status, failureMessages));
   }
 
   public Timeline getTimeline() {

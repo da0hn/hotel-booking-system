@@ -1,14 +1,17 @@
 package com.hotel.booking.system.customer.service.core.application.mapper;
 
+import com.hotel.booking.system.commons.core.domain.event.customer.CustomerBookingFailureStatusUpdateEvent;
 import com.hotel.booking.system.commons.core.domain.event.customer.CustomerBookingInitiatedEvent;
 import com.hotel.booking.system.commons.core.domain.event.customer.CustomerBookingStatusUpdatedEvent;
 import com.hotel.booking.system.commons.core.domain.valueobject.CustomerId;
+import com.hotel.booking.system.commons.core.domain.valueobject.FailureMessages;
 import com.hotel.booking.system.commons.core.domain.valueobject.HotelId;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrderId;
 import com.hotel.booking.system.customer.service.core.application.dto.InitializeReservationOrderInput;
 import com.hotel.booking.system.customer.service.core.application.dto.ReservationOrderDetailOutput;
 import com.hotel.booking.system.customer.service.core.application.dto.TimelineItem;
+import com.hotel.booking.system.customer.service.core.application.dto.UpdateCustomerBookingFailureStatusInput;
 import com.hotel.booking.system.customer.service.core.application.dto.UpdateCustomerBookingStatusInput;
 import com.hotel.booking.system.customer.service.core.domain.entity.Customer;
 import com.hotel.booking.system.customer.service.core.domain.entity.ReservationOrder;
@@ -73,6 +76,18 @@ public class CustomerUseCaseMapperImpl implements CustomerUseCaseMapper {
       .status(reservationOrder.getCurrentStatus())
       .timeline(reservationOrder.getTimeline().mapToListOf(this::reservationOrderTimelineToTimelineItem))
       .build();
+  }
+
+  @Override
+  public UpdateCustomerBookingFailureStatusInput customerBookingFailureStatusUpdateEventToUpdateCustomerBookingFailureStatusInput(
+    final CustomerBookingFailureStatusUpdateEvent event
+  ) {
+    return new UpdateCustomerBookingFailureStatusInput(
+      event.getCustomerId(),
+      event.getReservationOrderId(),
+      event.getStatus(),
+      FailureMessages.newInstance(event.getFailureMessages())
+    );
   }
 
   private TimelineItem reservationOrderTimelineToTimelineItem(final ReservationOrderTimeline entity) {

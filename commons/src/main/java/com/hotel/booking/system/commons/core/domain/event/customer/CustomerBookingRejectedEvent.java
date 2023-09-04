@@ -10,9 +10,8 @@ import java.util.List;
 
 @Getter
 @SuperBuilder
-public final class CustomerBookingRejectedEvent extends CustomerBookingStatusUpdatedEvent {
+public final class CustomerBookingRejectedEvent extends CustomerBookingFailureStatusUpdateEvent {
 
-  private final List<String> failureMessages;
 
   public CustomerBookingRejectedEvent(
     final String reservationOrderId,
@@ -20,8 +19,7 @@ public final class CustomerBookingRejectedEvent extends CustomerBookingStatusUpd
     final CustomerReservationStatus status,
     final List<String> failureMessages
   ) {
-    super(reservationOrderId, customerId, status);
-    this.failureMessages = failureMessages;
+    super(reservationOrderId, customerId, status, failureMessages);
   }
 
   @Override

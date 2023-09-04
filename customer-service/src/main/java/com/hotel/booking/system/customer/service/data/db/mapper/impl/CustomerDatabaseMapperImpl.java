@@ -50,6 +50,7 @@ public class CustomerDatabaseMapperImpl implements CustomerDatabaseMapper {
   public ReservationOrderHistoryEntity reservationOrderHistoryToReservationOrderHistoryEntity(final ReservationOrderTimeline reservationOrderTimeline) {
     return ReservationOrderHistoryEntity.builder()
       .id(reservationOrderTimeline.getId().getValue())
+      .failureReason(reservationOrderTimeline.getReason())
       .status(reservationOrderTimeline.getStatus())
       .occurredAt(reservationOrderTimeline.getOccurredAt())
       .build();

@@ -48,6 +48,10 @@ public class ReservationOrderHistoryEntity implements Serializable {
   @Column(name = "occurred_at", nullable = false)
   private Instant occurredAt;
 
+
+  @Column(name = "failure_reason", nullable = true, length = 8000)
+  private String failureReason;
+
   @ManyToOne
   @JoinColumn(name = "reservation_order_id")
   private ReservationOrderEntity reservationOrder;
