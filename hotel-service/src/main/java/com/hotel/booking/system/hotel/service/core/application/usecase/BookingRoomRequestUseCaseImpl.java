@@ -1,9 +1,5 @@
 package com.hotel.booking.system.hotel.service.core.application.usecase;
 
-import com.hotel.booking.system.commons.core.domain.event.BookingRoomItemRepresentation;
-import com.hotel.booking.system.commons.core.domain.event.BookingRoomRequestedEvent;
-import com.hotel.booking.system.commons.core.domain.event.customer.CustomerBookingInitiatedEvent;
-import com.hotel.booking.system.commons.core.domain.valueobject.CustomerReservationStatus;
 import com.hotel.booking.system.commons.core.domain.valueobject.Money;
 import com.hotel.booking.system.commons.core.domain.valueobject.ReservationOrderId;
 import com.hotel.booking.system.commons.core.domain.valueobject.RoomId;
@@ -60,49 +56,49 @@ public class BookingRoomRequestUseCaseImpl implements BookingRoomRequestUseCase 
     // TODO: this.validateCustomerId(input.customerId());
     final var reservationOrderId = ReservationOrderId.newInstance();
 
-    this.bookingRoomRequestedPublisher.publish(
-      BookingRoomRequestedEvent.builder()
-        .reservationOrderId(reservationOrderId.getValue().toString())
-        .customerId(input.customerId())
-        .guests(input.guests())
-        .price(this.getTotalPrice(input.rooms(), rooms).getValue())
-        .checkIn(input.checkIn())
-        .checkOut(input.checkOut())
-        .rooms(
-          input.rooms().stream()
-            .map(r ->
-              BookingRoomItemRepresentation.builder()
-                .roomId(r.roomId())
-                .quantity(r.roomQuantity())
-                .price(this.getItemPrice(r, rooms).getValue())
-                .build()
-            )
-            .collect(Collectors.toList())
-        )
-        .build()
-    );
-    this.customerBookingRoomUpdatePublisher.publish(
-      CustomerBookingInitiatedEvent.builder()
-        .customerId(input.customerId())
-        .reservationOrderId(reservationOrderId.getValue().toString())
-        .hotelId(input.hotelId())
-        .guests(input.guests())
-        .totalPrice(this.getTotalPrice(input.rooms(), rooms).getValue())
-        .checkIn(input.checkIn())
-        .checkOut(input.checkOut())
-        .status(CustomerReservationStatus.AWAITING_RESERVATION)
-        .rooms(
-          input.rooms().stream()
-            .map(r -> BookingRoomItemRepresentation.builder()
-              .roomId(r.roomId())
-              .quantity(r.roomQuantity())
-              .price(this.getItemPrice(r, rooms).getValue())
-              .build()
-            )
-            .collect(Collectors.toList())
-        )
-        .build()
-    );
+//    this.bookingRoomRequestedPublisher.publish(
+//      BookingRoomRequestedEvent.builder()
+//        .reservationOrderId(reservationOrderId.getValue().toString())
+//        .customerId(input.customerId())
+//        .guests(input.guests())
+//        .price(this.getTotalPrice(input.rooms(), rooms).getValue())
+//        .checkIn(input.checkIn())
+//        .checkOut(input.checkOut())
+//        .rooms(
+//          input.rooms().stream()
+//            .map(r ->
+//              BookingRoomItemRepresentation.builder()
+//                .roomId(r.roomId())
+//                .quantity(r.roomQuantity())
+//                .price(this.getItemPrice(r, rooms).getValue())
+//                .build()
+//            )
+//            .collect(Collectors.toList())
+//        )
+//        .build()
+//    );
+//    this.customerBookingRoomUpdatePublisher.publish(
+//      CustomerBookingInitiatedEvent.builder()
+//        .customerId(input.customerId())
+//        .reservationOrderId(reservationOrderId.getValue().toString())
+//        .hotelId(input.hotelId())
+//        .guests(input.guests())
+//        .totalPrice(this.getTotalPrice(input.rooms(), rooms).getValue())
+//        .checkIn(input.checkIn())
+//        .checkOut(input.checkOut())
+//        .status(CustomerReservationStatus.AWAITING_RESERVATION)
+//        .rooms(
+//          input.rooms().stream()
+//            .map(r -> BookingRoomItemRepresentation.builder()
+//              .roomId(r.roomId())
+//              .quantity(r.roomQuantity())
+//              .price(this.getItemPrice(r, rooms).getValue())
+//              .build()
+//            )
+//            .collect(Collectors.toList())
+//        )
+//        .build()
+//    );
     return new BookingRoomOutput(reservationOrderId.getValue());
   }
 
@@ -117,7 +113,7 @@ public class BookingRoomRequestUseCaseImpl implements BookingRoomRequestUseCase 
   private void validateGuest(final BookingRoomInput input, final Collection<? extends Room> rooms) {
     final var guests = input.guests();
     final var totalRoomCapacity = rooms.stream()
-      .mapToInt(Room::getCapacity)
+      .mapToInt(room -> room.getCapacity() * room.getQuantity())
       .sum();
     if (guests > totalRoomCapacity) {
       throw new HotelDomainException(ApplicationMessage.HOTEL_BOOKING_GUESTS_EXCEEDED);

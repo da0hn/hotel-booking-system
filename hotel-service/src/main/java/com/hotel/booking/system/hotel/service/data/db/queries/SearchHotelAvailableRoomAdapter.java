@@ -38,6 +38,6 @@ public class SearchHotelAvailableRoomAdapter implements SearchHotelAvailableRoom
 
   @Override
   public Integer getRoomQuantity() {
-    return this.roomEntity.getCapacity();
+    return this.roomEntity.getQuantity();
   }
 }
