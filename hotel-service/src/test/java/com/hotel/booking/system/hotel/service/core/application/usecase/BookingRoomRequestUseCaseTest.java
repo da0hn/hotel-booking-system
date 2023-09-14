@@ -31,24 +31,37 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
-@Tags({@Tag("unit")})
+@Tags({ @Tag("unit") })
 @DisplayName("Book Room use case tests")
 @ExtendWith(MockitoExtension.class)
 class BookingRoomRequestUseCaseTest {
 
-  public static final Money CURRENT_PRICE_250 = Money.of(250);
-  public static final Money CURRENT_PRICE_500 = Money.of(500);
-  public static final BigDecimal ROOM_TOTAL_PRICE = new BigDecimal(750);
-  public static final int TOTAL_GUESTS = 3;
-  public static final int TOTAL_ROOMS = 2;
+  private static final Money CURRENT_PRICE_250 = Money.of(250);
+
+  private static final Money CURRENT_PRICE_500 = Money.of(500);
+
+  private static final BigDecimal ROOM_TOTAL_PRICE = new BigDecimal(750);
+
+  private static final int TOTAL_QUANTITY_ROOMS = 3;
+
+  private static final int TOTAL_GUESTS = 3;
+
+  private static final int TOTAL_CAPACITY_ROOMS = 2;
+
   private static final String ROOM_ID_1 = "030bac34-af07-43ac-a708-6fb309e88ace";
+
   private static final String ROOM_ID_2 = "d86d17a0-1819-4cb0-9562-0fcf7480110f";
+
   private static final String CUSTOMER_ID = "4daa2569-3012-455c-9ded-291b45118810";
+
   private BookingRoomRequestUseCase sut;
+
   @Mock
   private HotelRepository hotelRepository;
+
   @Mock
   private CustomerBookingRoomStatusUpdatedPublisher customerBookingRoomUpdatePublisher;
+
   @Mock
   private BookingRoomRequestedPublisher bookingRoomRequestedPublisher;
 
@@ -68,12 +81,14 @@ class BookingRoomRequestUseCaseTest {
     Mockito.doReturn(Rooms.of(
         Room.builder()
           .id(RoomId.of(ROOM_ID_1))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(TOTAL_QUANTITY_ROOMS)
           .currentPrice(CURRENT_PRICE_250)
           .build(),
         Room.builder()
           .id(RoomId.of(ROOM_ID_2))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(TOTAL_QUANTITY_ROOMS)
           .currentPrice(CURRENT_PRICE_500)
           .build()
       ))
@@ -115,12 +130,14 @@ class BookingRoomRequestUseCaseTest {
     Mockito.doReturn(Rooms.of(
         Room.builder()
           .id(RoomId.of(ROOM_ID_1))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(1)
           .currentPrice(CURRENT_PRICE_250)
           .build(),
         Room.builder()
           .id(RoomId.of(ROOM_ID_2))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(1)
           .currentPrice(CURRENT_PRICE_500)
           .build()
       ))
@@ -131,7 +148,7 @@ class BookingRoomRequestUseCaseTest {
       .customerId(CUSTOMER_ID)
       .checkIn(LocalDate.now().minusDays(10))
       .checkOut(LocalDate.now().plusDays(5))
-      .guests(TOTAL_GUESTS)
+      .guests(5)
       .rooms(Set.of(
         BookRoomItemInput.builder()
           .roomId(ROOM_ID_1)
@@ -139,7 +156,7 @@ class BookingRoomRequestUseCaseTest {
           .build(),
         BookRoomItemInput.builder()
           .roomId(ROOM_ID_2)
-          .roomQuantity(TOTAL_GUESTS)
+          .roomQuantity(1)
           .build()
       ))
       .build();
@@ -151,7 +168,7 @@ class BookingRoomRequestUseCaseTest {
 
     Assertions.assertThatThrownBy(() -> this.sut.execute(input))
       .isInstanceOf(HotelDomainException.class)
-      .hasMessage(ApplicationMessage.HOTEL_ROOM_CAPACITY_EXCEEDED);
+      .hasMessage(ApplicationMessage.HOTEL_BOOKING_GUESTS_EXCEEDED);
   }
 
   @Test
@@ -161,7 +178,8 @@ class BookingRoomRequestUseCaseTest {
     Mockito.doReturn(Rooms.of(
         Room.builder()
           .id(RoomId.of(ROOM_ID_1))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(TOTAL_QUANTITY_ROOMS)
           .currentPrice(CURRENT_PRICE_250)
           .build()
       ))
@@ -180,7 +198,7 @@ class BookingRoomRequestUseCaseTest {
           .build(),
         BookRoomItemInput.builder()
           .roomId(ROOM_ID_2)
-          .roomQuantity(TOTAL_ROOMS)
+          .roomQuantity(TOTAL_CAPACITY_ROOMS)
           .build()
       ))
       .build();
@@ -202,12 +220,14 @@ class BookingRoomRequestUseCaseTest {
     Mockito.doReturn(Rooms.of(
         Room.builder()
           .id(RoomId.of(ROOM_ID_1))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(TOTAL_QUANTITY_ROOMS)
           .currentPrice(CURRENT_PRICE_250)
           .build(),
         Room.builder()
           .id(RoomId.of(ROOM_ID_2))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(TOTAL_QUANTITY_ROOMS)
           .currentPrice(CURRENT_PRICE_500)
           .build()
       ))
@@ -257,12 +277,14 @@ class BookingRoomRequestUseCaseTest {
     Mockito.doReturn(Rooms.of(
         Room.builder()
           .id(RoomId.of(ROOM_ID_1))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(TOTAL_QUANTITY_ROOMS)
           .currentPrice(CURRENT_PRICE_250)
           .build(),
         Room.builder()
           .id(RoomId.of(ROOM_ID_2))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(TOTAL_QUANTITY_ROOMS)
           .currentPrice(CURRENT_PRICE_500)
           .build()
       ))
@@ -295,7 +317,6 @@ class BookingRoomRequestUseCaseTest {
     Mockito.verify(this.customerBookingRoomUpdatePublisher, Mockito.never())
       .publish(Mockito.any(CustomerBookingInitiatedEvent.class));
 
-
   }
 
   @Test
@@ -305,12 +326,14 @@ class BookingRoomRequestUseCaseTest {
     Mockito.doReturn(Rooms.of(
         Room.builder()
           .id(RoomId.of(ROOM_ID_1))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(TOTAL_QUANTITY_ROOMS)
           .currentPrice(CURRENT_PRICE_250)
           .build(),
         Room.builder()
           .id(RoomId.of(ROOM_ID_2))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(TOTAL_QUANTITY_ROOMS)
           .currentPrice(CURRENT_PRICE_500)
           .build()
       ))
@@ -360,12 +383,14 @@ class BookingRoomRequestUseCaseTest {
     Mockito.doReturn(Rooms.of(
         Room.builder()
           .id(RoomId.of(ROOM_ID_1))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(TOTAL_QUANTITY_ROOMS)
           .currentPrice(CURRENT_PRICE_250)
           .build(),
         Room.builder()
           .id(RoomId.of(ROOM_ID_2))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(TOTAL_QUANTITY_ROOMS)
           .currentPrice(CURRENT_PRICE_500)
           .build()
       ))
@@ -408,7 +433,7 @@ class BookingRoomRequestUseCaseTest {
         event -> Assertions.assertThat(event.getCustomerId()).isEqualTo(
           CUSTOMER_ID),
         event -> Assertions.assertThat(event.getGuests()).isEqualTo(TOTAL_GUESTS),
-        event -> Assertions.assertThat(event.getRooms()).hasSize(TOTAL_ROOMS),
+        event -> Assertions.assertThat(event.getRooms()).hasSize(TOTAL_CAPACITY_ROOMS),
         event -> Assertions.assertThat(event.getReservationOrderId()).isNotNull()
       );
   }
@@ -420,12 +445,14 @@ class BookingRoomRequestUseCaseTest {
     Mockito.doReturn(Rooms.of(
         Room.builder()
           .id(RoomId.of(ROOM_ID_1))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(TOTAL_QUANTITY_ROOMS)
           .currentPrice(CURRENT_PRICE_250)
           .build(),
         Room.builder()
           .id(RoomId.of(ROOM_ID_2))
-          .capacity(TOTAL_ROOMS)
+          .capacity(TOTAL_CAPACITY_ROOMS)
+          .quantity(TOTAL_QUANTITY_ROOMS)
           .currentPrice(CURRENT_PRICE_500)
           .build()
       ))
@@ -466,8 +493,9 @@ class BookingRoomRequestUseCaseTest {
         event -> Assertions.assertThat(event.getPrice()).isEqualByComparingTo(ROOM_TOTAL_PRICE),
         event -> Assertions.assertThat(event.getCustomerId()).isEqualTo(CUSTOMER_ID),
         event -> Assertions.assertThat(event.getGuests()).isEqualTo(TOTAL_GUESTS),
-        event -> Assertions.assertThat(event.getRooms()).hasSize(TOTAL_ROOMS),
+        event -> Assertions.assertThat(event.getRooms()).hasSize(TOTAL_CAPACITY_ROOMS),
         event -> Assertions.assertThat(event.getReservationOrderId()).isNotNull()
       );
   }
+
 }
