@@ -19,7 +19,7 @@ spring:
     password: ${BOOKING_DB_PASSWORD:password}
   jpa:
     open-in-view: false
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         enable_lazy_load_no_trans: true
