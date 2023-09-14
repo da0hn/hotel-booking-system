@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class PaymentResponseHandlerImpl implements PaymentResponseHandler {
 
   private final CustomerBookingRoomStatusUpdatedPublisher customerBookingRoomStatusUpdatedPublisher;
+
   private final BookingRoomStatusChangedPublisher bookingRoomStatusChangedPublisher;
 
   public PaymentResponseHandlerImpl(
@@ -87,6 +88,7 @@ public class PaymentResponseHandlerImpl implements PaymentResponseHandler {
       .reservationOrderId(event.getReservationOrderId())
       .status(CustomerReservationStatus.PAYMENT_FAILED)
       .customerId(event.getCustomerId())
+      .failureMessages(event.getFailureMessages())
       .build();
   }
 
@@ -97,4 +99,5 @@ public class PaymentResponseHandlerImpl implements PaymentResponseHandler {
       .status(CustomerReservationStatus.PAYMENT_CONFIRMED)
       .build();
   }
+
 }

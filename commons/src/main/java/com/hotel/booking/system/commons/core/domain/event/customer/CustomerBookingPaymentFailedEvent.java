@@ -17,7 +17,7 @@ public final class CustomerBookingPaymentFailedEvent extends CustomerBookingFail
     final String reservationOrderId,
     final String customerId,
     final CustomerReservationStatus status,
-    List<String> failureMessages
+    final List<String> failureMessages
   ) {
     super(reservationOrderId, customerId, status, failureMessages);
   }
