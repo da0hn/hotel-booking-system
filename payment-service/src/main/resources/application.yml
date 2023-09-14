@@ -23,6 +23,10 @@ management:
         include: "*"
 
 app:
+  payment:
+    mock:
+      min-value: 1
+      max-value: 5
   rabbitmq:
     exchange:
       payment: exchange.payment

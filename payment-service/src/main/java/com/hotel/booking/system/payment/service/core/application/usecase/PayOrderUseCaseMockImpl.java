@@ -13,13 +13,20 @@ import java.util.concurrent.TimeUnit;
 
 public class PayOrderUseCaseMockImpl implements PayOrderUseCase {
 
-  private static final int MIN_VALUE = 1;
-  private static final int MAX_VALUE = 50;
-
   private final PaymentUseCaseMapper paymentUseCaseMapper;
 
-  public PayOrderUseCaseMockImpl(final PaymentUseCaseMapper paymentUseCaseMapper) {
+  private final Integer minValue;
+
+  private final Integer maxValue;
+
+  public PayOrderUseCaseMockImpl(
+    final PaymentUseCaseMapper paymentUseCaseMapper,
+    final Integer minValue,
+    final Integer maxValue
+  ) {
     this.paymentUseCaseMapper = paymentUseCaseMapper;
+    this.minValue = minValue;
+    this.maxValue = maxValue;
   }
 
   @Override
@@ -52,7 +59,7 @@ public class PayOrderUseCaseMockImpl implements PayOrderUseCase {
   }
 
   private void pay(final FailureMessages failureMessages) {
-    final var successfullyPaid = new Random().ints(MIN_VALUE, MAX_VALUE)
+    final var successfullyPaid = new Random().ints(this.minValue, this.maxValue)
       .findFirst()
       .stream()
       .anyMatch(value -> value % 2 == 0);

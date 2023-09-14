@@ -7,6 +7,7 @@ import com.hotel.booking.system.payment.service.core.ports.api.mapper.PaymentUse
 import com.hotel.booking.system.payment.service.core.ports.api.messaging.PaymentRequestedHandler;
 import com.hotel.booking.system.payment.service.core.ports.api.usecase.PayOrderUseCase;
 import com.hotel.booking.system.payment.service.core.ports.spi.messaging.publisher.PaymentResponsePublisher;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,11 +19,16 @@ public class PaymentBeanConfiguration {
     return new PaymentUseCaseMapperImpl();
   }
 
-
   @Bean
-  public PayOrderUseCase payOrderUseCase(final PaymentUseCaseMapper paymentUseCaseMapper) {
+  public PayOrderUseCase payOrderUseCase(
+    final PaymentUseCaseMapper paymentUseCaseMapper,
+    @Value("${app.payment.mock.min-value}") final Integer minValue,
+    @Value("${app.payment.mock.max-value}") final Integer maxValue
+  ) {
     return new PayOrderUseCaseMockImpl(
-      paymentUseCaseMapper
+      paymentUseCaseMapper,
+      minValue,
+      maxValue
     );
   }
 
