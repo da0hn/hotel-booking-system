@@ -22,7 +22,7 @@ services:
       - '3311:3306'
     volumes:
       - ./scripts/hotel-seed-script.sql:/docker-entrypoint-initdb.d/init.sql
-      - D:/opt/hotel-booking-system/hotel-db/mysql:/var/lib/mysql
+      - hotel-db-volume:/var/lib/mysql
     networks:
       - hotel-booking-system-network
 
@@ -47,7 +47,7 @@ services:
       - '3312:3306'
     volumes:
       - ./scripts/booking-seed-script.sql:/docker-entrypoint-initdb.d/init.sql
-      - D:/opt/hotel-booking-system/booking-db/mysql:/var/lib/mysql
+      - booking-db-volume:/var/lib/mysql
     networks:
       - hotel-booking-system-network
 
@@ -72,7 +72,7 @@ services:
       - '3313:3306'
     volumes:
       - ./scripts/customer-seed-script.sql:/docker-entrypoint-initdb.d/init.sql
-      - D:/opt/hotel-booking-system/customer-db/mysql:/var/lib/mysql
+      - customer-db-volume:/var/lib/mysql
     networks:
       - hotel-booking-system-network
 
@@ -95,3 +95,13 @@ networks:
   hotel-booking-system-network:
     driver: bridge
     name: hotel-booking-system-network
+volumes:
+  hotel-db-volume:
+    name: hotel-db-volume
+    external: true
+  booking-db-volume:
+    name: booking-db-volume
+    external: true
+  customer-db-volume:
+    name: customer-db-volume
+    external: true
