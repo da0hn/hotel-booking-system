@@ -10,8 +10,10 @@
     * [1.4.1. Hotel Service](#141-hotel-service)
     * [1.4.2. Booking Service](#142-booking-service)
     * [1.4.3. Payment Service](#143-payment-service)
+    * [1.4.4. Customer Service](#144-customer-service)
 * [2. Setup](#2-setup)
   * [2.1. Pré Requisitos](#21-pré-requisitos)
+  * [2.2. Instalação](#22-instalação)
 
 # 1. Introdução
 
@@ -104,36 +106,20 @@ execução a da aplicação.
 * [Java 20](https://jdk.java.net/20/)
   * Configure corretamente a variável de ambiente `JAVA_HOME` apontando para a pasta raiz do Java. Ex: `JAVA_HOME=/opt/java/jdk20`
   * Para verificar se o Java foi instalado corretamente na versão exigida execute o comando `java --version`
-  * Utilizando o powershell é possível configurar a variável de ambiente `JAVA_HOME` temporariamente utilizando o comando
+  * Em ambientes `windows`, utilizando o powershell é possível configurar a variável de ambiente `JAVA_HOME` temporariamente utilizando o comando
     `$env:JAVA_HOME="D:\Programs\JDK\jdk20.0.2_10"`.
-  * Em ambientes linux é possível instalar a ferramenta [sdkman](https://sdkman.io/install) para gerenciar as versões do Java de forma simplificada
+  * Em ambientes `unix` é possível instalar a ferramenta [sdkman](https://sdkman.io/install) para gerenciar as versões do Java de forma simplificada
 
 ## 2.2. Instalação
 
-[//]: # (* Após realizar a instalação de todas as ferramentas necessárias e execute o comando abaixo na raiz do projeto para gerar as imagens dos )
-
-[//]: # (  microsserviços.)
-
-* Após realizar a instalação de todas as ferramentas necessárias é possível criar as imagens dos serviços de duas formas diferentes.
-  * A primeira consiste em utilizar o plugin `spring-boot-maven-plugin` para criar a imagem do serviço através do comando abaixo:
-
-```sh 
-./mvnw clean install
-```
-
-* É possível também montar os artefatos jar em conjunto com o comando build do `docker compose`.
+* Após realizar a instalação de todas as ferramentas necessárias e execute o comando abaixo na raiz do projeto para gerar os arquivos jar dos
+  microsserviços.
 
 ```sh 
 ./mvnw clean package
 ```
 
-* Após a execução do comando deve ser possível identificar 4 imagens correspondentes aos microsserviços utilizando o comando:
-
-```sh
-docker image ls
-```
-
-* Com as imagens criadas, construa os volumes correspondentes para armazenamento de dados dos bancos de dados utilizando o comando:
+* Construa os volumes correspondentes para armazenamento de dados dos bancos de dados utilizando o comando:
 
 ```sh
 docker volume create --name=hotel-db-volume --driver local --opt type=none --opt device=D:/opt/hotel-booking-system/hotel-db/mysql --opt o=bind
@@ -143,16 +129,15 @@ docker volume create --name=customer-db-volume --driver local --opt type=none --
 
 * Após isso é possível iniciar todos os serviços e aplicações auxiliares como banco de dados e filas executando o comando abaixo dentro da pasta
   `docker`.
-
-```sh
-
-docker-compose -f common.yml -f services.yml up -d
-```
-
-* Caso tenha optado por criar as imagens com o `docker compose` utilize o comando abaixo dentro da pasta docker:
+* O parâmetro `--build` irá construir as imagens dos microsserviços antes de iniciar os containeres.
 
 ```sh
 docker-compose -f common.yml -f services.yml up -d --build
 ```
+
+
+
+
+
 
 
