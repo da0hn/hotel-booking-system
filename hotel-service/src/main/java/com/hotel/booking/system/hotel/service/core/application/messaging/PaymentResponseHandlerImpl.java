@@ -77,7 +77,7 @@ public class PaymentResponseHandlerImpl implements PaymentResponseHandler {
   private BookingRoomPaymentFailed paymentFailedEventToBookingRoomPaymentFailedEvent(final PaymentFailedEvent e) {
     return BookingRoomPaymentFailed.builder()
       .reservationOrderId(e.getReservationOrderId())
-      .status(BookingStatus.FAILED)
+      .status(BookingStatus.CANCELED)
       .customerId(e.getCustomerId())
       .failureMessages(e.getFailureMessages())
       .build();

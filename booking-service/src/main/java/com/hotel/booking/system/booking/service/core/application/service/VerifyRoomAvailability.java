@@ -37,7 +37,7 @@ public class VerifyRoomAvailability {
         booking.getBookingPeriod()
       );
       final var bookingsOnPeriod = bookings.stream()
-        .filter(item -> item.getStatus() != BookingStatus.FAILED)
+        .filter(item -> item.getStatus() != BookingStatus.CANCELED)
         .filter(item -> booking.isBookingPeriodContainedIn(item.getBookingPeriod()))
         .toList();
 
