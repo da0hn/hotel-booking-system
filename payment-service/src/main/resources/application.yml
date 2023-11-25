@@ -25,8 +25,7 @@ management:
 app:
   payment:
     mock:
-      min-value: 1
-      max-value: 5
+      failure-chance-percentage: ${FAILURE_CHANCE_PERCENTAGE:90}
   rabbitmq:
     exchange:
       payment: exchange.payment

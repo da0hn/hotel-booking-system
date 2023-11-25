@@ -22,13 +22,11 @@ public class PaymentBeanConfiguration {
   @Bean
   public PayOrderUseCase payOrderUseCase(
     final PaymentUseCaseMapper paymentUseCaseMapper,
-    @Value("${app.payment.mock.min-value}") final Integer minValue,
-    @Value("${app.payment.mock.max-value}") final Integer maxValue
+    @Value("${app.payment.mock.failure-chance-percentage}") final Integer failureChancePercentage
   ) {
     return new PayOrderUseCaseMockImpl(
       paymentUseCaseMapper,
-      minValue,
-      maxValue
+      failureChancePercentage
     );
   }
 

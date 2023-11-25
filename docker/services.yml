@@ -64,6 +64,7 @@ services:
       RABBITMQ_PORT: 5672
       RABBITMQ_USERNAME: root
       RABBITMQ_PASSWORD: root
+      FAILURE_CHANCE_PERCENTAGE: 50
     ports:
       - '8003:8003'
     networks:

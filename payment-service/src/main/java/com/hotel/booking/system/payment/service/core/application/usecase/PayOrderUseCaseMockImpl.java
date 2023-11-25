@@ -15,18 +15,14 @@ public class PayOrderUseCaseMockImpl implements PayOrderUseCase {
 
   private final PaymentUseCaseMapper paymentUseCaseMapper;
 
-  private final Integer minValue;
-
-  private final Integer maxValue;
+  private final Integer failureChancePercentage;
 
   public PayOrderUseCaseMockImpl(
     final PaymentUseCaseMapper paymentUseCaseMapper,
-    final Integer minValue,
-    final Integer maxValue
+    final Integer failureChancePercentage
   ) {
     this.paymentUseCaseMapper = paymentUseCaseMapper;
-    this.minValue = minValue;
-    this.maxValue = maxValue;
+    this.failureChancePercentage = failureChancePercentage;
   }
 
   @Override
@@ -59,10 +55,16 @@ public class PayOrderUseCaseMockImpl implements PayOrderUseCase {
   }
 
   private void pay(final FailureMessages failureMessages) {
-    final var successfullyPaid = new Random().ints(this.minValue, this.maxValue)
-      .findFirst()
-      .stream()
-      .anyMatch(value -> value % 2 == 0);
+    if (this.failureChancePercentage >= 100) {
+      failureMessages.add("Customer doesn't have enough credit for payment");
+      return;
+    }
+    if (this.failureChancePercentage == 0) {
+      return;
+    }
+
+    final var successfullyPaidChance = new Random().nextInt(0, 100);
+    final var successfullyPaid = successfullyPaidChance > this.failureChancePercentage;
 
     if (successfullyPaid) return;
 
