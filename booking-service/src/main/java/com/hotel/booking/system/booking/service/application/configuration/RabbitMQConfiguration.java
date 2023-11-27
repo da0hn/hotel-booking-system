@@ -7,8 +7,8 @@ import com.hotel.booking.system.booking.service.application.configuration.proper
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
@@ -19,12 +19,14 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfiguration {
 
   private final RoutingKeyProperties routingKeyProperties;
+
   private final QueueProperties queueProperties;
+
   private final ExchangeProperties exchangeProperties;
 
   @Bean
-  public TopicExchange bookingRoomExchange() {
-    return new TopicExchange(this.exchangeProperties.bookingRoom());
+  public DirectExchange bookingRoomExchange() {
+    return new DirectExchange(this.exchangeProperties.bookingRoom());
   }
 
   @Bean
@@ -44,7 +46,7 @@ public class RabbitMQConfiguration {
 
   @Bean
   public Binding bookingRoomConfirmationBinding(
-    final TopicExchange bookingRoomExchange,
+    final DirectExchange bookingRoomExchange,
     final Queue bookingRoomConfirmationQueue
   ) {
     return BindingBuilder.bind(bookingRoomConfirmationQueue)
@@ -56,4 +58,5 @@ public class RabbitMQConfiguration {
   public MessageConverter jsonMessageConverter(final ObjectMapper objectMapper) {
     return new Jackson2JsonMessageConverter(objectMapper);
   }
+
 }

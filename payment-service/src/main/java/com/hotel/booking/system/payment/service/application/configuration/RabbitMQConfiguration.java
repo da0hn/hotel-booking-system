@@ -7,8 +7,8 @@ import com.hotel.booking.system.payment.service.application.configuration.proper
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
@@ -19,13 +19,14 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfiguration {
 
   private final RoutingKeyProperties routingKeyProperties;
+
   private final QueueProperties queueProperties;
+
   private final ExchangeProperties exchangeProperties;
 
-
   @Bean
-  public TopicExchange paymentExchange() {
-    return new TopicExchange(this.exchangeProperties.payment());
+  public DirectExchange paymentExchange() {
+    return new DirectExchange(this.exchangeProperties.payment());
   }
 
   @Bean
@@ -40,7 +41,7 @@ public class RabbitMQConfiguration {
 
   @Bean
   public Binding paymentConfirmationBinding(
-    final TopicExchange paymentExchange,
+    final DirectExchange paymentExchange,
     final Queue paymentConfirmationQueue
   ) {
     return BindingBuilder.bind(paymentConfirmationQueue)
@@ -48,9 +49,9 @@ public class RabbitMQConfiguration {
       .with(this.routingKeyProperties.paymentConfirmation());
   }
 
-
   @Bean
   public MessageConverter jsonMessageConverter(final ObjectMapper objectMapper) {
     return new Jackson2JsonMessageConverter(objectMapper);
   }
+
 }

@@ -7,8 +7,8 @@ import com.hotel.booking.system.customer.service.application.configuration.prope
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
@@ -19,15 +19,15 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfiguration {
 
   private final RoutingKeyProperties routingKeyProperties;
+
   private final QueueProperties queueProperties;
+
   private final ExchangeProperties exchangeProperties;
 
-
   @Bean
-  public TopicExchange customerBookingExchange() {
-    return new TopicExchange(this.exchangeProperties.customerBooking());
+  public DirectExchange customerBookingExchange() {
+    return new DirectExchange(this.exchangeProperties.customerBooking());
   }
-
 
   @Bean
   public Queue customerBookingUpdateQueue() {
@@ -36,7 +36,7 @@ public class RabbitMQConfiguration {
 
   @Bean
   public Binding customerBookingUpdateBinding(
-    final TopicExchange customerBookingExchange,
+    final DirectExchange customerBookingExchange,
     final Queue customerBookingUpdateQueue
   ) {
     return BindingBuilder.bind(customerBookingUpdateQueue)
@@ -44,9 +44,9 @@ public class RabbitMQConfiguration {
       .with(this.routingKeyProperties.customerBookingUpdate());
   }
 
-
   @Bean
   public MessageConverter jsonMessageConverter(final ObjectMapper objectMapper) {
     return new Jackson2JsonMessageConverter(objectMapper);
   }
+
 }
