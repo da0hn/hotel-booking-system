@@ -95,7 +95,8 @@ public class CustomerUseCaseMapperImpl implements CustomerUseCaseMapper {
       entity.getStatus(),
       entity.getOccurredAt()
         .atZone(ZoneId.of("GMT-4"))
-        .toLocalDateTime()
+        .toLocalDateTime(),
+      entity.getReason()
     );
   }
 }

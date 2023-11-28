@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public record TimelineItem(
   CustomerReservationStatus status,
   @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-  LocalDateTime occurredAt
+  LocalDateTime occurredAt,
+  String failureReason
 ) {
 }

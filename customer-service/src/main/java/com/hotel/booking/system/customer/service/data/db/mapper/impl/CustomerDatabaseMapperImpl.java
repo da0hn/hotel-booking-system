@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CustomerDatabaseMapperImpl implements CustomerDatabaseMapper {
 
-
   @Override
   public ReservationOrderEntity reservationOrderToReservationOrderEntity(
     final ReservationOrder reservationOrder,
@@ -39,8 +38,8 @@ public class CustomerDatabaseMapperImpl implements CustomerDatabaseMapper {
       .totalPrice(reservationOrder.getTotalPrice().getValue())
       .currentStatus(reservationOrder.getCurrentStatus())
       .history(reservationOrder.getTimeline().stream()
-        .map(this::reservationOrderHistoryToReservationOrderHistoryEntity)
-        .collect(Collectors.toSet()))
+                 .map(this::reservationOrderHistoryToReservationOrderHistoryEntity)
+                 .collect(Collectors.toSet()))
       .build();
     entity.getHistory().forEach(history -> history.setReservationOrder(entity));
     return entity;
@@ -81,6 +80,7 @@ public class CustomerDatabaseMapperImpl implements CustomerDatabaseMapper {
       .id(ReservationOrderTimelineId.of(entity.getId()))
       .status(entity.getStatus())
       .occurredAt(entity.getOccurredAt())
+      .reason(entity.getFailureReason())
       .build();
   }
 
@@ -92,4 +92,5 @@ public class CustomerDatabaseMapperImpl implements CustomerDatabaseMapper {
       .name(customerEntity.getName())
       .build();
   }
+
 }
