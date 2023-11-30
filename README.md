@@ -103,21 +103,13 @@ execução a da aplicação.
 
 * [Docker](https://docs.docker.com/desktop/)
   * Para verificar se o docker foi instalado corretamente execute o comando `docker --version`
-* [Java 20](https://jdk.java.net/20/)
-  * Configure corretamente a variável de ambiente `JAVA_HOME` apontando para a pasta raiz do Java. Ex: `JAVA_HOME=/opt/java/jdk20`
-  * Para verificar se o Java foi instalado corretamente na versão exigida execute o comando `java --version`
-  * Em ambientes `windows`, utilizando o powershell é possível configurar a variável de ambiente `JAVA_HOME` temporariamente utilizando o comando
-    `$env:JAVA_HOME="D:\Programs\JDK\jdk20.0.2_10"`.
-  * Em ambientes `unix` é possível instalar a ferramenta [sdkman](https://sdkman.io/install) para gerenciar as versões do Java de forma simplificada
+* [Docker Compose](https://docs.docker.com/compose/install/)
+  * Para verificar se o docker-compose foi instalado corretamente execute o comando `docker-compose --version`
+* [Java](https://jdk.java.net/21/)
+  * Para verificar se o java foi instalado corretamente execute o comando `java --version`
+  * A instalação do `jdk` na `versão 21` só será necessária caso você deseje executar a aplicação localmente sem utilizar o `docker`
 
 ## 2.2. Instalação
-
-* Após realizar a instalação de todas as ferramentas necessárias e execute o comando abaixo na raiz do projeto para gerar os arquivos jar dos
-  microsserviços.
-
-```sh 
-./mvnw clean package
-```
 
 * Construa os volumes correspondentes para armazenamento de dados dos bancos de dados utilizando o comando:
 
@@ -131,6 +123,7 @@ docker volume create --name=customer-db-volume --driver local --opt type=none --
   `docker`.
 * O parâmetro `--build` irá construir as imagens dos microsserviços antes de iniciar os containeres.
 
+* A especificação dessas imagens está definida no arquivos arquivos com extensão `*.dockerfile` localizados em `${projeto}/docker/dockerfile`
 ```sh
 docker-compose -f common.yml -f services.yml up -d --build
 ```
