@@ -1,0 +1,143 @@
+{
+  "info": {
+    "_postman_id": "0bee2841-abd5-43c0-87b1-abc41c1af6c7",
+    "name": "Hotel Booking System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "17339672"
+  },
+  "item": [
+    {
+      "name": "Customer Service",
+      "item": [
+        {
+          "name": "Get Reservation Order Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{customer_service}}/customers/{{customer_id}}/reservation-order/0ce32689-fd60-4af9-a857-9ec6cdf47cb1",
+              "host": [
+                "{{customer_service}}"
+              ],
+              "path": [
+                "customers",
+                "{{customer_id}}",
+                "reservation-order",
+                "0ce32689-fd60-4af9-a857-9ec6cdf47cb1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Hotel Service",
+      "item": [
+        {
+          "name": "Search Available Hotel",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{hotel_service}}/hotel",
+              "host": [
+                "{{hotel_service}}"
+              ],
+              "path": [
+                "hotel"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Pousada",
+                  "disabled": true
+                },
+                {
+                  "key": "city",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Book Room",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"customerId\": \"f1e28a47-8852-45e8-b8e1-e6701633dd56\",\r\n  \"hotelId\": \"04a84c00-d083-4b0e-b9f2-c039d26b1c43\",\r\n  \"guests\": 1,\r\n  \"checkIn\": \"23/10/2023\",\r\n  \"checkOut\": \"25/10/2023\",\r\n  \"rooms\": [\r\n    {\r\n      \"roomId\": \"844c933f-b881-46f9-9533-e591ed214bc3\",\r\n      \"roomQuantity\": 1\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{hotel_service}}/hotel/booking",
+              "host": [
+                "{{hotel_service}}"
+              ],
+              "path": [
+                "hotel",
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "customer_service",
+      "value": "http://localhost:8004/customer-service",
+      "type": "string"
+    },
+    {
+      "key": "customer_id",
+      "value": "f1e28a47-8852-45e8-b8e1-e6701633dd56",
+      "type": "string"
+    },
+    {
+      "key": "hotel_service",
+      "value": "http://localhost:8001/hotel-service",
+      "type": "string"
+    },
+    {
+      "key": "hotel_id",
+      "value": "04a84c00-d083-4b0e-b9f2-c039d26b1c43",
+      "type": "string"
+    },
+    {
+      "key": "room_id",
+      "value": "844c933f-b881-46f9-9533-e591ed214bc3",
+      "type": "string"
+    }
+  ]
+}

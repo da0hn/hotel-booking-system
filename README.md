@@ -30,7 +30,7 @@ código.
 | Tecnologia  | Versão                |
 |-------------|-----------------------|
 | Docker      | 24.0.5, build ced0996 |
-| Java        | OpenJDK 20.0.2        |
+| Java        | OpenJDK 21            |
 | Maven       | 3.9.2                 |
 | Spring Boot | 3.1.3                 |
 | MySQL       | 8.0.33                |
@@ -124,13 +124,9 @@ docker volume create --name=customer-db-volume --driver local --opt type=none --
 * O parâmetro `--build` irá construir as imagens dos microsserviços antes de iniciar os containeres.
 
 * A especificação dessas imagens está definida no arquivos arquivos com extensão `*.dockerfile` localizados em `${projeto}/docker/dockerfile`
+
 ```sh
 docker-compose -f common.yml -f services.yml up -d --build
 ```
 
-
-
-
-
-
-
+* Para realizar os testes é possível utilizar o postman como cliente http e importar a collection localizada em `${projeto}/postman`.
