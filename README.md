@@ -126,7 +126,20 @@ docker volume create --name=customer-db-volume --driver local --opt type=none --
 * A especificação dessas imagens está definida no arquivos arquivos com extensão `*.dockerfile` localizados em `${projeto}/docker/dockerfile`
 
 ```sh
-docker-compose -f common.yml -f services.yml up -d --build
+docker-compose -p hotel-booking-system -f common.yml -f services.yml up -d
+```
+
+* Para derrubar os contêineres execute o comando abaixo:
+
+```sh
+docker-compose -p hotel-booking-system down
+```
+
+* Para apagar todos os volumes locais de dados execute o comando abaixo:
+
+```sh
+docker volume rm $(docker volume ls -q)
 ```
 
 * Para realizar os testes é possível utilizar o postman como cliente http e importar a collection localizada em `${projeto}/postman`.
+
